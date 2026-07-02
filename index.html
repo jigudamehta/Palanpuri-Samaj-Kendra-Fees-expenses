@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-
 <head>
   <meta charset="UTF-8">
   <title>Membership & Expense Dashboard</title>
@@ -13,9 +12,8 @@
   <!-- Google Fonts Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
     /* ========================================================
        DESIGN SYSTEM & THEMING VARIABLES
@@ -29,27 +27,23 @@
       --bg-input: #0f172a;
       --border-color: rgba(255, 255, 255, 0.08);
       --border-hover: rgba(255, 255, 255, 0.16);
-
+      
       --color-text-main: #f8fafc;
       --color-text-muted: #94a3b8;
-
-      --primary: #6366f1;
-      /* Indigo */
+      
+      --primary: #6366f1; /* Indigo */
       --primary-hover: #4f46e5;
-      --success: #10b981;
-      /* Emerald */
-      --danger: #f43f5e;
-      /* Rose */
-      --warning: #f59e0b;
-      /* Amber */
-
+      --success: #10b981; /* Emerald */
+      --danger: #f43f5e; /* Rose */
+      --warning: #f59e0b; /* Amber */
+      
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
+      
       --glass-blur: blur(12px);
     }
-
+    
     html.light {
       /* Light Theme Overrides */
       --bg-app: #f8fafc;
@@ -59,19 +53,19 @@
       --bg-input: #f8fafc;
       --border-color: #e2e8f0;
       --border-hover: #cbd5e1;
-
+      
       --color-text-main: #0f172a;
       --color-text-muted: #64748b;
-
+      
       --primary: #4f46e5;
       --primary-hover: #3730a3;
       --success: #059669;
       --danger: #e11d48;
       --warning: #d97706;
-
+      
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
     }
-
+    
     /* ========================================================
        CORE RESET & GLOBAL STYLES
        ======================================================== */
@@ -82,7 +76,7 @@
       font-family: 'Inter', sans-serif;
       transition: background-color 0.25s ease, border-color 0.25s ease;
     }
-
+    
     body {
       background-color: var(--bg-app);
       color: var(--color-text-main);
@@ -90,26 +84,23 @@
       height: 100vh;
       overflow: hidden;
     }
-
+    
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
-
     ::-webkit-scrollbar-track {
       background: transparent;
     }
-
     ::-webkit-scrollbar-thumb {
       background: var(--border-hover);
       border-radius: 4px;
     }
-
     ::-webkit-scrollbar-thumb:hover {
       background: var(--color-text-muted);
     }
-
+    
     /* ========================================================
        LAYOUT & SIDEBAR
        ======================================================== */
@@ -123,7 +114,7 @@
       flex-shrink: 0;
       z-index: 10;
     }
-
+    
     .brand {
       padding: 24px;
       display: flex;
@@ -131,7 +122,7 @@
       gap: 12px;
       border-bottom: 1px solid var(--border-color);
     }
-
+    
     .brand-logo {
       width: 32px;
       height: 32px;
@@ -144,7 +135,7 @@
       font-weight: 800;
       font-size: 16px;
     }
-
+    
     .brand-name {
       font-weight: 700;
       font-size: 18px;
@@ -152,7 +143,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
+    
     .menu {
       padding: 20px 12px;
       display: flex;
@@ -161,7 +152,7 @@
       flex-grow: 1;
       overflow-y: auto;
     }
-
+    
     .menu-item {
       display: flex;
       align-items: center;
@@ -174,18 +165,17 @@
       font-weight: 500;
       cursor: pointer;
     }
-
-    .menu-item:hover,
-    .menu-item.active {
+    
+    .menu-item:hover, .menu-item.active {
       color: var(--color-text-main);
       background-color: var(--border-color);
     }
-
+    
     .menu-item.active {
       background-color: var(--primary);
       color: white !important;
     }
-
+    
     .menu-item svg {
       width: 20px;
       height: 20px;
@@ -193,7 +183,7 @@
       fill: none;
       stroke-width: 2;
     }
-
+    
     .sidebar-footer {
       padding: 16px 20px;
       border-top: 1px solid var(--border-color);
@@ -201,7 +191,7 @@
       justify-content: space-between;
       align-items: center;
     }
-
+    
     .org-lbl {
       font-size: 11px;
       text-transform: uppercase;
@@ -209,7 +199,7 @@
       color: var(--color-text-muted);
       font-weight: 700;
     }
-
+    
     /* ========================================================
        MAIN APP AREA & HEADER
        ======================================================== */
@@ -220,7 +210,7 @@
       height: 100%;
       overflow: hidden;
     }
-
+    
     .header {
       height: 70px;
       border-bottom: 1px solid var(--border-color);
@@ -231,18 +221,18 @@
       flex-shrink: 0;
       background-color: var(--bg-sidebar);
     }
-
+    
     .page-title {
       font-size: 20px;
       font-weight: 700;
     }
-
+    
     .header-actions {
       display: flex;
       align-items: center;
       gap: 16px;
     }
-
+    
     .user-tag {
       font-size: 13px;
       color: var(--color-text-muted);
@@ -275,12 +265,12 @@
       justify-content: center;
       cursor: pointer;
     }
-
+    
     .theme-toggle-btn:hover {
       border-color: var(--border-hover);
       color: var(--color-text-main);
     }
-
+    
     .theme-toggle-btn svg {
       width: 20px;
       height: 20px;
@@ -288,7 +278,7 @@
       fill: none;
       stroke-width: 2;
     }
-
+    
     .logout-btn {
       background: none;
       border: 1px solid var(--danger);
@@ -324,30 +314,23 @@
       flex-grow: 1;
       overflow-y: auto;
     }
-
+    
     .view-section {
       display: flex;
       flex-direction: column;
       gap: 32px;
       animation: fadeIn 0.3s ease;
     }
-
+    
     .view-section.hidden {
       display: none !important;
     }
-
+    
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
+    
     /* ========================================================
        DASHBOARD GRID & STAT CARDS
        ======================================================== */
@@ -356,7 +339,7 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 24px;
     }
-
+    
     .stat-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -370,7 +353,7 @@
       box-shadow: var(--shadow-md);
       backdrop-filter: var(--glass-blur);
     }
-
+    
     .stat-card::before {
       content: '';
       position: absolute;
@@ -382,17 +365,17 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-
+    
     .stat-card:hover {
       border-color: var(--border-hover);
       transform: translateY(-2px);
       box-shadow: var(--shadow-lg);
     }
-
+    
     .stat-card:hover::before {
       opacity: 1;
     }
-
+    
     .stat-lbl {
       font-size: 13px;
       font-weight: 600;
@@ -400,18 +383,18 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-
+    
     .stat-val {
       font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.5px;
     }
-
+    
     .stat-meta {
       font-size: 11px;
       color: var(--color-text-muted);
     }
-
+    
     /* Collected vs Expenses Progress Ledger Bar */
     .ledger-summary-box {
       background-color: var(--bg-card);
@@ -424,14 +407,14 @@
       box-shadow: var(--shadow-md);
       backdrop-filter: var(--glass-blur);
     }
-
+    
     .ledger-bar-lbls {
       display: flex;
       justify-content: space-between;
       font-size: 14px;
       font-weight: 600;
     }
-
+    
     .ledger-progress-track {
       height: 12px;
       background-color: var(--border-color);
@@ -439,19 +422,19 @@
       overflow: hidden;
       display: flex;
     }
-
+    
     .ledger-fill-collected {
       height: 100%;
       background: linear-gradient(90deg, var(--success), #34d399);
       transition: width 0.5s ease;
     }
-
+    
     .ledger-fill-expenses {
       height: 100%;
       background: linear-gradient(90deg, var(--danger), #fb7185);
       transition: width 0.5s ease;
     }
-
+    
     /* ========================================================
        DATA TABLES & CONTROLS
        ======================================================== */
@@ -462,13 +445,13 @@
       gap: 16px;
       flex-wrap: wrap;
     }
-
+    
     .search-box-container {
       position: relative;
       flex-grow: 1;
       max-width: 400px;
     }
-
+    
     .search-box-container svg {
       position: absolute;
       left: 14px;
@@ -479,7 +462,7 @@
       color: var(--color-text-muted);
       pointer-events: none;
     }
-
+    
     .search-input {
       width: 100%;
       padding: 12px 16px 12px 42px;
@@ -490,12 +473,12 @@
       font-size: 14px;
       outline: none;
     }
-
+    
     .search-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
     }
-
+    
     .table-container {
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -504,14 +487,14 @@
       box-shadow: var(--shadow-md);
       backdrop-filter: var(--glass-blur);
     }
-
+    
     .data-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
       font-size: 14px;
     }
-
+    
     .data-table th {
       background-color: rgba(255, 255, 255, 0.02);
       padding: 16px 24px;
@@ -522,29 +505,29 @@
       font-size: 11px;
       letter-spacing: 0.5px;
     }
-
+    
     html.light .data-table th {
       background-color: rgba(0, 0, 0, 0.01);
     }
-
+    
     .data-table td {
       padding: 16px 24px;
       border-bottom: 1px solid var(--border-color);
       vertical-align: middle;
     }
-
+    
     .data-table tbody tr:last-child td {
       border-bottom: none;
     }
-
+    
     .data-table tbody tr:hover {
       background-color: rgba(255, 255, 255, 0.015);
     }
-
+    
     html.light .data-table tbody tr:hover {
       background-color: rgba(0, 0, 0, 0.01);
     }
-
+    
     /* ========================================================
        ACCORDION ROW & YEARLY FEES GRID
        ======================================================= */
@@ -559,18 +542,18 @@
       border: 1px solid var(--border-color);
       color: var(--color-text-muted);
     }
-
+    
     .accordion-toggle-btn svg {
       width: 16px;
       height: 16px;
       transition: transform 0.2s ease;
     }
-
+    
     tr.expanded .accordion-toggle-btn svg {
       transform: rotate(180deg);
       color: var(--color-text-main);
     }
-
+    
     .member-accordion-details {
       padding: 24px;
       background-color: rgba(0, 0, 0, 0.15);
@@ -580,23 +563,16 @@
       gap: 16px;
       animation: slideDown 0.25s ease;
     }
-
+    
     html.light .member-accordion-details {
       background-color: rgba(0, 0, 0, 0.02);
     }
-
+    
     @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-4px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
+    
     .accordion-title {
       font-size: 13px;
       font-weight: 700;
@@ -605,13 +581,13 @@
       letter-spacing: 0.5px;
       margin-bottom: 12px;
     }
-
+    
     .dues-badge-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 12px;
     }
-
+    
     .dues-year-tag {
       background-color: var(--bg-app);
       border: 1px solid var(--border-color);
@@ -623,27 +599,27 @@
       font-size: 13px;
       font-weight: 500;
     }
-
+    
     .dues-year-tag.paid {
       border-color: rgba(16, 185, 129, 0.3);
       color: var(--success);
     }
-
+    
     .dues-year-tag.pending {
       border-color: rgba(244, 63, 94, 0.3);
       color: var(--danger);
     }
-
+    
     .dues-year-tag.na {
       border-color: var(--border-color);
       color: var(--color-text-muted);
       opacity: 0.6;
     }
-
+    
     .year-lbl {
       font-weight: 700;
     }
-
+    
     .status-lbl {
       display: flex;
       align-items: center;
@@ -651,19 +627,19 @@
       font-size: 12px;
       font-weight: 600;
     }
-
+    
     .receipt-link-icon {
       color: var(--primary);
       cursor: pointer;
       display: inline-flex;
     }
-
+    
     .receipt-link-icon svg {
       width: 14px;
       height: 14px;
       stroke: currentColor;
     }
-
+    
     /* ========================================================
        BUTTONS & BADGES
        ======================================================== */
@@ -681,39 +657,39 @@
       outline: none;
       text-decoration: none;
     }
-
+    
     .btn-primary {
       background-color: var(--primary);
       color: white;
     }
-
+    
     .btn-primary:hover {
       background-color: var(--primary-hover);
     }
-
+    
     .btn-success {
       background-color: var(--success);
       color: white;
     }
-
+    
     .btn-success:hover {
       background-color: #059669;
     }
-
+    
     .btn-danger {
       background-color: var(--danger);
       color: white;
     }
-
+    
     .btn-danger:hover {
       background-color: #e11d48;
     }
-
+    
     .btn-warning {
       background-color: var(--warning);
       color: #000;
     }
-
+    
     .btn-warning:hover {
       background-color: #d97706;
     }
@@ -723,12 +699,12 @@
       border: 1px solid var(--border-color);
       color: var(--color-text-main);
     }
-
+    
     .btn-secondary:hover {
       border-color: var(--border-hover);
       background-color: var(--border-color);
     }
-
+    
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -739,46 +715,46 @@
       font-weight: 700;
       text-transform: uppercase;
     }
-
+    
     .status-paid {
       background-color: rgba(16, 185, 129, 0.12);
       color: var(--success);
     }
-
+    
     .status-pending {
       background-color: rgba(244, 63, 94, 0.12);
       color: var(--danger);
     }
-
+    
     .status-na {
       background-color: var(--border-color);
       color: var(--color-text-muted);
     }
-
+    
     .action-links {
       display: flex;
       gap: 12px;
     }
-
+    
     .action-link {
       font-size: 13px;
       color: var(--primary);
       cursor: pointer;
       font-weight: 600;
     }
-
+    
     .action-link:hover {
       text-decoration: underline;
     }
-
+    
     .action-link.red-link {
       color: var(--danger);
     }
-
+    
     .hidden {
       display: none !important;
     }
-
+    
     /* ========================================================
        MODALS FRAMEWORK
        ======================================================== */
@@ -799,12 +775,12 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-
+    
     .modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
-
+    
     .modal {
       background-color: var(--bg-sidebar);
       border: 1px solid var(--border-color);
@@ -819,26 +795,25 @@
       display: flex;
       flex-direction: column;
     }
-
+    
     .modal-overlay.active .modal {
       transform: translateY(0);
     }
-
+    
     .modal-header {
       padding: 20px 24px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-shrink: 0;
-      /* PINNED at top — never scrolls away */
+      flex-shrink: 0; /* PINNED at top — never scrolls away */
     }
-
+    
     .modal-title {
       font-size: 18px;
       font-weight: 700;
     }
-
+    
     .modal-close-btn {
       background: none;
       border: none;
@@ -846,39 +821,35 @@
       cursor: pointer;
       display: flex;
     }
-
+    
     .modal-close-btn svg {
       width: 20px;
       height: 20px;
     }
-
+    
     .modal-body {
       padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      flex: 1 1 0;
-      /* Takes all remaining space between header and footer */
-      min-height: 0;
-      /* THE KEY FIX: allows flex child to shrink below content size */
-      overflow-y: auto;
-      /* Content scrolls here */
+      flex: 1 1 0;           /* Takes all remaining space between header and footer */
+      min-height: 0;         /* THE KEY FIX: allows flex child to shrink below content size */
+      overflow-y: auto;      /* Content scrolls here */
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
     }
-
+    
     .modal-footer {
       padding: 20px 24px;
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: flex-end;
       gap: 12px;
-      flex-shrink: 0;
-      /* PINNED at bottom — Confirm button always visible */
+      flex-shrink: 0; /* PINNED at bottom — Confirm button always visible */
       background-color: var(--bg-sidebar);
     }
-
+    
     /* ========================================================
        FORM CONTROLS & DUES SELECTION GRID
        ======================================================== */
@@ -887,13 +858,38 @@
       flex-direction: column;
       gap: 6px;
     }
-
+    
+    .form-group-horizontal {
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    
+    .form-group-horizontal .form-label {
+      width: 100px !important;
+      margin-bottom: 0 !important;
+      flex-shrink: 0 !important;
+      text-align: right !important;
+      font-size: 12px !important;
+    }
+    
+    .form-group-horizontal .form-control,
+    .form-group-horizontal .date-input-container {
+      flex-grow: 1 !important;
+    }
+    
+    .keep-grid-2-col {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+    }
+    
     .form-label {
       font-size: 13px;
       font-weight: 600;
       color: var(--color-text-muted);
     }
-
+    
     .form-control {
       padding: 10px 14px;
       background-color: var(--bg-input);
@@ -904,30 +900,30 @@
       outline: none;
       width: 100%;
     }
-
+    
     .form-control:focus {
       border-color: var(--primary);
     }
-
+    
     .form-control[readonly] {
       background-color: var(--border-color);
       opacity: 0.7;
       cursor: not-allowed;
     }
-
+    
     .checkbox-container {
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 14px;
     }
-
+    
     .checkbox-container input[type="checkbox"] {
       width: 16px;
       height: 16px;
       cursor: pointer;
     }
-
+    
     .dues-years-selectors-container {
       border: 1px solid var(--border-color);
       border-radius: 8px;
@@ -939,7 +935,7 @@
       max-height: 160px;
       overflow-y: auto;
     }
-
+    
     .year-fee-box {
       display: flex;
       align-items: center;
@@ -948,25 +944,25 @@
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 8px;
     }
-
+    
     .year-fee-box:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
-
+    
     .year-fee-header {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
+    
     .fee-amt-input {
       width: 80px !important;
       padding: 4px 8px;
       font-size: 12px;
       text-align: right;
     }
-
+    
     .total-summary-box {
       background-color: rgba(99, 102, 241, 0.08);
       border: 1px solid rgba(99, 102, 241, 0.2);
@@ -976,7 +972,7 @@
       justify-content: space-between;
       align-items: center;
     }
-
+    
     /* ========================================================
        LOADER SCREEN
        ======================================================== */
@@ -994,7 +990,7 @@
       justify-content: center;
       gap: 16px;
     }
-
+    
     .loader-spinner {
       width: 48px;
       height: 48px;
@@ -1003,19 +999,17 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-
+    
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
-
+    
     .loader-text {
       font-size: 14px;
       font-weight: 500;
       color: var(--color-text-muted);
     }
-
+    
     /* ========================================================
        TOAST ALERTS
        ======================================================== */
@@ -1028,7 +1022,7 @@
       gap: 12px;
       z-index: 1000;
     }
-
+    
     .toast {
       background-color: var(--bg-sidebar);
       border-left: 4px solid var(--primary);
@@ -1045,23 +1039,16 @@
       border-bottom: 1px solid var(--border-color);
       border-right: 1px solid var(--border-color);
     }
-
+    
     .toast.danger {
       border-left-color: var(--danger);
     }
-
+    
     @keyframes slideIn {
-      from {
-        transform: translateX(100%) translateY(10px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateX(0) translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateX(100%) translateY(10px); opacity: 0; }
+      to { transform: translateX(0) translateY(0); opacity: 1; }
     }
-
+    
     /* ========================================================
        AUTHENTICATION overlay
        ======================================================== */
@@ -1080,12 +1067,12 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-
+    
     .login-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
-
+    
     .login-card {
       background-color: var(--bg-sidebar);
       border: 1px solid var(--border-color);
@@ -1097,24 +1084,24 @@
       box-shadow: var(--shadow-lg);
       backdrop-filter: var(--glass-blur);
     }
-
+    
     .login-logo {
       font-size: 40px;
       margin-bottom: 20px;
     }
-
+    
     .login-title {
       font-size: 22px;
       font-weight: 800;
       margin-bottom: 8px;
     }
-
+    
     .login-subtitle {
       font-size: 13px;
       color: var(--color-text-muted);
       margin-bottom: 30px;
     }
-
+    
     /* ========================================================
        ALERT OVERLAY MODAL LIST
        ======================================================== */
@@ -1128,17 +1115,17 @@
       gap: 4px;
       font-size: 13px;
     }
-
+    
     .alert-item-title {
       font-weight: 700;
       color: var(--warning);
     }
-
+    
     .alert-item-meta {
       font-size: 11px;
       color: var(--color-text-muted);
     }
-
+    
     /* User Row layout in Settings */
     .user-edit-row {
       display: flex;
@@ -1148,13 +1135,12 @@
       padding-bottom: 12px;
       margin-bottom: 12px;
     }
-
     .user-edit-row:last-child {
       border-bottom: none;
       padding-bottom: 0;
       margin-bottom: 0;
     }
-
+    
     /* Petty Cash dynamic items log container */
     .petty-items-box {
       border: 1px solid var(--border-color);
@@ -1165,13 +1151,12 @@
       flex-direction: column;
       gap: 8px;
     }
-
     .petty-item-row {
       display: flex;
       gap: 8px;
       align-items: center;
     }
-
+    
     /* Split layout for dashboard forms & tables */
     .split-layout {
       display: grid;
@@ -1179,7 +1164,6 @@
       gap: 24px;
       align-items: start;
     }
-
     @media (max-width: 992px) {
       .split-layout {
         grid-template-columns: 1fr;
@@ -1189,7 +1173,7 @@
     /* ========================================================
        FLUID RESPONSIVE & MOBILE LAYOUT OVERRIDES (PWA)
        ======================================================== */
-
+    
     /* Backdrop overlay for mobile sidebar drawer */
     .sidebar-backdrop {
       display: none;
@@ -1202,7 +1186,7 @@
       backdrop-filter: blur(4px);
       z-index: 45;
     }
-
+    
     .sidebar-backdrop.active {
       display: block;
     }
@@ -1213,10 +1197,7 @@
     }
 
     /* Switch theme buttons styles for toggles */
-    .theme-toggle-btn,
-    .logout-btn,
-    #mobile-menu-btn,
-    #force-mobile-toggle {
+    .theme-toggle-btn, .logout-btn, #mobile-menu-btn, #force-mobile-toggle {
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 8px;
@@ -1229,17 +1210,13 @@
       transition: all 0.2s ease;
     }
 
-    .theme-toggle-btn:hover,
-    .logout-btn:hover,
-    #mobile-menu-btn:hover,
-    #force-mobile-toggle:hover {
+    .theme-toggle-btn:hover, .logout-btn:hover, #mobile-menu-btn:hover, #force-mobile-toggle:hover {
       color: var(--color-text-main);
       background-color: var(--border-hover);
       border-color: var(--color-text-muted);
     }
 
-    #force-mobile-toggle svg,
-    #mobile-menu-btn svg {
+    #force-mobile-toggle svg, #mobile-menu-btn svg {
       width: 20px;
       height: 20px;
       stroke: currentColor;
@@ -1299,7 +1276,7 @@
       body:not(.force-desktop) .stats-grid {
         grid-template-columns: 1fr !important;
       }
-
+      
       body:not(.force-desktop) div[style*="grid-template-columns: 1fr 1fr;"] {
         grid-template-columns: 1fr !important;
       }
@@ -1309,12 +1286,11 @@
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch;
       }
-
+      
       body:not(.force-desktop) .data-table {
-        min-width: 650px !important;
-        /* Forces scroll container layout */
+        min-width: 650px !important; /* Forces scroll container layout */
       }
-
+      
       body:not(.force-desktop) .table-controls {
         flex-direction: column;
         align-items: stretch !important;
@@ -1326,11 +1302,11 @@
         width: 100% !important;
       }
 
-      body:not(.force-desktop) .table-controls>div {
+      body:not(.force-desktop) .table-controls > div {
         justify-content: space-between;
         width: 100%;
       }
-
+      
       /* Make dialogs fit small devices */
       body:not(.force-desktop) .modal-content {
         width: 95% !important;
@@ -1347,16 +1323,14 @@
 
       body:not(.force-desktop) .modal {
         width: 96% !important;
-        max-height: 92vh !important;
-        /* More height on mobile */
+        max-height: 92vh !important; /* More height on mobile */
         border-radius: 12px !important;
         overflow: hidden !important;
       }
 
       body:not(.force-desktop) .modal-body {
         flex: 1 1 0 !important;
-        min-height: 0 !important;
-        /* Critical: allows flex shrink + scroll on mobile */
+        min-height: 0 !important;      /* Critical: allows flex shrink + scroll on mobile */
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         padding: 14px 16px !important;
@@ -1432,7 +1406,7 @@
     body.force-mobile .stats-grid {
       grid-template-columns: 1fr !important;
     }
-
+    
     body.force-mobile div[style*="grid-template-columns: 1fr 1fr;"] {
       grid-template-columns: 1fr !important;
     }
@@ -1441,11 +1415,11 @@
       overflow-x: auto !important;
       -webkit-overflow-scrolling: touch;
     }
-
+    
     body.force-mobile .data-table {
       min-width: 650px !important;
     }
-
+    
     body.force-mobile .table-controls {
       flex-direction: column;
       align-items: stretch !important;
@@ -1457,7 +1431,7 @@
       width: 100% !important;
     }
 
-    body.force-mobile .table-controls>div {
+    body.force-mobile .table-controls > div {
       justify-content: space-between;
       width: 100%;
     }
@@ -1469,7 +1443,6 @@
     }
   </style>
 </head>
-
 <body>
 
   <!-- AUTH LOGIN OVERLAY -->
@@ -1478,19 +1451,14 @@
       <div class="login-logo">🔒</div>
       <h2 class="login-title">Sign In</h2>
       <p class="login-subtitle">Member & Expense Management System</p>
-
+      
       <!-- Standalone Configuration Area -->
-      <div id="standalone-config-area"
-        style="display: none; border-bottom: 1px dashed var(--border-color); padding-bottom: 16px; margin-bottom: 16px; text-align: left;">
+      <div id="standalone-config-area" style="display: none; border-bottom: 1px dashed var(--border-color); padding-bottom: 16px; margin-bottom: 16px; text-align: left;">
         <div class="form-group">
-          <label class="form-label" style="color: var(--primary); font-weight: 600;">Google Sheets Web App API
-            URL</label>
-          <input type="text" id="standalone-url-input" class="form-control"
-            placeholder="https://script.google.com/macros/s/.../exec" style="margin-top: 4px; font-size: 13px;">
+          <label class="form-label" style="color: var(--primary); font-weight: 600;">Google Sheets Web App API URL</label>
+          <input type="text" id="standalone-url-input" class="form-control" placeholder="https://script.google.com/macros/s/.../exec" style="margin-top: 4px; font-size: 13px;">
         </div>
-        <button type="button" class="btn btn-secondary" onclick="saveStandaloneUrl()"
-          style="width: 100%; margin-top: 10px; padding: 8px; font-size: 12px; font-weight: 600;">Connect to
-          Sheet</button>
+        <button type="button" class="btn btn-secondary" onclick="saveStandaloneUrl()" style="width: 100%; margin-top: 10px; padding: 8px; font-size: 12px; font-weight: 600;">Connect to Sheet</button>
       </div>
 
       <form id="login-form" onsubmit="handleLoginSubmit(event)">
@@ -1500,11 +1468,9 @@
         </div>
         <div class="form-group" style="margin-top: 16px; text-align: left;">
           <label class="form-label">Password</label>
-          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required
-            style="margin-top: 4px;">
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required style="margin-top: 4px;">
         </div>
-        <button type="submit" class="btn btn-primary"
-          style="width: 100%; margin-top: 28px; padding: 12px;">Login</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 28px; padding: 12px;">Login</button>
       </form>
     </div>
   </div>
@@ -1524,84 +1490,46 @@
       <div class="brand-logo">💎</div>
       <div class="brand-name">Manager</div>
     </div>
-
+    
     <div class="menu">
       <a class="menu-item active" id="menu-dashboard" onclick="switchView('dashboard')">
-        <svg viewBox="0 0 24 24">
-          <rect x="3" y="3" width="7" height="9" rx="1"></rect>
-          <rect x="14" y="3" width="7" height="5" rx="1"></rect>
-          <rect x="14" y="12" width="7" height="9" rx="1"></rect>
-          <rect x="3" y="16" width="7" height="5" rx="1"></rect>
-        </svg>
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>
         Dashboard
       </a>
       <a class="menu-item" id="menu-members" onclick="switchView('members')">
-        <svg viewBox="0 0 24 24">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
         Members Directory
       </a>
       <a class="menu-item" id="menu-payments" onclick="switchView('payments')">
-        <svg viewBox="0 0 24 24">
-          <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-          <line x1="12" y1="18" x2="12" y2="12"></line>
-          <line x1="2" y1="10" x2="22" y2="10"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="12"></line><line x1="2" y1="10" x2="22" y2="10"></line></svg>
         Dues & Payments
       </a>
       <a class="menu-item" id="menu-expenses" onclick="switchView('expenses')">
-        <svg viewBox="0 0 24 24">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         Expenses Ledger
       </a>
       <a class="menu-item" id="menu-ledgers" onclick="switchView('ledgers')">
-        <svg viewBox="0 0 24 24">
-          <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-          <line x1="16" y1="2" x2="16" y2="4"></line>
-          <line x1="8" y1="2" x2="8" y2="4"></line>
-          <line x1="3" y1="10" x2="21" y2="10"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="16" y1="2" x2="16" y2="4"></line><line x1="8" y1="2" x2="8" y2="4"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
         Cash & Bank Ledgers
       </a>
       <a class="menu-item" id="menu-fds" onclick="switchView('fds')">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
         Fixed Deposits
       </a>
       <a class="menu-item" id="menu-petty" onclick="switchView('petty')">
-        <svg viewBox="0 0 24 24">
-          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-        </svg>
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
         Petty Cash Advances
       </a>
       <a class="menu-item" id="menu-outstanding" onclick="switchView('outstanding')">
-        <svg viewBox="0 0 24 24">
-          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-          <line x1="12" y1="9" x2="12" y2="13"></line>
-          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         Outstanding Report
       </a>
       <a class="menu-item" id="menu-settings" onclick="switchView('settings')">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path
-            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
-          </path>
-        </svg>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         System Settings
       </a>
     </div>
-
+    
     <div class="sidebar-footer">
       <div style="display:flex; flex-direction:column;">
         <span class="org-lbl" id="footer-org-name">Community Org</span>
@@ -1618,59 +1546,34 @@
     <div class="header">
       <div style="display:flex; align-items:center; gap:12px;">
         <button id="mobile-menu-btn" onclick="toggleMobileSidebar(true)" title="Toggle Navigation Drawer">
-          <svg viewBox="0 0 24 24">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
+          <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
         <div class="page-title" id="page-header-title">Dashboard Summary</div>
       </div>
-
+      
       <div class="header-actions">
         <div class="user-tag" id="header-user-tag">
-          <svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           <span id="user-display-name">Admin</span>
         </div>
 
-        <button id="force-mobile-toggle" onclick="toggleForceMobileMode()"
-          title="Toggle Desktop/Mobile layout representation">
-          <svg viewBox="0 0 24 24">
-            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-            <line x1="12" y1="18" x2="12.01" y2="18"></line>
-          </svg>
+        <button id="force-mobile-toggle" onclick="toggleForceMobileMode()" title="Toggle Desktop/Mobile layout representation">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
         </button>
 
         <button class="theme-toggle-btn" onclick="toggleTheme()" title="Switch Light/Dark Mode">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         </button>
 
         <button class="logout-btn" onclick="handleLogout()" title="Sign Out">
-          <svg viewBox="0 0 24 24">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
           Logout
         </button>
       </div>
     </div>
-
+    
     <div class="content-viewport">
-
+      
       <!-- ========================================================
            VIEW: DASHBOARD
            ======================================================== -->
@@ -1697,7 +1600,7 @@
             <span class="stat-meta">Active unpaid financial years</span>
           </div>
         </div>
-
+        
         <div class="ledger-summary-box">
           <div class="ledger-bar-lbls">
             <span>Collected Fees & Income</span>
@@ -1712,7 +1615,7 @@
             <span id="expenses-bar-val">INR 0.00</span>
           </div>
         </div>
-
+        
         <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
           <div class="ledger-summary-box">
             <h3 class="accordion-title">Quick Actions</h3>
@@ -1722,36 +1625,30 @@
               <button class="btn btn-success" onclick="openTransferModal()">Internal Transfer (Contra)</button>
             </div>
           </div>
-          <div class="ledger-summary-box" id="dashboard-alerts-card"
-            style="display:none; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.03);">
+          <div class="ledger-summary-box" id="dashboard-alerts-card" style="display:none; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.03);">
             <h3 class="accordion-title" style="color:var(--warning);">⚠️ FD Maturity Alerts (Next 30 Days)</h3>
-            <div id="dashboard-alerts-list"
-              style="display:flex; flex-direction:column; gap:8px; max-height: 120px; overflow-y:auto;">
+            <div id="dashboard-alerts-list" style="display:flex; flex-direction:column; gap:8px; max-height: 120px; overflow-y:auto;">
               <!-- alerts append here -->
             </div>
           </div>
         </div>
       </div>
-
+      
       <!-- ========================================================
            VIEW: MEMBERS DIRECTORY
            ======================================================== -->
       <div id="view-members" class="view-section hidden">
         <div class="table-controls">
           <div class="search-box-container">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="member-search" class="search-input"
-              placeholder="Search members by ID, name, or mobile..." oninput="filterMembers()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="member-search" class="search-input" placeholder="Search members by ID, name, or mobile..." oninput="filterMembers()">
           </div>
           <div style="display:flex; gap:12px;">
             <button class="btn btn-secondary" onclick="toggleAllAccordions()">Expand/Collapse Ledgers</button>
             <button class="btn btn-primary" onclick="openMemberModal(true)">Add New Member</button>
           </div>
         </div>
-
+        
         <div class="table-container">
           <table class="data-table" id="members-table">
             <thead>
@@ -1771,23 +1668,19 @@
           </table>
         </div>
       </div>
-
+      
       <!-- ========================================================
            VIEW: DUES & PAYMENTS REGISTER
            ======================================================== -->
       <div id="view-payments" class="view-section hidden">
         <div class="table-controls">
           <div class="search-box-container">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="payment-search" class="search-input"
-              placeholder="Search receipts by number, name, or account..." oninput="filterPayments()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="payment-search" class="search-input" placeholder="Search receipts by number, name, or account..." oninput="filterPayments()">
           </div>
           <button class="btn btn-primary" onclick="openNewPaymentForm()">Record Dues Receipt</button>
         </div>
-
+        
         <div class="table-container">
           <table class="data-table" id="payments-table">
             <thead>
@@ -1809,23 +1702,19 @@
           </table>
         </div>
       </div>
-
+      
       <!-- ========================================================
            VIEW: EXPENSES LEDGER
            ======================================================== -->
       <div id="view-expenses" class="view-section hidden">
         <div class="table-controls">
           <div class="search-box-container">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="expense-search" class="search-input"
-              placeholder="Search vouchers by number, paid to, category..." oninput="filterExpenses()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="expense-search" class="search-input" placeholder="Search vouchers by number, paid to, category..." oninput="filterExpenses()">
           </div>
           <button class="btn btn-primary" onclick="openNewExpenseForm()">Record Expense Voucher</button>
         </div>
-
+        
         <div class="table-container">
           <table class="data-table" id="expenses-table">
             <thead>
@@ -1862,16 +1751,13 @@
               <form id="add-bank-form" onsubmit="submitAddBankForm(event)">
                 <div class="form-group" style="margin-top: 12px;">
                   <label class="form-label">Bank Account Name</label>
-                  <input type="text" id="bank-name" class="form-control" required
-                    placeholder="e.g. SBI Bank, HDFC Dues Acc">
+                  <input type="text" id="bank-name" class="form-control" required placeholder="e.g. SBI Bank, HDFC Dues Acc">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Opening Balance Handover (INR)</label>
-                  <input type="number" id="bank-opening-bal" class="form-control" required min="0" step="any" value="0"
-                    placeholder="0.00">
+                  <input type="number" id="bank-opening-bal" class="form-control" required min="0" step="any" value="0" placeholder="0.00">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Create Bank
-                  Tab</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Create Bank Tab</button>
               </form>
             </div>
 
@@ -1887,44 +1773,33 @@
                   <label class="form-label">Destination Account (Money In / Dr)</label>
                   <select id="trf-to" class="form-control" required></select>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                   <label class="form-label">Date</label>
-                  <div class="date-input-container"
-                    style="position:relative; display:flex; align-items:center; width:100%;">
-                    <input type="text" id="trf-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY"
-                      pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                      style="padding-right: 36px; width:100%;">
-                    <input type="date" id="trf-date-picker"
-                      style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                      onchange="syncDatePickerToText('trf-date-picker', 'trf-date')">
-                    <span
-                      style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="trf-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="trf-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('trf-date-picker', 'trf-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Amount (INR)</label>
-                  <input type="number" id="trf-amount" class="form-control" required min="1" step="any"
-                    placeholder="0.00">
+                  <input type="number" id="trf-amount" class="form-control" required min="1" step="any" placeholder="0.00">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Narration / Reference Notes</label>
-                  <input type="text" id="trf-notes" class="form-control"
-                    placeholder="e.g. ATM cash withdrawal / deposit" required>
+                  <input type="text" id="trf-notes" class="form-control" placeholder="e.g. ATM cash withdrawal / deposit" required>
                 </div>
-                <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 8px;">Process
-                  Transfer</button>
+                <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 8px;">Process Transfer</button>
               </form>
             </div>
           </div>
 
           <!-- Right Column: Ledger Viewer -->
           <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0;">
-            <div class="table-controls"
-              style="margin-top: 0; background: var(--bg-card); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+            <div class="table-controls" style="margin-top: 0; background: var(--bg-card); padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color);">
               <div style="display:flex; align-items:center; gap:12px;">
                 <span class="form-label" style="font-weight:700; margin-bottom: 0;">Select Account:</span>
-                <select id="ledger-account-select" class="form-control" style="width: 200px; margin-bottom: 0;"
-                  onchange="loadLedgerDetails()"></select>
+                <select id="ledger-account-select" class="form-control" style="width: 200px; margin-bottom: 0;" onchange="loadLedgerDetails()"></select>
               </div>
             </div>
 
@@ -1935,18 +1810,15 @@
               </div>
               <div class="stat-card" style="padding: 16px 20px;">
                 <span class="stat-lbl" style="font-size:11px; color: var(--success);">Total Debits (Income)</span>
-                <span class="stat-val" id="ledger-stat-debit" style="font-size: 20px; color: var(--success);">INR
-                  0.00</span>
+                <span class="stat-val" id="ledger-stat-debit" style="font-size: 20px; color: var(--success);">INR 0.00</span>
               </div>
               <div class="stat-card" style="padding: 16px 20px;">
                 <span class="stat-lbl" style="font-size:11px; color: var(--danger);">Total Credits (Expenses)</span>
-                <span class="stat-val" id="ledger-stat-credit" style="font-size: 20px; color: var(--danger);">INR
-                  0.00</span>
+                <span class="stat-val" id="ledger-stat-credit" style="font-size: 20px; color: var(--danger);">INR 0.00</span>
               </div>
               <div class="stat-card" style="padding: 16px 20px;">
                 <span class="stat-lbl" style="font-size:11px;">Closing Balance</span>
-                <span class="stat-val" id="ledger-stat-closing" style="font-size: 20px; font-weight:800;">INR
-                  0.00</span>
+                <span class="stat-val" id="ledger-stat-closing" style="font-size: 20px; font-weight:800;">INR 0.00</span>
               </div>
             </div>
 
@@ -1990,67 +1862,50 @@
                 <label class="form-label">Issuing Bank Name</label>
                 <input type="text" id="fd-bank-name" class="form-control" required placeholder="e.g. SBI Bank">
               </div>
-
+              
               <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                 <div class="form-group">
                   <label class="form-label">Principal Amount (INR)</label>
-                  <input type="number" id="fd-principal" class="form-control" required min="1" step="any"
-                    placeholder="0.00">
+                  <input type="number" id="fd-principal" class="form-control" required min="1" step="any" placeholder="0.00">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Interest Rate (% p.a.)</label>
-                  <input type="number" id="fd-rate" class="form-control" required min="0.1" step="any"
-                    placeholder="e.g. 7.5">
+                  <input type="number" id="fd-rate" class="form-control" required min="0.1" step="any" placeholder="e.g. 7.5">
                 </div>
               </div>
-
+              
               <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                 <div class="form-group">
                   <label class="form-label">Start Date</label>
-                  <div class="date-input-container"
-                    style="position:relative; display:flex; align-items:center; width:100%;">
-                    <input type="text" id="fd-start-date" class="form-control date-masked-input"
-                      placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                      style="padding-right: 36px; width:100%;">
-                    <input type="date" id="fd-start-date-picker"
-                      style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                      onchange="syncDatePickerToText('fd-start-date-picker', 'fd-start-date')">
-                    <span
-                      style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="fd-start-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="fd-start-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('fd-start-date-picker', 'fd-start-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Maturity Date</label>
-                  <div class="date-input-container"
-                    style="position:relative; display:flex; align-items:center; width:100%;">
-                    <input type="text" id="fd-maturity-date" class="form-control date-masked-input"
-                      placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                      style="padding-right: 36px; width:100%;">
-                    <input type="date" id="fd-maturity-date-picker"
-                      style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                      onchange="syncDatePickerToText('fd-maturity-date-picker', 'fd-maturity-date')">
-                    <span
-                      style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="fd-maturity-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="fd-maturity-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('fd-maturity-date-picker', 'fd-maturity-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="form-label">Maturity Amount (Estimated INR)</label>
-                <input type="number" id="fd-maturity-amt" class="form-control" required min="1" step="any"
-                  placeholder="0.00">
+                <input type="number" id="fd-maturity-amt" class="form-control" required min="1" step="any" placeholder="0.00">
               </div>
 
               <div class="form-group">
                 <label class="form-label">Undersigned (Signatories / Trustees)</label>
-                <input type="text" id="fd-undersigned" class="form-control" required
-                  placeholder="e.g. Ramesh K (Pres) & Suresh V (Sec)">
+                <input type="text" id="fd-undersigned" class="form-control" required placeholder="e.g. Ramesh K (Pres) & Suresh V (Sec)">
               </div>
 
               <div class="form-group">
                 <label class="form-label">Purpose / Certificate Notes</label>
-                <textarea id="fd-notes" class="form-control" style="height: 60px;"
-                  placeholder="e.g. Community Hall Fund"></textarea>
+                <textarea id="fd-notes" class="form-control" style="height: 60px;" placeholder="e.g. Community Hall Fund"></textarea>
               </div>
 
               <div class="form-group">
@@ -2061,11 +1916,10 @@
                   <option value="Closed">Closed & Settled</option>
                 </select>
               </div>
-
+              
               <div style="display:flex; gap:12px; margin-top: 12px;">
                 <button type="button" class="btn btn-secondary" style="flex:1;" onclick="clearFDForm()">Clear</button>
-                <button type="submit" class="btn btn-primary" style="flex:2;" id="fd-submit-btn">Save FD
-                  Details</button>
+                <button type="submit" class="btn btn-primary" style="flex:2;" id="fd-submit-btn">Save FD Details</button>
               </div>
             </form>
           </div>
@@ -2074,12 +1928,8 @@
           <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0;">
             <div class="table-controls" style="margin-top: 0;">
               <div class="search-box-container">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" id="fd-search" class="search-input"
-                  placeholder="Search FDs by cert number, bank, undersigned..." oninput="filterFDs()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="fd-search" class="search-input" placeholder="Search FDs by cert number, bank, undersigned..." oninput="filterFDs()">
               </div>
             </div>
 
@@ -2121,52 +1971,41 @@
               <form id="petty-handout-form" onsubmit="submitPettyHandoutForm(event)">
                 <div class="form-group" style="margin-top: 12px;">
                   <label class="form-label">Custodian Name (Paid To)</label>
-                  <input type="text" id="pth-custodian" class="form-control" required
-                    placeholder="e.g. Mr A, Event Organizer">
+                  <input type="text" id="pth-custodian" class="form-control" required placeholder="e.g. Mr A, Event Organizer">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Handed Over Amount (INR)</label>
-                  <input type="number" id="pth-amount" class="form-control" required min="1" step="any"
-                    placeholder="0.00">
+                  <input type="number" id="pth-amount" class="form-control" required min="1" step="any" placeholder="0.00">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Source Debit Account</label>
                   <select id="pth-account" class="form-control" required></select>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                   <label class="form-label">Date Handed Over</label>
-                  <div class="date-input-container"
-                    style="position:relative; display:flex; align-items:center; width:100%;">
-                    <input type="text" id="pth-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY"
-                      pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                      style="padding-right: 36px; width:100%;">
-                    <input type="date" id="pth-date-picker"
-                      style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                      onchange="syncDatePickerToText('pth-date-picker', 'pth-date')">
-                    <span
-                      style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="pth-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="pth-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('pth-date-picker', 'pth-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Notes / Program Details</label>
                   <input type="text" id="pth-notes" class="form-control" placeholder="e.g. Community Gathering advance">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Process
-                  Handout</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Process Handout</button>
               </form>
             </div>
 
             <!-- Form B: Settle Advance Form (Hidden by default, shown when settle is clicked) -->
-            <div class="ledger-summary-box hidden" id="petty-settle-box"
-              style="margin-bottom: 0; border: 1px solid var(--warning);">
-              <div
-                style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 12px;">
+            <div class="ledger-summary-box hidden" id="petty-settle-box" style="margin-bottom: 0; border: 1px solid var(--warning);">
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 12px;">
                 <h3 class="accordion-title" style="margin-top: 0; color: var(--warning);">Settle Advance</h3>
                 <span style="font-size:20px; cursor:pointer; line-height:1;" onclick="closeSettlePanel()">&times;</span>
               </div>
               <form id="petty-settle-form" onsubmit="submitPettySettleForm(event)">
                 <input type="hidden" id="pts-advance-ref">
-
+                
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                   <div class="form-group">
                     <label class="form-label">Advance Details</label>
@@ -2177,20 +2016,14 @@
                     <input type="text" id="pts-handed-display" class="form-control" readonly style="opacity: 0.7;">
                   </div>
                 </div>
-
+                
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                   <div class="form-group">
                     <label class="form-label">Date of Settlement</label>
-                    <div class="date-input-container"
-                      style="position:relative; display:flex; align-items:center; width:100%;">
-                      <input type="text" id="pts-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY"
-                        pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                        style="padding-right: 36px; width:100%;">
-                      <input type="date" id="pts-date-picker"
-                        style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                        onchange="syncDatePickerToText('pts-date-picker', 'pts-date')">
-                      <span
-                        style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                    <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                      <input type="text" id="pts-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                      <input type="date" id="pts-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('pts-date-picker', 'pts-date')">
+                      <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -2202,41 +2035,31 @@
                 <div class="form-group">
                   <label class="form-label" style="display:flex; justify-content:space-between; align-items:center;">
                     <span>Itemized Expenses Spent</span>
-                    <button type="button" class="btn btn-primary" onclick="addPettyExpenseItemRow('', '')"
-                      style="padding:4px 8px; font-size:11px;">+ Add Item</button>
+                    <button type="button" class="btn btn-primary" onclick="addPettyExpenseItemRow('', '')" style="padding:4px 8px; font-size:11px;">+ Add Item</button>
                   </label>
-                  <div id="petty-expense-items-list" class="petty-items-box"
-                    style="max-height: 150px; overflow-y: auto;">
+                  <div id="petty-expense-items-list" class="petty-items-box" style="max-height: 150px; overflow-y: auto;">
                     <!-- Item rows append dynamically here -->
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label">Settlement Notes</label>
-                  <input type="text" id="pts-notes" class="form-control"
-                    placeholder="e.g. Program completed successfully">
+                  <input type="text" id="pts-notes" class="form-control" placeholder="e.g. Program completed successfully">
                 </div>
 
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
                   <div class="total-summary-box" style="padding:10px;">
                     <span style="font-size:11px; font-weight:700; color:var(--color-text-muted);">Total Spent:</span>
-                    <span id="pts-total-spent-display"
-                      style="font-weight:800; font-size:14px; color:var(--danger); display:block; margin-top:2px;">INR
-                      0.00</span>
+                    <span id="pts-total-spent-display" style="font-weight:800; font-size:14px; color:var(--danger); display:block; margin-top:2px;">INR 0.00</span>
                   </div>
-                  <div class="total-summary-box"
-                    style="padding:10px; background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
-                    <span style="font-size:11px; font-weight:700; color:var(--color-text-muted);"
-                      id="pts-return-lbl">Cash to Return:</span>
-                    <span id="pts-total-return-display"
-                      style="font-weight:800; font-size:14px; color:var(--success); display:block; margin-top:2px;">INR
-                      0.00</span>
+                  <div class="total-summary-box" style="padding:10px; background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+                    <span style="font-size:11px; font-weight:700; color:var(--color-text-muted);" id="pts-return-lbl">Cash to Return:</span>
+                    <span id="pts-total-return-display" style="font-weight:800; font-size:14px; color:var(--success); display:block; margin-top:2px;">INR 0.00</span>
                   </div>
                 </div>
 
                 <div style="display:flex; gap:12px; margin-top: 16px;">
-                  <button type="button" class="btn btn-secondary" style="flex:1;"
-                    onclick="closeSettlePanel()">Cancel</button>
+                  <button type="button" class="btn btn-secondary" style="flex:1;" onclick="closeSettlePanel()">Cancel</button>
                   <button type="submit" class="btn btn-primary" style="flex:2;">Process Settlement</button>
                 </div>
               </form>
@@ -2247,25 +2070,19 @@
           <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0;">
             <div class="table-controls" style="margin-top: 0;">
               <div class="search-box-container">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" id="petty-search" class="search-input"
-                  placeholder="Search advances by custodian, account, notes..." oninput="filterPetty()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="petty-search" class="search-input" placeholder="Search advances by custodian, account, notes..." oninput="filterPetty()">
               </div>
             </div>
 
             <div class="stats-grid" style="margin-top: 0;">
               <div class="stat-card" style="padding: 16px 20px;">
                 <span class="stat-lbl" style="font-size:11px;">Active Advances</span>
-                <span class="stat-val" id="petty-stat-active" style="font-size: 20px; color: var(--warning);">INR
-                  0.00</span>
+                <span class="stat-val" id="petty-stat-active" style="font-size: 20px; color: var(--warning);">INR 0.00</span>
               </div>
               <div class="stat-card" style="padding: 16px 20px;">
                 <span class="stat-lbl" style="font-size:11px; color: var(--success);">Total Settled Spent</span>
-                <span class="stat-val" id="petty-stat-settled" style="font-size: 20px; color: var(--success);">INR
-                  0.00</span>
+                <span class="stat-val" id="petty-stat-settled" style="font-size: 20px; color: var(--success);">INR 0.00</span>
               </div>
               <div class="stat-card" style="padding: 16px 20px;">
                 <span class="stat-lbl" style="font-size:11px;">Returned Balance</span>
@@ -2317,7 +2134,7 @@
           </div>
         </div>
       </div>
-
+      
       <!-- ========================================================
            VIEW: OUTSTANDING REPORT
            ======================================================== -->
@@ -2331,7 +2148,7 @@
             </button>
           </div>
         </div>
-
+        
         <div class="table-container">
           <table class="data-table" id="outstanding-table">
             <thead>
@@ -2349,16 +2166,16 @@
           </table>
         </div>
       </div>
-
+      
       <!-- ========================================================
            VIEW: SYSTEM SETTINGS
            ======================================================== -->
       <div id="view-settings" class="view-section hidden">
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:32px;">
-
+          
           <form id="settings-form" onsubmit="saveSettingsForm(event)" class="ledger-summary-box">
             <h3 class="accordion-title">Configuration Settings</h3>
-
+            
             <div class="form-group">
               <label class="form-label">Organization Name</label>
               <input type="text" id="set-org-name" class="form-control" required>
@@ -2377,8 +2194,7 @@
             </div>
             <div class="form-group" style="margin-top: 10px;">
               <label class="form-label">Manage Financial Years Visibility</label>
-              <div id="settings-years-visibility-list"
-                style="display:flex; flex-direction:column; gap:8px; max-height: 120px; overflow-y:auto; border:1px solid var(--border-color); padding:10px; border-radius:8px; background:var(--bg-app);">
+              <div id="settings-years-visibility-list" style="display:flex; flex-direction:column; gap:8px; max-height: 120px; overflow-y:auto; border:1px solid var(--border-color); padding:10px; border-radius:8px; background:var(--bg-app);">
                 <!-- Year checkboxes append here -->
               </div>
             </div>
@@ -2389,19 +2205,17 @@
                 <button type="button" class="btn btn-secondary" onclick="copyWebAppUrl()">Copy</button>
               </div>
             </div>
-
+            
             <button type="submit" class="btn btn-primary" style="margin-top:12px;">Save Configuration</button>
           </form>
-
+          
           <div class="ledger-summary-box">
             <h3 class="accordion-title">Manage System Users (Max 3)</h3>
-            <p style="font-size:12px; color:var(--color-text-muted); margin-bottom:12px;">Specify up to 3 credentials
-              authorized to record ledger entries.</p>
+            <p style="font-size:12px; color:var(--color-text-muted); margin-bottom:12px;">Specify up to 3 credentials authorized to record ledger entries.</p>
             <div id="settings-users-list">
               <!-- Users append here -->
             </div>
-            <button class="btn btn-primary" onclick="saveUserAccountsSettings()" style="margin-top:16px;">Save User
-              Credentials</button>
+            <button class="btn btn-primary" onclick="saveUserAccountsSettings()" style="margin-top:16px;">Save User Credentials</button>
           </div>
 
         </div>
@@ -2409,17 +2223,14 @@
         <div class="ledger-summary-box">
           <h3 class="accordion-title">WhatsApp Receipt Message Template</h3>
           <div class="form-group">
-            <textarea id="set-wa-template" class="form-control" rows="8"
-              placeholder="Format your WhatsApp message template here..."
-              style="font-family: monospace; font-size:13px;"></textarea>
+            <textarea id="set-wa-template" class="form-control" rows="8" placeholder="Format your WhatsApp message template here..." style="font-family: monospace; font-size:13px;"></textarea>
             <span style="font-size:11px; color:var(--color-text-muted); margin-top:4px;">
-              Placeholders: <code>{ORG}</code>, <code>{NAME}</code>, <code>{RECEIPT_NO}</code>, <code>{AMOUNT}</code>,
-              <code>{NARRATION}</code> (years paid), <code>{LINK}</code> (receipt PDF URL).
+              Placeholders: <code>{ORG}</code>, <code>{NAME}</code>, <code>{RECEIPT_NO}</code>, <code>{AMOUNT}</code>, <code>{NARRATION}</code> (years paid), <code>{LINK}</code> (receipt PDF URL).
             </span>
           </div>
         </div>
       </div>
-
+      
     </div>
   </div>
 
@@ -2431,9 +2242,7 @@
       <div class="modal-header">
         <h3 class="modal-title" id="member-modal-title">Add New Member</h3>
         <button class="modal-close-btn" onclick="closeModal('modal-member')">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
       <form id="member-form" onsubmit="submitMemberForm(event)">
@@ -2451,11 +2260,10 @@
             <label class="form-label">Family Members Count</label>
             <input type="number" id="mem-family-count" class="form-control" required min="1" value="1">
           </div>
-
+          
           <div class="form-group">
             <label class="form-label">Yearly Exemptions (Will set status to N/A)</label>
-            <div id="member-exemptions-container"
-              style="border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; background: var(--bg-app); max-height: 120px; overflow-y:auto;">
+            <div id="member-exemptions-container" style="border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; background: var(--bg-app); max-height: 120px; overflow-y:auto;">
               <!-- exemptions checkboxes append dynamically -->
             </div>
           </div>
@@ -2475,67 +2283,61 @@
     <div class="modal" style="max-width: 550px;">
       <div class="modal-header">
         <h3 class="modal-title" id="payment-modal-title">Record Dues Payment</h3>
-        <button class="modal-close-btn" onclick="closeModal('modal-payment')">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button type="button" id="pay-ok-btn" onclick="showPaymentSummary()" style="background: linear-gradient(135deg, #10b981, #059669); color:#fff; border:none; border-radius:8px; padding:7px 16px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:5px; letter-spacing:0.3px; box-shadow:0 2px 8px rgba(16,185,129,0.35); transition: transform 0.1s, box-shadow 0.1s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+            OK
+          </button>
+          <button class="modal-close-btn" onclick="closeModal('modal-payment')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
       </div>
       <form id="payment-form" onsubmit="submitPaymentForm(event)">
         <div class="modal-body">
           <input type="hidden" id="pay-edit-receipt-no">
-
+          
           <div class="checkbox-container" style="margin-bottom:8px;">
             <input type="checkbox" id="pay-is-non-member" onchange="toggleNonMemberLayout()">
-            <label for="pay-is-non-member" style="font-weight:700; cursor:pointer;">This is a Non-Member Voluntary
-              Donation</label>
+            <label for="pay-is-non-member" style="font-weight:700; cursor:pointer;">This is a Non-Member Voluntary Donation</label>
           </div>
-
-          <div class="form-group" id="pay-member-select-group">
+          
+          <div class="form-group form-group-horizontal" id="pay-member-select-group">
             <label class="form-label">Select Member</label>
             <select id="pay-member-id" class="form-control" onchange="loadMemberDetailsForPayment()">
               <option value="">-- Choose Member --</option>
             </select>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">Payee Name</label>
-            <input type="text" id="pay-name" class="form-control" required placeholder="Name">
-          </div>
-
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-            <div class="form-group">
-              <label class="form-label">Mobile Number</label>
-              <input type="text" id="pay-mobile" class="form-control" required placeholder="Digits only (min 10)">
+          
+          <div style="display:grid; grid-template-columns: 2fr 1.4fr 1.4fr; gap:10px; margin-bottom:8px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Payee Name</label>
+              <input type="text" id="pay-name" class="form-control" required placeholder="Name" style="width:100%;">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Mobile</label>
+              <input type="text" id="pay-mobile" class="form-control" required placeholder="10-digit">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
               <label class="form-label">Date</label>
-              <div class="date-input-container"
-                style="position:relative; display:flex; align-items:center; width:100%;">
-                <input type="text" id="pay-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY"
-                  pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                  style="padding-right: 36px; width:100%;">
-                <input type="date" id="pay-date-picker"
-                  style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                  onchange="syncDatePickerToText('pay-date-picker', 'pay-date')">
-                <span
-                  style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+              <div class="date-input-container" style="position:relative; display:flex; align-items:center;">
+                <input type="text" id="pay-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right:32px; width:100%;">
+                <input type="date" id="pay-date-picker" style="position:absolute; right:6px; width:22px; height:22px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('pay-date-picker', 'pay-date')">
+                <span style="position:absolute; right:8px; pointer-events:none; color:var(--color-text-muted); font-size:13px;">📅</span>
               </div>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Deposit Account</label>
+          <div class="form-group form-group-horizontal">
+            <label class="form-label">Deposit A/c</label>
             <select id="pay-account" class="form-control" required></select>
           </div>
-
+          
           <div style="margin-top: 8px; margin-bottom: 8px;">
-            <a href="javascript:void(0)" onclick="toggleAdvancedPaymentOptions()" id="advanced-pay-toggle"
-              style="font-size: 13px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 4px; font-weight: 500;">
+            <a href="javascript:void(0)" onclick="toggleAdvancedPaymentOptions()" id="advanced-pay-toggle" style="font-size: 13px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 4px; font-weight: 500;">
               <span id="advanced-pay-arrow">▸</span> Advanced Options (Receipt Override / Reference ID)
             </a>
-            <div id="advanced-pay-fields" class="hidden"
-              style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-left: 2px solid var(--border-color); padding-left: 12px;">
+            <div id="advanced-pay-fields" class="hidden" style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-left: 2px solid var(--border-color); padding-left: 12px;">
               <div class="form-group">
                 <label class="form-label">Receipt Number Override</label>
                 <input type="text" id="pay-receipt-override" class="form-control" placeholder="Auto-generated if blank">
@@ -2546,20 +2348,19 @@
               </div>
             </div>
           </div>
-
+          
           <div class="form-group" id="pay-dues-section">
             <label class="form-label">Select Unpaid Years Dues</label>
             <div id="dues-years-selectors" class="dues-years-selectors-container">
               <!-- dynamic year checkboxes -->
             </div>
           </div>
-
+          
           <div class="form-group">
             <label class="form-label">Voluntary Donation Amount (INR)</label>
-            <input type="number" id="pay-donation" class="form-control" value="0" min="0"
-              oninput="calculateTotalPaymentAmount()">
+            <input type="number" id="pay-donation" class="form-control" value="0" min="0" oninput="calculateTotalPaymentAmount()">
           </div>
-
+          
           <div class="total-summary-box">
             <span style="font-weight:700; font-size:14px; color:var(--primary);">Calculated Total:</span>
             <span style="font-size:18px; font-weight:800;" id="pay-total-display">INR 0.00</span>
@@ -2574,6 +2375,34 @@
   </div>
 
   <!-- ========================================================
+       MODAL: PAYMENT SUMMARY CONFIRMATION
+       ======================================================== -->
+  <div id="modal-pay-summary" class="modal-overlay" style="z-index:1100;">
+    <div class="modal" style="max-width:440px; z-index:1101;">
+      <div class="modal-header" style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(16,185,129,0.1));">
+        <h3 class="modal-title" style="display:flex;align-items:center;gap:8px;">
+          <svg width="18" height="18" fill="none" stroke="#10b981" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Confirm Receipt
+        </h3>
+        <button class="modal-close-btn" onclick="closeModal('modal-pay-summary')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="modal-body" style="gap:0; padding:20px 24px;">
+        <p style="font-size:12px; color:var(--color-text-muted); margin-bottom:14px;">Please verify the details before saving. Once confirmed, the receipt will be recorded.</p>
+        <div id="pay-summary-content" style="display:flex; flex-direction:column; gap:8px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-pay-summary')">← Edit</button>
+        <button type="button" class="btn btn-primary" id="pay-summary-confirm-btn" onclick="confirmAndSavePayment()" style="background:linear-gradient(135deg,#10b981,#059669);">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+          Confirm & Save
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
        MODAL: RECORD EXPENSE VOUCHER
        ======================================================== -->
   <div id="modal-expense" class="modal-overlay">
@@ -2581,20 +2410,18 @@
       <div class="modal-header">
         <h3 class="modal-title" id="expense-modal-title">Record Expense Voucher</h3>
         <button class="modal-close-btn" onclick="closeModal('modal-expense')">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
       <form id="expense-form" onsubmit="submitExpenseForm(event)">
         <div class="modal-body">
           <input type="hidden" id="exp-edit-voucher-no">
-
+          
           <div class="form-group">
             <label class="form-label">Paid To (Payee Name)</label>
             <input type="text" id="exp-paid-to" class="form-control" required placeholder="Who was paid">
           </div>
-
+          
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div class="form-group">
               <label class="form-label">Amount (INR)</label>
@@ -2612,20 +2439,14 @@
               </select>
             </div>
           </div>
-
+          
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div class="form-group">
               <label class="form-label">Date</label>
-              <div class="date-input-container"
-                style="position:relative; display:flex; align-items:center; width:100%;">
-                <input type="text" id="exp-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY"
-                  pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required
-                  style="padding-right: 36px; width:100%;">
-                <input type="date" id="exp-date-picker"
-                  style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;"
-                  onchange="syncDatePickerToText('exp-date-picker', 'exp-date')">
-                <span
-                  style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+              <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                <input type="text" id="exp-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                <input type="date" id="exp-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('exp-date-picker', 'exp-date')">
+                <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
               </div>
             </div>
             <div class="form-group">
@@ -2644,11 +2465,10 @@
               <input type="text" id="exp-ref-id" class="form-control" placeholder="Transaction Ref">
             </div>
           </div>
-
+          
           <div class="form-group">
             <label class="form-label">Detailed Narration</label>
-            <textarea id="exp-narration" class="form-control" rows="3" placeholder="Provide details of expenditure"
-              required></textarea>
+            <textarea id="exp-narration" class="form-control" rows="3" placeholder="Provide details of expenditure" required></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -2674,21 +2494,17 @@
           ⚠️ Fixed Deposit Maturity Warning
         </h3>
         <button class="modal-close-btn" onclick="closeModal('modal-fd-alerts')">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
       <div class="modal-body" style="gap:16px;">
-        <p style="font-size: 14px; font-weight: 500;">The following Fixed Deposits are approaching maturity in the next
-          30 days:</p>
+        <p style="font-size: 14px; font-weight: 500;">The following Fixed Deposits are approaching maturity in the next 30 days:</p>
         <div id="fd-alerts-modal-list" style="display:flex; flex-direction:column; gap:12px;">
           <!-- alerts list append here -->
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" onclick="closeModal('modal-fd-alerts')"
-          style="background-color: var(--warning); color: #000; font-weight:700;">Acknowledge</button>
+        <button type="button" class="btn btn-warning" onclick="closeModal('modal-fd-alerts')" style="background-color: var(--warning); color: #000; font-weight:700;">Acknowledge</button>
       </div>
     </div>
   </div>
@@ -2706,27 +2522,22 @@
       <div class="modal-header">
         <h3 class="modal-title" id="receipt-action-title">Receipt Registered Successfully</h3>
         <button class="modal-close-btn" onclick="closeModal('modal-receipt-action')">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
       </div>
       <div class="modal-body" style="text-align: center; gap: 16px; padding: 32px 24px;">
         <div style="font-size: 48px; color: var(--success);">✓</div>
         <p style="font-size:14px; font-weight: 600;">
-          Transaction code <strong id="receipt-action-no-display" style="color:var(--primary);">REC-XXXX</strong> is
-          generated and recorded to the selected ledger account.
+          Transaction code <strong id="receipt-action-no-display" style="color:var(--primary);">REC-XXXX</strong> is generated and recorded to the selected ledger account.
         </p>
         <div style="display:flex; flex-direction:column; gap:12px; margin-top:16px;">
           <a id="receipt-pdf-btn" href="#" target="_blank" class="btn btn-primary" style="padding:12px;">
             Open PDF Receipt File
           </a>
-          <a id="receipt-wa-btn" href="#" target="_blank" class="btn btn-success"
-            style="padding:12px; font-weight:700;">
+          <a id="receipt-wa-btn" href="#" target="_blank" class="btn btn-success" style="padding:12px; font-weight:700;">
             Share Receipt via WhatsApp
           </a>
-          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-receipt-action')"
-            style="padding:12px;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-receipt-action')" style="padding:12px;">
             Back to Dashboard
           </button>
         </div>
@@ -2751,7 +2562,7 @@
       years: [],
       stats: {}
     };
-
+    
     var expandedMemberIds = new Set();
     var allAccordionsExpanded = false;
     var currentView = "dashboard";
@@ -2759,40 +2570,40 @@
     // Setup Standalone Proxy or Mock Environment
     var isMocked = false;
     var isStandalone = (typeof google === 'undefined' || !google.script || !google.script.run);
-
+    
     function setupStandaloneProxy(url) {
       window.google = {
         script: {
           run: {
             successCallback: null,
             failureCallback: null,
-            withSuccessHandler: function (cb) {
+            withSuccessHandler: function(cb) {
               this.successCallback = cb;
               return this;
             },
-            withFailureHandler: function (cb) {
+            withFailureHandler: function(cb) {
               this.failureCallback = cb;
               return this;
             }
           }
         }
       };
-
+      
       var runProxy = new Proxy({}, {
-        get: function (target, propKey) {
-          return function (...args) {
+        get: function(target, propKey) {
+          return function(...args) {
             var successHandler = google.script.run.successCallback;
             var failureHandler = google.script.run.failureCallback;
-
+            
             google.script.run.successCallback = null;
             google.script.run.failureCallback = null;
-
+            
             var activeUrl = localStorage.getItem("google_sheet_web_app_url");
             if (!activeUrl) {
               if (failureHandler) failureHandler(new Error("Web App API URL is not configured."));
               return;
             }
-
+            
             fetch(activeUrl, {
               method: "POST",
               mode: "cors",
@@ -2804,33 +2615,33 @@
                 arguments: args
               })
             })
-              .then(response => {
-                if (!response.ok) throw new Error("HTTP Status " + response.status);
-                return response.json();
-              })
-              .then(data => {
-                if (successHandler) successHandler(data);
-              })
-              .catch(err => {
-                console.error("Backend error calling " + propKey + ":", err);
-                if (failureHandler) failureHandler(err);
-              });
+            .then(response => {
+              if (!response.ok) throw new Error("HTTP Status " + response.status);
+              return response.json();
+            })
+            .then(data => {
+              if (successHandler) successHandler(data);
+            })
+            .catch(err => {
+              console.error("Backend error calling " + propKey + ":", err);
+              if (failureHandler) failureHandler(err);
+            });
           };
         }
       });
-
+      
       Object.setPrototypeOf(google.script.run, runProxy);
     }
 
     if (isStandalone) {
       var defaultUrl = "https://script.google.com/macros/s/AKfycbzmonhm0sk_5_hhWjtbr4aEooa4qztBm4aNvDRc6xcc-DiZedWta_NrdhYbe9Z80sFq6w/exec";
       var webAppUrl = localStorage.getItem("google_sheet_web_app_url") || defaultUrl;
-
+      
       // Seed default URL to localStorage for settings form auto-population
       if (!localStorage.getItem("google_sheet_web_app_url")) {
         localStorage.setItem("google_sheet_web_app_url", defaultUrl);
       }
-
+      
       setupStandaloneProxy(webAppUrl);
     }
 
@@ -2882,10 +2693,10 @@
       var textInput = document.getElementById(textId);
       var pickerInput = document.getElementById(pickerId);
       if (!textInput) return;
-
+      
       var formatted = formatToDdMmYyyy(val);
       textInput.value = formatted;
-
+      
       if (pickerInput) {
         var iso = parseDdMmYyyyToYyyyMmDd(formatted);
         pickerInput.value = iso;
@@ -2902,8 +2713,8 @@
     function setupDateMasking(inputId, pickerId) {
       var input = document.getElementById(inputId);
       if (!input) return;
-
-      input.addEventListener('input', function (e) {
+      
+      input.addEventListener('input', function(e) {
         var value = e.target.value.replace(/\D/g, '');
         var formatted = '';
         if (value.length > 0) {
@@ -2916,7 +2727,7 @@
           formatted += '/' + value.substring(4, 8);
         }
         e.target.value = formatted;
-
+        
         if (value.length === 8) {
           var isoDate = parseDdMmYyyyToYyyyMmDd(formatted);
           var picker = document.getElementById(pickerId);
@@ -2935,7 +2746,7 @@
         { text: 'pay-date', picker: 'pay-date-picker' },
         { text: 'exp-date', picker: 'exp-date-picker' }
       ];
-      dateFields.forEach(function (f) {
+      dateFields.forEach(function(f) {
         setupDateMasking(f.text, f.picker);
       });
     }
@@ -2961,7 +2772,7 @@
       if (sidebar && backdrop) {
         var isCurrentlyActive = sidebar.classList.contains("active");
         var targetActive = (typeof force === 'boolean') ? force : !isCurrentlyActive;
-
+        
         if (targetActive) {
           sidebar.classList.add("active");
           backdrop.classList.add("active");
@@ -2988,7 +2799,7 @@
     function toggleForceMobileMode() {
       var body = document.body;
       var isCurrentlyMobile = window.innerWidth <= 992;
-
+      
       if (isCurrentlyMobile) {
         // Toggling on actual mobile forces desktop layout representation
         if (body.classList.contains("force-desktop")) {
@@ -3023,7 +2834,7 @@
     function updateLayoutModeUI(mode) {
       var btn = document.getElementById("force-mobile-toggle");
       if (!btn) return;
-
+      
       if (mode === "mobile") {
         btn.style.color = "var(--primary)";
         btn.style.borderColor = "var(--primary)";
@@ -3044,7 +2855,7 @@
       if (isStandalone) {
         var card = document.querySelector(".login-card");
         if (!card) return;
-
+        
         // Add toggle button to card if not present
         if (!document.getElementById("standalone-toggle-btn")) {
           var toggleBtn = document.createElement("a");
@@ -3052,7 +2863,7 @@
           toggleBtn.href = "#";
           toggleBtn.textContent = "⚙️ Configure API Connection";
           toggleBtn.style.cssText = "display:block; margin-top:16px; font-size:12px; color:var(--primary); text-align:center; text-decoration:none; font-weight:600;";
-          toggleBtn.onclick = function (e) {
+          toggleBtn.onclick = function(e) {
             e.preventDefault();
             var area = document.getElementById("standalone-config-area");
             if (area.style.display === "none") {
@@ -3065,7 +2876,7 @@
           };
           card.appendChild(toggleBtn);
         }
-
+        
         // If no Web App URL is configured, auto-open the config area
         var currentUrl = localStorage.getItem("google_sheet_web_app_url");
         if (!currentUrl) {
@@ -3085,19 +2896,19 @@
         alert("The URL must start with http:// or https://");
         return;
       }
-
+      
       localStorage.setItem("google_sheet_web_app_url", inputVal);
       showToast("API Connection URL saved!");
       document.getElementById("standalone-config-area").style.display = "none";
-
+      
       // Update isMocked and switch from mock to proxy mode
       isMocked = false;
       setupStandaloneProxy(inputVal);
-
+      
       // Reload data to populate the user login dropdown from the newly connected sheet
       showLoader("Connecting to backend sheets API...");
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           hideLoader();
           if (res.success) {
             appState.users = res.users;
@@ -3107,7 +2918,7 @@
             showToast("Connection successful but error retrieving users: " + res.error, "warning");
           }
         })
-        .withFailureHandler(function (err) {
+        .withFailureHandler(function(err) {
           hideLoader();
           alert("Failed to connect to Google Sheets Web App. Please verify the URL and deployment settings.\n\nError: " + err);
         })
@@ -3115,7 +2926,7 @@
     }
 
     // App Initialization
-    window.addEventListener("load", function () {
+    window.addEventListener("load", function() {
       initAllDateInputs();
       initStandaloneConfig();
       initLayoutMode();
@@ -3123,26 +2934,26 @@
       // Register PWA Service Worker
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
-          .then(function (reg) {
+          .then(function(reg) {
             console.log('PWA ServiceWorker registered with scope: ', reg.scope);
           })
-          .catch(function (err) {
+          .catch(function(err) {
             console.warn('PWA ServiceWorker registration failed: ', err);
           });
       }
 
       var loggedInUser = sessionStorage.getItem("loggedInUser");
       var displayName = sessionStorage.getItem("displayName");
-
+      
       if (loggedInUser) {
         document.getElementById("login-overlay").classList.remove("active");
         document.getElementById("user-display-name").textContent = displayName || loggedInUser;
         loadData();
       } else {
         showLoader("Initializing login panel...");
-
+        
         google.script.run
-          .withSuccessHandler(function (res) {
+          .withSuccessHandler(function(res) {
             hideLoader();
             if (res.success) {
               appState.users = res.users;
@@ -3152,7 +2963,7 @@
               alert("Critical load error: " + res.error);
             }
           })
-          .withFailureHandler(function (err) {
+          .withFailureHandler(function(err) {
             hideLoader();
             if (isMocked) {
               // If it failed in mock, show alert but try to activate login with fallback admin
@@ -3184,24 +2995,24 @@
       e.preventDefault();
       var username = document.getElementById("login-username").value;
       var password = document.getElementById("login-password").value;
-
+      
       showLoader("Authenticating credentials...");
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           hideLoader();
           if (res.success) {
             sessionStorage.setItem("loggedInUser", res.user.username);
             sessionStorage.setItem("displayName", res.user.displayName);
             document.getElementById("user-display-name").textContent = res.user.displayName;
             document.getElementById("login-overlay").classList.remove("active");
-
+            
             showToast("Welcome back, " + res.user.displayName + "!");
             loadData();
           } else {
             showToast(res.error, "danger");
           }
         })
-        .withFailureHandler(function (err) {
+        .withFailureHandler(function(err) {
           hideLoader();
           showToast("Server Connection Refused: " + err, "danger");
         })
@@ -3220,11 +3031,11 @@
       document.getElementById("loader-text").textContent = txt || "Syncing data...";
       document.getElementById("loader").classList.remove("hidden");
     }
-
+    
     function hideLoader() {
       document.getElementById("loader").classList.add("hidden");
     }
-
+    
     function showToast(msg, type) {
       var container = document.getElementById("toast-container");
       var t = document.createElement("div");
@@ -3255,8 +3066,8 @@
         localStorage.setItem("theme", "dark");
       }
     }
-
-    (function () {
+    
+    (function() {
       var saved = localStorage.getItem("theme");
       if (saved === "light") {
         document.documentElement.classList.remove("dark");
@@ -3275,7 +3086,7 @@
     function loadData() {
       showLoader("Synchronizing transactions...");
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           hideLoader();
           if (res.success) {
             appState.settings = res.settings;
@@ -3288,7 +3099,7 @@
             appState.users = res.users;
             appState.years = res.years;
             appState.stats = res.stats;
-
+            
             buildDashboardView();
             buildMembersTable();
             buildPaymentsTable();
@@ -3297,19 +3108,19 @@
             buildFDsTable();
             buildPettyTable();
             buildOutstandingTable();
-
+            
             populateSettingsForm();
             populateMemberDropdowns();
             populateAccountDropdowns();
             buildYearsVisibilitySettingsList();
-
+            
             document.getElementById("footer-org-name").textContent = appState.settings["Organization Name"] || "Our Community Association";
             checkFixedDepositMaturityWarnings();
           } else {
             showToast("Database Fetch Error: " + res.error, "danger");
           }
         })
-        .withFailureHandler(function (err) {
+        .withFailureHandler(function(err) {
           hideLoader();
           showToast("Database Server Offline: " + err, "danger");
         })
@@ -3321,10 +3132,10 @@
       toggleMobileSidebar(false); // Close sidebar drawer on selection in mobile viewports
       document.querySelectorAll(".view-section").forEach(v => v.classList.add("hidden"));
       document.querySelectorAll(".menu-item").forEach(m => m.classList.remove("active"));
-
+      
       document.getElementById("view-" + viewName).classList.remove("hidden");
       document.getElementById("menu-" + viewName).classList.add("active");
-
+      
       var pageTitle = "Dashboard Summary";
       if (viewName === "members") pageTitle = "Members Directory";
       else if (viewName === "payments") pageTitle = "Dues & Payments Ledger";
@@ -3334,9 +3145,9 @@
       else if (viewName === "petty") pageTitle = "Petty Cash Advances";
       else if (viewName === "outstanding") pageTitle = "Outstanding Fee Report";
       else if (viewName === "settings") pageTitle = "System Configuration & Users";
-
+      
       document.getElementById("page-header-title").textContent = pageTitle;
-
+      
       if (viewName === "ledgers") {
         loadLedgerDetails();
       }
@@ -3349,7 +3160,7 @@
       var cashBal = 0;
       var bankBal = 0;
       var numBankAccounts = 0;
-
+      
       appState.accounts.forEach(acc => {
         if (acc.type === "Cash") {
           cashBal = acc.currentBalance;
@@ -3358,7 +3169,7 @@
           numBankAccounts++;
         }
       });
-
+      
       var totalFD = 0;
       var numActiveFDs = 0;
       appState.fixedDeposits.forEach(fd => {
@@ -3367,26 +3178,26 @@
           numActiveFDs++;
         }
       });
-
+      
       document.getElementById("stat-cash").textContent = "INR " + cashBal.toFixed(2);
       document.getElementById("stat-bank").textContent = "INR " + bankBal.toFixed(2);
       document.getElementById("stat-bank-meta").textContent = `${numBankAccounts} bank accounts active`;
-
+      
       document.getElementById("stat-fds").textContent = "INR " + totalFD.toFixed(2);
       document.getElementById("stat-fds-meta").textContent = `${numActiveFDs} FD Certificates active`;
-
+      
       document.getElementById("stat-outstanding").textContent = appState.stats.outstandingCount;
-
+      
       var totalColl = parseFloat(appState.stats.totalCollected || 0);
       var totalExp = parseFloat(appState.stats.totalExpenses || 0);
-
+      
       document.getElementById("collected-bar-val").textContent = "Total Income: INR " + totalColl.toFixed(2);
       document.getElementById("expenses-bar-val").textContent = "Total Outflow: INR " + totalExp.toFixed(2);
-
+      
       var totalSum = totalColl + totalExp;
       var collPct = totalSum > 0 ? (totalColl / totalSum) * 100 : 50;
       var expPct = totalSum > 0 ? (totalExp / totalSum) * 100 : 50;
-
+      
       document.getElementById("ledger-collected-bar").style.width = collPct + "%";
       document.getElementById("ledger-expenses-bar").style.width = expPct + "%";
     }
@@ -3395,7 +3206,7 @@
       switchView("payments");
       openNewPaymentForm();
     }
-
+    
     function quickPayShortcutFromMembers(memberId) {
       quickPayDues(memberId);
     }
@@ -3406,16 +3217,16 @@
     function buildMembersTable() {
       var tbody = document.querySelector("#members-table tbody");
       tbody.innerHTML = "";
-
+      
       appState.members.forEach(m => {
         var memberId = m["Member ID"];
-
+        
         var tr = document.createElement("tr");
         tr.id = "mem-row-" + memberId;
-
+        
         var isExpanded = expandedMemberIds.has(memberId);
         if (isExpanded) tr.className = "expanded";
-
+        
         tr.innerHTML = `
           <td>
             <div class="accordion-toggle-btn" onclick="toggleMemberAccordion('${memberId}')">
@@ -3435,23 +3246,23 @@
           </td>
         `;
         tbody.appendChild(tr);
-
+        
         // Append expanded accordion row
         var trExp = document.createElement("tr");
         trExp.id = "mem-exp-" + memberId;
         if (!isExpanded) trExp.className = "hidden";
-
+        
         var duesGridHtml = "";
         appState.years.forEach(yr => {
           if (!isYearVisible(yr)) return; // Skip hidden financial years
-
+          
           var status = m[yr + " Status"];
           var receipt = m[yr + " Receipt"];
-
+          
           var tagClass = "";
           var statusTxt = "";
           var receiptLinkHtml = "";
-
+          
           if (status === "Paid") {
             tagClass = "paid";
             statusTxt = "Paid";
@@ -3471,7 +3282,7 @@
             tagClass = "pending";
             statusTxt = "Pending";
           }
-
+          
           duesGridHtml += `
             <div class="dues-year-tag ${tagClass}">
               <span class="year-lbl">F.Y. ${yr}</span>
@@ -3483,7 +3294,7 @@
             </div>
           `;
         });
-
+        
         trExp.innerHTML = `
           <td colspan="7" style="padding:0;">
             <div class="member-accordion-details">
@@ -3511,10 +3322,10 @@
     function toggleMemberAccordion(memberId) {
       var row = document.getElementById("mem-row-" + memberId);
       var exp = document.getElementById("mem-exp-" + memberId);
-
+      
       var isCollapsed = exp.classList.toggle("hidden");
       row.classList.toggle("expanded", !isCollapsed);
-
+      
       if (isCollapsed) {
         expandedMemberIds.delete(memberId);
       } else {
@@ -3528,7 +3339,7 @@
         var memberId = m["Member ID"];
         var row = document.getElementById("mem-row-" + memberId);
         var exp = document.getElementById("mem-exp-" + memberId);
-
+        
         if (allAccordionsExpanded) {
           exp.classList.remove("hidden");
           row.classList.add("expanded");
@@ -3543,26 +3354,26 @@
 
     function filterMembers() {
       var query = document.getElementById("member-search").value.toLowerCase().trim();
-
+      
       appState.members.forEach(m => {
         var memberId = (m["Member ID"] || "").toString();
         var srNo = (m["Sr No"] || "").toString().toLowerCase();
         var name = (m["Name"] || "").toLowerCase();
         var mobile = (m["Mobile Number"] || "").toString().toLowerCase();
-
+        
         var row = document.getElementById("mem-row-" + memberId);
         var exp = document.getElementById("mem-exp-" + memberId);
-
+        
         // Safety check — DOM elements must exist
         if (!row || !exp) return;
-
+        
         var memberIdLower = memberId.toLowerCase();
         var matches = !query ||
           name.indexOf(query) > -1 ||
           mobile.indexOf(query) > -1 ||
           memberIdLower.indexOf(query) > -1 ||
           srNo.indexOf(query) > -1;
-
+        
         if (matches) {
           row.classList.remove("hidden");
           // Only show accordion row if it was previously expanded
@@ -3584,12 +3395,12 @@
     function quickPayDues(memberId) {
       switchView("payments");
       openNewPaymentForm();
-
+      
       var select = document.getElementById("pay-member-id");
       select.value = memberId;
-
+      
       loadMemberDetailsForPayment();
-
+      
       var chks = document.getElementsByName("pay-years");
       chks.forEach(chk => {
         if (!chk.disabled) {
@@ -3599,7 +3410,7 @@
         }
       });
       calculateTotalPaymentAmount();
-
+      
       var modal = document.querySelector("#modal-payment .modal");
       modal.style.transition = "box-shadow 0.3s ease";
       modal.style.boxShadow = "0 0 20px rgba(99, 102, 241, 0.6)";
@@ -3619,7 +3430,7 @@
     function openMemberModal(isNew, memberId) {
       var form = document.getElementById("member-form");
       form.reset();
-
+      
       var exemptedYears = [];
       if (isNew) {
         document.getElementById("member-modal-title").textContent = "Add New Member";
@@ -3632,7 +3443,7 @@
           document.getElementById("mem-name").value = member["Name"];
           document.getElementById("mem-mobile").value = member["Mobile Number"];
           document.getElementById("mem-family-count").value = member["Family Members Count"];
-
+          
           // Map exemptions based on NA status in member object
           appState.years.forEach(yr => {
             if (member[yr + " Status"] === "NA") {
@@ -3648,13 +3459,13 @@
     function renderExemptionsCheckboxes(exemptedYears) {
       var container = document.getElementById("member-exemptions-container");
       container.innerHTML = "";
-
+      
       var count = 0;
       appState.years.forEach(yr => {
         if (!isYearVisible(yr)) return; // Only show visible financial years for exemption setup
         count++;
         var isExempt = (exemptedYears && exemptedYears.indexOf(yr) > -1);
-
+        
         var div = document.createElement("div");
         div.className = "checkbox-container";
         div.style.marginBottom = "6px";
@@ -3664,7 +3475,7 @@
         `;
         container.appendChild(div);
       });
-
+      
       if (count === 0) {
         container.innerHTML = '<span style="font-size:12px; color:var(--color-text-muted);">No financial years configured.</span>';
       }
@@ -3672,16 +3483,16 @@
 
     function submitMemberForm(e) {
       e.preventDefault();
-
+      
       var mobileInput = document.getElementById("mem-mobile").value.trim();
       if (!validateMobileNumber(mobileInput)) {
         alert("Validation Error: Mobile number must contain digits only with a minimum length of 10 digits.");
         return;
       }
-
+      
       var memberId = document.getElementById("mem-edit-id").value;
       var isNew = (memberId === "");
-
+      
       // Collect exemptions list
       var exemptions = [];
       var chks = document.getElementsByName("mem-exemptions");
@@ -3690,7 +3501,7 @@
           exemptions.push(chk.value);
         }
       });
-
+      
       var memberData = {
         "Member ID": memberId,
         "Name": document.getElementById("mem-name").value.trim(),
@@ -3698,12 +3509,12 @@
         "Family Members Count": parseInt(document.getElementById("mem-family-count").value),
         exemptions: exemptions
       };
-
+      
       closeModal("modal-member");
       showLoader("Saving member data...");
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("Member saved successfully!");
             loadData();
@@ -3712,7 +3523,7 @@
             showToast("Error: " + res.error, "danger");
           }
         })
-        .withFailureHandler(function (err) {
+        .withFailureHandler(function(err) {
           hideLoader();
           showToast("Network Error: " + err, "danger");
         })
@@ -3727,7 +3538,7 @@
       if (confirm("Are you sure you want to permanently delete member " + id + "? This will erase their entry in the list.")) {
         showLoader("Removing member from directory...");
         google.script.run
-          .withSuccessHandler(function (res) {
+          .withSuccessHandler(function(res) {
             if (res.success) {
               showToast("Member deleted.");
               loadData();
@@ -3736,7 +3547,7 @@
               showToast("Error: " + res.error, "danger");
             }
           })
-          .withFailureHandler(function (err) {
+          .withFailureHandler(function(err) {
             hideLoader();
             showToast("Network Error: " + err, "danger");
           })
@@ -3750,10 +3561,10 @@
     function buildPaymentsTable() {
       var tbody = document.querySelector("#payments-table tbody");
       tbody.innerHTML = "";
-
+      
       appState.payments.forEach(p => {
-        if (p["Receipt Number"] === "DELETED") return;
-
+        if (p["Receipt Number"] === "DELETED") return; 
+        
         var tr = document.createElement("tr");
         tr.innerHTML = `
           <td style="font-weight:700;">${p["Receipt Number"]}</td>
@@ -3798,34 +3609,34 @@
       var paySelect = document.getElementById("pay-account");
       var expSelect = document.getElementById("exp-account");
       var pthSelect = document.getElementById("pth-account");
-
+      
       var trfFrom = document.getElementById("trf-from");
       var trfTo = document.getElementById("trf-to");
       var ptsAccount = document.getElementById("pts-account");
-
+      
       paySelect.innerHTML = "";
       expSelect.innerHTML = "";
       pthSelect.innerHTML = "";
       trfFrom.innerHTML = "";
       trfTo.innerHTML = "";
       ptsAccount.innerHTML = "";
-
+      
       appState.accounts.forEach(acc => {
         var opt1 = document.createElement("option");
         opt1.value = acc.name;
         opt1.textContent = `${acc.name} (Bal: ${acc.currentBalance.toFixed(2)})`;
         paySelect.appendChild(opt1);
-
+        
         var opt2 = document.createElement("option");
         opt2.value = acc.name;
         opt2.textContent = `${acc.name} (Bal: ${acc.currentBalance.toFixed(2)})`;
         expSelect.appendChild(opt2);
-
+        
         var opt3 = document.createElement("option");
         opt3.value = acc.name;
         opt3.textContent = `${acc.name} (Bal: ${acc.currentBalance.toFixed(2)})`;
         trfFrom.appendChild(opt3);
-
+        
         var opt4 = document.createElement("option");
         opt4.value = acc.name;
         opt4.textContent = `${acc.name} (Bal: ${acc.currentBalance.toFixed(2)})`;
@@ -3847,10 +3658,10 @@
       var isNonMember = document.getElementById("pay-is-non-member").checked;
       var memSelectGrp = document.getElementById("pay-member-select-group");
       var duesSection = document.getElementById("pay-dues-section");
-
+      
       var nameInput = document.getElementById("pay-name");
       var mobileInput = document.getElementById("pay-mobile");
-
+      
       if (isNonMember) {
         memSelectGrp.classList.add("hidden");
         duesSection.classList.add("hidden");
@@ -3865,69 +3676,69 @@
         nameInput.setAttribute("readonly", "readonly");
         loadMemberDetailsForPayment();
       }
-
+      
       calculateTotalPaymentAmount();
     }
 
     function loadMemberDetailsForPayment(editingReceiptNo) {
       var isNonMember = document.getElementById("pay-is-non-member").checked;
       if (isNonMember) return;
-
+      
       var memberId = document.getElementById("pay-member-id").value;
       var nameInput = document.getElementById("pay-name");
       var mobileInput = document.getElementById("pay-mobile");
       var selectorsContainer = document.getElementById("dues-years-selectors");
-
+      
       selectorsContainer.innerHTML = "";
-
+      
       if (!memberId) {
         nameInput.value = "";
         mobileInput.value = "";
         return;
       }
-
+      
       var member = appState.members.find(m => m["Member ID"] === memberId);
       if (member) {
         nameInput.value = member["Name"];
         mobileInput.value = member["Mobile Number"] || "";
-
+        
         var hasOutstanding = false;
-
+        
         // Dynamically build checkboxes for years
         appState.years.forEach(yr => {
           if (!isYearVisible(yr)) return; // Skip hidden financial years
-
+          
           var status = member[yr + " Status"];
           if (status === undefined || status === null) status = "";
-
+          
           var statusStr = status.toString().trim().toUpperCase();
           var isPaid = (status === true || statusStr === "TRUE" || statusStr === "PAID" || status === "Paid");
           var isNA = (statusStr === "NA" || statusStr === "N/A");
-
+          
           var yearReceiptNo = member[yr + " Receipt"] || "";
           var isCurrentEditYear = (editingReceiptNo && yearReceiptNo === editingReceiptNo);
-
+          
           // Skip if the year is already paid or exempt, UNLESS it matches the current receipt we are editing!
           if ((isPaid || isNA) && !isCurrentEditYear) {
             return;
           }
-
+          
           hasOutstanding = true;
-
+          
           var div = document.createElement("div");
           div.className = "year-fee-box";
-
+          
           var isChecked = isCurrentEditYear || (!editingReceiptNo);
           var checkedAttr = isChecked ? 'checked' : '';
           var hiddenClass = isChecked ? '' : 'hidden';
-
+          
           var statusLblHtml = "";
           if (isCurrentEditYear) {
             statusLblHtml = `<span class="status-badge status-paid" style="padding: 2px 6px;">Paid (This Rec)</span>`;
           } else {
             statusLblHtml = `<span class="status-badge status-pending" style="padding: 2px 6px;">Outstanding</span>`;
           }
-
+          
           div.innerHTML = `
             <div class="year-fee-header">
               <div class="checkbox-container">
@@ -3940,7 +3751,7 @@
           `;
           selectorsContainer.appendChild(div);
         });
-
+        
         if (!hasOutstanding) {
           selectorsContainer.innerHTML = `
             <div class="dues-cleared-banner" style="grid-column: 1 / -1; padding: 15px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); font-weight: 600; text-align: center; margin-top: 10px;">
@@ -3955,7 +3766,7 @@
     function toggleYearFeeInput(year) {
       var chk = document.getElementById("chk-yr-" + year);
       var amtInput = document.getElementById("amt-yr-" + year);
-
+      
       if (chk.checked) {
         amtInput.classList.remove("hidden");
       } else {
@@ -3966,7 +3777,7 @@
 
     function calculateTotalPaymentAmount() {
       var total = parseFloat(document.getElementById("pay-donation").value || 0);
-
+      
       var chks = document.getElementsByName("pay-years");
       chks.forEach(chk => {
         if (chk.checked && !chk.disabled) {
@@ -3975,7 +3786,7 @@
           total += amt;
         }
       });
-
+      
       document.getElementById("pay-total-display").textContent = "INR " + total.toFixed(2);
     }
 
@@ -3985,9 +3796,9 @@
       document.getElementById("pay-is-non-member").checked = false;
       document.getElementById("pay-receipt-override").value = "";
       document.getElementById("pay-receipt-override").removeAttribute("readonly");
-
+      
       toggleNonMemberLayout();
-
+      
       setDateValue('pay-date', 'pay-date-picker', new Date());
       var advFields = document.getElementById("advanced-pay-fields");
       var advArrow = document.getElementById("advanced-pay-arrow");
@@ -3995,28 +3806,125 @@
       if (advArrow) advArrow.textContent = "▸";
       document.getElementById('pay-donation').value = 0;
       document.getElementById('pay-ref-id').value = "";
-
+      
       openModal("modal-payment");
+    }
+
+    // ---- OK Button: show summary popup before saving ----
+    function showPaymentSummary() {
+      // --- Validate first ---
+      var mobileInput = document.getElementById("pay-mobile").value.trim();
+      if (!mobileInput || !validateMobileNumber(mobileInput)) {
+        alert("Validation Error: A valid mobile number is required before proceeding.");
+        document.getElementById("pay-mobile").focus();
+        return;
+      }
+      var payName = document.getElementById("pay-name").value.trim();
+      if (!payName) {
+        alert("Please enter the Payee Name.");
+        document.getElementById("pay-name").focus();
+        return;
+      }
+      var payDate = document.getElementById("pay-date").value.trim();
+      if (!payDate) {
+        alert("Please enter the Payment Date.");
+        document.getElementById("pay-date").focus();
+        return;
+      }
+      var isNonMember = document.getElementById("pay-is-non-member").checked;
+      if (!isNonMember && !document.getElementById("pay-member-id").value) {
+        alert("Please select a member.");
+        return;
+      }
+
+      // Check dues / donation
+      var chks = document.getElementsByName("pay-years");
+      var hasSelectedDues = false;
+      var yearsText = [];
+      var feeTotal = 0;
+      chks.forEach(function(chk) {
+        if (chk.checked && !chk.disabled) {
+          hasSelectedDues = true;
+          var yr = chk.value;
+          var amt = parseFloat(document.getElementById("amt-yr-" + yr).value || 0);
+          feeTotal += amt;
+          yearsText.push("F.Y. " + yr + " (₹" + amt.toFixed(2) + ")");
+        }
+      });
+      var donation = parseFloat(document.getElementById("pay-donation").value || 0);
+      if (!isNonMember && !hasSelectedDues && donation <= 0) {
+        alert("Please select at least one unpaid year or enter a donation amount.");
+        return;
+      }
+
+      var grandTotal = feeTotal + donation;
+      var account = document.getElementById("pay-account").options[document.getElementById("pay-account").selectedIndex]?.text || document.getElementById("pay-account").value;
+      var refId = document.getElementById("pay-ref-id").value.trim();
+      var receiptOverride = document.getElementById("pay-receipt-override").value.trim();
+
+      // --- Build summary HTML ---
+      function summaryRow(label, value, highlight) {
+        return '<div style="display:flex; justify-content:space-between; align-items:baseline; padding:7px 0; border-bottom:1px solid var(--border-color);">' +
+          '<span style="font-size:12px; color:var(--color-text-muted); font-weight:500;">' + label + '</span>' +
+          '<span style="font-size:13px; font-weight:' + (highlight ? '700' : '600') + '; color:' + (highlight ? 'var(--success)' : 'var(--color-text-main)') + ';">' + value + '</span>' +
+          '</div>';
+      }
+
+      var html = '';
+      html += summaryRow("Payee Name", payName);
+      html += summaryRow("Mobile", mobileInput);
+      html += summaryRow("Date", payDate);
+      if (!isNonMember) {
+        var memSel = document.getElementById("pay-member-id");
+        var memText = memSel.options[memSel.selectedIndex]?.text || "-";
+        html += summaryRow("Member", memText);
+      } else {
+        html += summaryRow("Type", "Non-Member Voluntary Donation");
+      }
+      html += summaryRow("Deposit A/c", account);
+      if (yearsText.length > 0) {
+        html += summaryRow("Years", yearsText.join(", "));
+      }
+      if (donation > 0) {
+        html += summaryRow("Donation", "₹" + donation.toFixed(2));
+      }
+      if (refId) {
+        html += summaryRow("Reference ID", refId);
+      }
+      if (receiptOverride) {
+        html += summaryRow("Receipt No. Override", receiptOverride);
+      }
+      html += summaryRow("TOTAL AMOUNT", "₹" + grandTotal.toFixed(2), true);
+
+      document.getElementById("pay-summary-content").innerHTML = html;
+      openModal("modal-pay-summary");
+    }
+
+    // Called from Confirm & Save button inside the summary popup
+    function confirmAndSavePayment() {
+      closeModal("modal-pay-summary");
+      // Trigger the actual form submit
+      document.getElementById("payment-form").dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
     }
 
     function submitPaymentForm(e) {
       e.preventDefault();
-
+      
       var mobileInput = document.getElementById("pay-mobile").value.trim();
       if (!validateMobileNumber(mobileInput)) {
         alert("Validation Error: A valid mobile number (digits only, min 10 digits) is strictly required to record payments.");
         return;
       }
-
+      
       var receiptNo = document.getElementById("pay-edit-receipt-no").value;
       var isEdit = (receiptNo !== "");
       var isNonMember = document.getElementById("pay-is-non-member").checked;
       var memberId = isNonMember ? "NON-MEMBER" : document.getElementById("pay-member-id").value;
-
+      
       var yearlyFees = {};
       var chks = document.getElementsByName("pay-years");
       var hasSelectedDues = false;
-
+      
       chks.forEach(chk => {
         if (chk.checked && !chk.disabled) {
           hasSelectedDues = true;
@@ -4024,14 +3932,14 @@
           yearlyFees[yr] = parseFloat(document.getElementById("amt-yr-" + yr).value || 0);
         }
       });
-
+      
       if (!isNonMember && !hasSelectedDues && parseFloat(document.getElementById("pay-donation").value || 0) <= 0) {
         alert("Please select at least one unpaid year or enter a donation amount to record payment.");
         return;
       }
-
+      
       var activeUser = sessionStorage.getItem("loggedInUser") || "system";
-
+      
       var paymentData = {
         memberId: memberId,
         name: document.getElementById("pay-name").value.trim(),
@@ -4044,11 +3952,11 @@
         receiptOverride: document.getElementById("pay-receipt-override").value.trim(),
         preparedBy: activeUser
       };
-
+      
       closeModal("modal-payment");
       showLoader(isEdit ? "Updating payment ledger & PDF receipt..." : "Saving payment & converting to shortened PDF link...");
-
-      var scriptCall = isEdit
+      
+      var scriptCall = isEdit 
         ? google.script.run.withSuccessHandler(onPaymentSaved).withFailureHandler(onServerFail).editPayment(receiptNo, paymentData)
         : google.script.run.withSuccessHandler(onPaymentSaved).withFailureHandler(onServerFail).savePayment(paymentData);
     }
@@ -4058,19 +3966,19 @@
       if (res.success) {
         showToast("Payment successfully recorded!");
         loadData();
-
+        
         // Show Drive warning if PDF was skipped
         if (res.warning) {
           setTimeout(() => showToast("⚠️ " + res.warning, "danger"), 800);
         }
-
+        
         document.getElementById("receipt-action-title").textContent = res.warning ? "Payment Saved (PDF Pending)" : "Receipt Registered Successfully";
         document.getElementById("receipt-action-no-display").textContent = res.receiptNo;
         document.getElementById("receipt-pdf-btn").href = res.shortUrl;
-
+        
         var template = appState.settings["WhatsApp Template"] || "";
         var name = document.getElementById("pay-name").value.trim();
-
+        
         var donation = parseFloat(document.getElementById("pay-donation").value || 0);
         var total = donation;
         var paidYearsList = [];
@@ -4082,18 +3990,18 @@
             paidYearsList.push("F.Y. " + yr);
           }
         });
-
+        
         if (donation > 0) {
           paidYearsList.push("Voluntary Donation");
         }
         var narrationText = paidYearsList.join(", ");
-
+        
         var rawMsg = template;
         var orgName = appState.settings["Organization Name"] || "Our Org";
         var amountStr = total.toFixed(2);
         var receiptNoVal = res.receiptNo;
         var linkVal = res.shortUrl;
-
+        
         rawMsg = rawMsg
           .replace(/{ORG}/g, orgName)
           .replace(/\[Organization Name\]/g, orgName)
@@ -4112,7 +4020,7 @@
           .replace(/{LINK}/g, linkVal)
           .replace(/\[Link\]/g, linkVal)
           .replace(/\[Receipt Link\]/g, linkVal);
-
+          
         var encodedMsg = encodeURIComponent(rawMsg);
         var rawMobile = document.getElementById("pay-mobile").value.trim().replace(/\D/g, '');
         // Normalise to international format: prepend 91 if 10-digit Indian number
@@ -4169,21 +4077,21 @@
     function editPaymentAction(receiptNo) {
       var payment = appState.payments.find(p => p["Receipt Number"] === receiptNo);
       if (!payment) return;
-
+      
       openNewPaymentForm();
       document.getElementById("payment-modal-title").textContent = "Edit Payment Entry: " + receiptNo;
       document.getElementById("pay-edit-receipt-no").value = receiptNo;
       document.getElementById("pay-receipt-override").value = receiptNo;
       document.getElementById("pay-receipt-override").setAttribute("readonly", "readonly");
-
+      
       var isNonMember = (payment["Member ID"] === "NON-MEMBER");
       document.getElementById("pay-is-non-member").checked = isNonMember;
       toggleNonMemberLayout();
-
+      
       if (!isNonMember) {
         document.getElementById("pay-member-id").value = payment["Member ID"];
         loadMemberDetailsForPayment(receiptNo);
-
+        
         var breakdown = parseBreakdownString(payment["Fees Breakdown"]);
         for (var yr in breakdown) {
           var chk = document.getElementById("chk-yr-" + yr);
@@ -4195,14 +4103,14 @@
           }
         }
       }
-
+      
       document.getElementById("pay-name").value = payment["Name"];
       document.getElementById("pay-mobile").value = payment["Mobile Number"];
       setDateValue('pay-date', 'pay-date-picker', payment["Date"]);
       document.getElementById("pay-account").value = payment["Payment Mode"];
       document.getElementById("pay-ref-id").value = payment["Transaction ID"];
       document.getElementById("pay-donation").value = payment["Donation Amount"];
-
+      
       var advFields = document.getElementById("advanced-pay-fields");
       var advArrow = document.getElementById("advanced-pay-arrow");
       if (payment["Transaction ID"]) {
@@ -4212,7 +4120,7 @@
         if (advFields) advFields.classList.add("hidden");
         if (advArrow) advArrow.textContent = "▸";
       }
-
+      
       calculateTotalPaymentAmount();
     }
 
@@ -4220,7 +4128,7 @@
       if (confirm("Are you sure you want to VOID receipt " + receiptNo + "? This will reset the members' dues to Pending and set ledger amount to 0.")) {
         showLoader("Voiding receipt record...");
         google.script.run
-          .withSuccessHandler(function (res) {
+          .withSuccessHandler(function(res) {
             if (res.success) {
               showToast("Receipt voided successfully!");
               loadData();
@@ -4240,10 +4148,10 @@
     function buildExpensesTable() {
       var tbody = document.querySelector("#expenses-table tbody");
       tbody.innerHTML = "";
-
+      
       appState.expenses.forEach(e => {
         if (e["Voucher Number"] === "DELETED") return;
-
+        
         var tr = document.createElement("tr");
         tr.innerHTML = `
           <td style="font-weight:700;">${e["Voucher Number"]}</td>
@@ -4277,13 +4185,13 @@
     function openNewExpenseForm() {
       var form = document.getElementById("expense-form");
       form.reset();
-
+      
       document.getElementById("expense-modal-title").textContent = "Record Expense Voucher";
       document.getElementById("exp-edit-voucher-no").value = "";
       document.getElementById("exp-voucher-override").value = "";
       document.getElementById("exp-voucher-override").removeAttribute("readonly");
       document.getElementById("exp-ref-id").value = "";
-
+      
       setDateValue('exp-date', 'exp-date-picker', new Date());
       openModal("modal-expense");
     }
@@ -4292,9 +4200,9 @@
       e.preventDefault();
       var voucherNo = document.getElementById("exp-edit-voucher-no").value;
       var isEdit = (voucherNo !== "");
-
+      
       var activeUser = sessionStorage.getItem("loggedInUser") || "system";
-
+      
       var expenseData = {
         date: parseDdMmYyyyToYyyyMmDd(document.getElementById("exp-date").value),
         paidTo: document.getElementById("exp-paid-to").value.trim(),
@@ -4306,10 +4214,10 @@
         voucherOverride: document.getElementById("exp-voucher-override").value.trim(),
         preparedBy: activeUser
       };
-
+      
       closeModal("modal-expense");
       showLoader("Writing voucher entry & creating printable PDF...");
-
+      
       var call = isEdit
         ? google.script.run.withSuccessHandler(onExpenseSaved).withFailureHandler(onServerFail).editExpense(voucherNo, expenseData)
         : google.script.run.withSuccessHandler(onExpenseSaved).withFailureHandler(onServerFail).saveExpense(expenseData);
@@ -4320,16 +4228,16 @@
       if (res.success) {
         showToast("Expense voucher recorded!");
         loadData();
-
+        
         // Show Drive warning if PDF was skipped
         if (res.warning) {
           setTimeout(() => showToast("⚠️ " + res.warning, "danger"), 800);
         }
-
+        
         document.getElementById("receipt-action-title").textContent = res.warning ? "Voucher Saved (PDF Pending)" : "Voucher Saved Successfully";
         document.getElementById("receipt-action-no-display").textContent = res.voucherNo;
         document.getElementById("receipt-pdf-btn").href = res.shortUrl || "#";
-
+        
         document.getElementById("receipt-wa-btn").classList.add("hidden");
         openModal("modal-receipt-action");
       } else {
@@ -4340,13 +4248,13 @@
     function editExpenseAction(voucherNo) {
       var exp = appState.expenses.find(e => e["Voucher Number"] === voucherNo);
       if (!exp) return;
-
+      
       openNewExpenseForm();
       document.getElementById("expense-modal-title").textContent = "Edit Expense Entry: " + voucherNo;
       document.getElementById("exp-edit-voucher-no").value = voucherNo;
       document.getElementById("exp-voucher-override").value = voucherNo;
       document.getElementById("exp-voucher-override").setAttribute("readonly", "readonly");
-
+      
       setDateValue('exp-date', 'exp-date-picker', exp["Date"]);
       document.getElementById("exp-paid-to").value = exp["Paid To"];
       document.getElementById("exp-amount").value = exp["Amount"];
@@ -4360,7 +4268,7 @@
       if (confirm("Are you sure you want to delete Expense Voucher " + voucherNo + "? This sets voucher amount to 0.")) {
         showLoader("Voiding expense record...");
         google.script.run
-          .withSuccessHandler(function (res) {
+          .withSuccessHandler(function(res) {
             if (res.success) {
               showToast("Voucher voided successfully.");
               loadData();
@@ -4380,7 +4288,7 @@
     function populateLedgersViewDropdown() {
       var select = document.getElementById("ledger-account-select");
       var prevVal = select.value;
-
+      
       select.innerHTML = "";
       appState.accounts.forEach(acc => {
         var opt = document.createElement("option");
@@ -4388,7 +4296,7 @@
         opt.textContent = acc.name + " (" + acc.type + ")";
         select.appendChild(opt);
       });
-
+      
       if (prevVal && appState.accounts.some(acc => acc.name === prevVal)) {
         select.value = prevVal;
       }
@@ -4400,38 +4308,38 @@
         document.querySelector("#ledger-details-table tbody").innerHTML = '<tr><td colspan="7" style="text-align:center;">Select an account above to view running ledgers.</td></tr>';
         return;
       }
-
+      
       var acc = appState.accounts.find(a => a.name === accountName);
-
+      
       document.getElementById("ledger-stat-opening").textContent = "INR " + (acc ? acc.openingBalance.toFixed(2) : "0.00");
       document.getElementById("ledger-stat-closing").textContent = "INR " + (acc ? acc.currentBalance.toFixed(2) : "0.00");
-
+      
       var tbody = document.querySelector("#ledger-details-table tbody");
       tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--color-text-muted);">Fetching running balance ledger logs...</td></tr>';
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             tbody.innerHTML = "";
             var drTotal = 0;
             var crTotal = 0;
-
+            
             res.ledger.forEach((row, idx) => {
               var tr = document.createElement("tr");
               var isOpening = (row["Ref Number"] === "-");
-
+              
               var dr = parseFloat(row["Income (Dr)"] || 0);
               var cr = parseFloat(row["Expense (Cr)"] || 0);
-
+              
               if (!isOpening) {
                 drTotal += dr;
                 crTotal += cr;
               }
-
+              
               tr.innerHTML = `
                 <td>${row["Date"]}</td>
                 <td style="font-weight:700;">${row["Ref Number"]}</td>
-                <td style="font-size:13px; font-weight:${isOpening ? '700' : '500'};">${row["Particulars"]}</td>
+                <td style="font-size:13px; font-weight:${isOpening ? '700':'500'};">${row["Particulars"]}</td>
                 <td style="font-weight:600; color:var(--success);">${dr > 0 ? '+ ' + dr.toFixed(2) : '-'}</td>
                 <td style="font-weight:600; color:var(--danger);">${cr > 0 ? '- ' + cr.toFixed(2) : '-'}</td>
                 <td style="font-weight:700;">${parseFloat(row["Balance"] || 0).toFixed(2)}</td>
@@ -4439,10 +4347,10 @@
               `;
               tbody.appendChild(tr);
             });
-
+            
             document.getElementById("ledger-stat-debit").textContent = "INR " + drTotal.toFixed(2);
             document.getElementById("ledger-stat-credit").textContent = "INR " + crTotal.toFixed(2);
-
+            
             if (res.ledger.length === 0) {
               tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No ledger records found.</td></tr>';
             }
@@ -4458,11 +4366,11 @@
       e.preventDefault();
       var name = document.getElementById("bank-name").value.trim();
       var openingBal = parseFloat(document.getElementById("bank-opening-bal").value);
-
+      
       showLoader("Creating new bank ledger sheet...");
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("Bank account ledger successfully initialized!");
             document.getElementById("add-bank-form").reset();
@@ -4481,16 +4389,16 @@
       var fromAccount = document.getElementById("trf-from").value;
       var toAccount = document.getElementById("trf-to").value;
       var amount = parseFloat(document.getElementById("trf-amount").value);
-      var notes = document.getElementById("trf-notes").value.trim(); āā
+      var notes = document.getElementById("trf-notes").value.trim();
       var date = parseDdMmYyyyToYyyyMmDd(document.getElementById("trf-date").value);
-
+      
       if (fromAccount === toAccount) {
         alert("Transfer Error: Source and Destination accounts cannot be the same!");
         return;
       }
-
+      
       var activeUser = sessionStorage.getItem("loggedInUser") || "system";
-
+      
       var transferData = {
         fromAccount: fromAccount,
         toAccount: toAccount,
@@ -4499,11 +4407,11 @@
         date: date,
         preparedBy: activeUser
       };
-
+      
       showLoader("Processing double-entry ledger transfers...");
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+         .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("Fund transfer ledger entries successfully logged!");
             var form = document.getElementById("transfer-form");
@@ -4525,13 +4433,13 @@
     function buildFDsTable() {
       var tbody = document.querySelector("#fds-table tbody");
       tbody.innerHTML = "";
-
+      
       appState.fixedDeposits.forEach(fd => {
         var tr = document.createElement("tr");
         var badgeClass = "status-pending";
         if (fd.Status === "Active") badgeClass = "status-paid";
         else if (fd.Status === "Closed") badgeClass = "status-na";
-
+        
         tr.innerHTML = `
           <td style="font-weight:700;">${fd["FD Number"]}</td>
           <td>${fd["Bank Name"]}</td>
@@ -4551,7 +4459,7 @@
         `;
         tbody.appendChild(tr);
       });
-
+      
       if (appState.fixedDeposits.length === 0) {
         tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:var(--color-text-muted);">No Fixed Deposit Certificates recorded.</td></tr>';
       }
@@ -4582,7 +4490,7 @@
     function submitFDForm(e) {
       e.preventDefault();
       var srNo = document.getElementById("fd-edit-sr-no").value;
-
+      
       var fdData = {
         srNo: srNo || null,
         fdNumber: document.getElementById("fd-number").value.trim(),
@@ -4596,11 +4504,11 @@
         notes: document.getElementById("fd-notes").value.trim(),
         status: document.getElementById("fd-status").value
       };
-
+      
       showLoader("Saving certificate details...");
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("FD Certificate details saved!");
             clearFDForm();
@@ -4617,10 +4525,10 @@
     function editFDAction(srNo) {
       var fd = appState.fixedDeposits.find(f => f["Sr No"] == srNo);
       if (!fd) return;
-
+      
       document.getElementById("fd-form-title").textContent = "Edit FD: " + fd["FD Number"];
       document.getElementById("fd-edit-sr-no").value = fd["Sr No"];
-
+      
       document.getElementById("fd-number").value = fd["FD Number"];
       document.getElementById("fd-bank-name").value = fd["Bank Name"];
       document.getElementById("fd-principal").value = fd["Principal Amount"];
@@ -4631,7 +4539,7 @@
       document.getElementById("fd-undersigned").value = fd["Undersigned"];
       document.getElementById("fd-notes").value = fd["Notes"];
       document.getElementById("fd-status").value = fd["Status"];
-
+      
       document.getElementById("fd-submit-btn").textContent = "Update Details";
       document.getElementById("fd-form").scrollIntoView({ behavior: 'smooth' });
     }
@@ -4640,7 +4548,7 @@
       if (confirm("Are you sure you want to delete this Fixed Deposit certificate record? This will erase it from the register.")) {
         showLoader("Removing certificate...");
         google.script.run
-          .withSuccessHandler(function (res) {
+          .withSuccessHandler(function(res) {
             if (res.success) {
               showToast("FD Certificate deleted successfully.");
               loadData();
@@ -4656,29 +4564,29 @@
 
     function checkFixedDepositMaturityWarnings() {
       var today = new Date();
-      today.setHours(0, 0, 0, 0);
-
+      today.setHours(0,0,0,0);
+      
       var alertList = [];
       var containerDashboard = document.getElementById("dashboard-alerts-list");
       var containerModal = document.getElementById("fd-alerts-modal-list");
-
+      
       containerDashboard.innerHTML = "";
       containerModal.innerHTML = "";
-
+      
       var hasAlerts = false;
-
+      
       appState.fixedDeposits.forEach(fd => {
         if (fd.Status !== "Active") return;
-
+        
         var matDate = new Date(fd["Maturity Date"]);
-        matDate.setHours(0, 0, 0, 0);
-
+        matDate.setHours(0,0,0,0);
+        
         var diffTime = matDate - today;
         var daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+        
         if (daysLeft <= 30 && daysLeft >= 0) {
           hasAlerts = true;
-
+          
           var details = {
             no: fd["FD Number"],
             bank: fd["Bank Name"],
@@ -4689,9 +4597,9 @@
             undersigned: fd["Undersigned"],
             notes: fd["Notes"] || "None specified"
           };
-
+          
           alertList.push(details);
-
+          
           var divDash = document.createElement("div");
           divDash.className = "alert-item";
           divDash.innerHTML = `
@@ -4699,7 +4607,7 @@
             <div class="alert-item-meta">Principal: INR ${details.amt} | Undersigned: ${details.undersigned} | Notes: ${details.notes}</div>
           `;
           containerDashboard.appendChild(divDash);
-
+          
           var divModal = document.createElement("div");
           divModal.className = "alert-item";
           divModal.innerHTML = `
@@ -4711,18 +4619,18 @@
           containerModal.appendChild(divModal);
         }
       });
-
+      
       var alertsCard = document.getElementById("dashboard-alerts-card");
       if (hasAlerts) {
         alertsCard.style.display = "block";
-
+        
         var shouldPopModal = false;
         alertList.forEach(item => {
           if (item.days === 30 || item.days === 25 || item.days === 20 || item.days === 15 || item.days === 10 || item.days === 5 || item.days === 0) {
             shouldPopModal = true;
           }
         });
-
+        
         if (shouldPopModal) {
           openModal("modal-fd-alerts");
         }
@@ -4737,21 +4645,21 @@
     function buildPettyTable() {
       var actBody = document.querySelector("#petty-active-table tbody");
       var setBody = document.querySelector("#petty-settled-table tbody");
-
+      
       actBody.innerHTML = "";
       setBody.innerHTML = "";
-
+      
       var activeTotal = 0;
       var settledTotal = 0;
       var returnedTotal = 0;
-
+      
       appState.pettyCashAdvances.forEach(p => {
         var tr = document.createElement("tr");
         var amt = parseFloat(p["Amount Handed Over"] || 0);
-
+        
         if (p["Status"] === "Active") {
           activeTotal += amt;
-
+          
           tr.innerHTML = `
             <td style="font-weight:700;">${p["Advance Ref"]}</td>
             <td>${formatToDdMmYyyy(p["Date Given"])}</td>
@@ -4770,10 +4678,10 @@
         } else {
           var spent = parseFloat(p["Total Spent"] || 0);
           var ret = parseFloat(p["Returned Amount"] || 0);
-
+          
           settledTotal += spent;
           returnedTotal += ret;
-
+          
           tr.innerHTML = `
             <td style="font-weight:700;">${p["Advance Ref"]}</td>
             <td>${p["Paid To"]}</td>
@@ -4787,11 +4695,11 @@
           setBody.appendChild(tr);
         }
       });
-
+      
       document.getElementById("petty-stat-active").textContent = "INR " + activeTotal.toFixed(2);
       document.getElementById("petty-stat-settled").textContent = "INR " + settledTotal.toFixed(2);
       document.getElementById("petty-stat-returned").textContent = "INR " + returnedTotal.toFixed(2);
-
+      
       if (actBody.innerHTML === "") {
         actBody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--color-text-muted);">No active outstanding advances.</td></tr>';
       }
@@ -4818,7 +4726,7 @@
     function submitPettyHandoutForm(e) {
       e.preventDefault();
       var activeUser = sessionStorage.getItem("loggedInUser") || "system";
-
+      
       var advanceData = {
         paidTo: document.getElementById("pth-custodian").value.trim(),
         amountHandedOver: parseFloat(document.getElementById("pth-amount").value),
@@ -4827,11 +4735,11 @@
         notes: document.getElementById("pth-notes").value.trim(),
         preparedBy: activeUser
       };
-
+      
       showLoader("Handing out petty cash advance...");
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("Petty cash advance registered successfully.");
             resetPettyHandoutForm();
@@ -4869,20 +4777,20 @@
       var container = document.getElementById("petty-expense-items-list");
       var amtRows = container.querySelectorAll(".pts-item-amt");
       var totalSpent = 0;
-
+      
       amtRows.forEach(row => {
         totalSpent += parseFloat(row.value || 0);
       });
-
+      
       document.getElementById("pts-total-spent-display").textContent = "INR " + totalSpent.toFixed(2);
-
+      
       // Calculate return amount
       var displayHandedText = document.getElementById("pts-handed-display").value;
       var handedAmt = parseFloat(displayHandedText.replace(/[^0-9.]/g, '') || 0);
-
+      
       var returned = handedAmt - totalSpent;
       var returnLbl = document.getElementById("pts-return-lbl");
-
+      
       if (returned >= 0) {
         returnLbl.textContent = "Cash to Return:";
         document.getElementById("pts-total-return-display").textContent = "INR " + returned.toFixed(2);
@@ -4902,23 +4810,23 @@
     function openSettleAdvanceModal(advanceRef) {
       var adv = appState.pettyCashAdvances.find(p => p["Advance Ref"] === advanceRef);
       if (!adv) return;
-
+      
       document.getElementById("petty-handout-box").classList.add("hidden");
       document.getElementById("petty-settle-box").classList.remove("hidden");
-
+      
       var form = document.getElementById("petty-settle-form");
       form.reset();
-
+      
       document.getElementById("pts-advance-ref").value = advanceRef;
       document.getElementById("pts-detail-display").value = `${adv["Paid To"]} (${advanceRef})`;
-
+      
       var amt = parseFloat(adv["Amount Handed Over"] || 0);
       document.getElementById("pts-handed-display").value = `INR ${amt.toFixed(2)}`;
       setDateValue('pts-date', 'pts-date-picker', new Date());
-
+      
       var listContainer = document.getElementById("petty-expense-items-list");
       listContainer.innerHTML = "";
-
+      
       // Initialize with one blank row
       addPettyExpenseItemRow("", "");
       document.getElementById("petty-settle-box").scrollIntoView({ behavior: 'smooth' });
@@ -4928,16 +4836,16 @@
       e.preventDefault();
       var activeUser = sessionStorage.getItem("loggedInUser") || "system";
       var advanceRef = document.getElementById("pts-advance-ref").value;
-
+      
       // Collect items breakdown
       var listContainer = document.getElementById("petty-expense-items-list");
       var descInputs = listContainer.querySelectorAll(".pts-item-desc");
       var amtInputs = listContainer.querySelectorAll(".pts-item-amt");
-
+      
       var items = [];
       var summaries = [];
       var totalSpent = 0;
-
+      
       descInputs.forEach((inp, idx) => {
         var d = inp.value.trim();
         var a = parseFloat(amtInputs[idx].value || 0);
@@ -4947,12 +4855,12 @@
           totalSpent += a;
         }
       });
-
+      
       if (items.length === 0) {
         alert("Please enter at least one valid itemized expense!");
         return;
       }
-
+      
       var settleData = {
         advanceRef: advanceRef,
         date: parseDdMmYyyyToYyyyMmDd(document.getElementById("pts-date").value),
@@ -4963,20 +4871,20 @@
         totalSpent: totalSpent,
         preparedBy: activeUser
       };
-
+      
       closeSettlePanel();
       showLoader("Processing advance settlement and generating voucher PDF...");
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("Advance settled successfully!");
             loadData();
-
+            
             document.getElementById("receipt-action-title").textContent = "Settlement Voucher Saved";
             document.getElementById("receipt-action-no-display").textContent = res.voucherNo;
             document.getElementById("receipt-pdf-btn").href = res.shortUrl;
-
+            
             document.getElementById("receipt-wa-btn").classList.add("hidden");
             openModal("modal-receipt-action");
           } else {
@@ -4997,34 +4905,34 @@
       var tbody = document.querySelector("#outstanding-table tbody");
       tbody.innerHTML = "";
       outstandingListForExport = [];
-
+      
       var count = 0;
       appState.members.forEach(m => {
         var pendingYears = [];
         appState.years.forEach(yr => {
           if (!isYearVisible(yr)) return; // Skip hidden financial years
-
+          
           var status = m[yr + " Status"];
           if (status === undefined || status === null) status = "";
           var statusStr = status.toString().trim().toUpperCase();
-
+          
           var isPaid = (status === true || statusStr === "TRUE" || statusStr === "PAID" || status === "Paid");
           var isNA = (statusStr === "NA" || statusStr === "N/A");
-
+          
           if (!isPaid && !isNA) {
             pendingYears.push(yr);
           }
         });
-
+        
         if (pendingYears.length > 0) {
           count++;
           var yrsStr = pendingYears.join(", ");
-
+          
           var tr = document.createElement("tr");
           var waText = `Dear *${m["Name"]}*,\nA friendly reminder from *${appState.settings["Organization Name"] || 'Excel Club'}*.\n\nYour membership dues for financial year(s) *${yrsStr}* are pending.\n\nPlease pay at your earliest convenience.\n\nThank you!`;
           var encodedWa = encodeURIComponent(waText);
           var mobile = m["Mobile Number"].toString().replace(/\+/g, '').replace(/\s+/g, '');
-
+          
           tr.innerHTML = `
             <td style="font-weight:700;">${m["Member ID"]}</td>
             <td>${m["Name"]}</td>
@@ -5037,7 +4945,7 @@
             </td>
           `;
           tbody.appendChild(tr);
-
+          
           outstandingListForExport.push({
             "Member ID": m["Member ID"],
             "Name": m["Name"],
@@ -5046,7 +4954,7 @@
           });
         }
       });
-
+      
       document.getElementById("outstanding-meta-summary").textContent = `Found ${count} members with pending dues.`;
     }
 
@@ -5055,18 +4963,18 @@
         showToast("No outstanding dues pending to download!", "danger");
         return;
       }
-
+      
       var csvContent = "data:text/csv;charset=utf-8,";
       csvContent += "Member ID,Name,Mobile Number,Pending Dues Years\n";
-
+      
       outstandingListForExport.forEach(row => {
         csvContent += `"${row['Member ID']}","${row['Name']}","${row['Mobile']}","${row['Pending Dues Detail']}"\n`;
       });
-
+      
       var encodedUri = encodeURI(csvContent);
       var link = document.createElement("a");
       link.setAttribute("href", encodedUri);
-
+      
       var today = new Date().toISOString().split('T')[0];
       link.setAttribute("download", `outstanding_dues_${today}.csv`);
       document.body.appendChild(link);
@@ -5084,7 +4992,7 @@
       document.getElementById("set-rec-prefix").value = appState.settings["Receipt Prefix"] || "";
       document.getElementById("set-exp-prefix").value = appState.settings["Voucher Prefix"] || "";
       document.getElementById("set-wa-template").value = appState.settings["WhatsApp Template"] || "";
-
+      
       var webAppLink = appState.settings["Web App Link"] || "";
       var linkInput = document.getElementById("set-web-app-link");
       if (linkInput) {
@@ -5097,9 +5005,9 @@
           linkInput.value = webAppLink || "Not deployed yet (run from Sheets Extension menu to update)";
         }
       }
-
+      
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           if (res.success) {
             renderUsersConfigurationRows(res.users);
           }
@@ -5110,10 +5018,10 @@
     function buildYearsVisibilitySettingsList() {
       var container = document.getElementById("settings-years-visibility-list");
       container.innerHTML = "";
-
+      
       appState.years.forEach(yr => {
         var isVisible = isYearVisible(yr);
-
+        
         var div = document.createElement("div");
         div.className = "checkbox-container";
         div.style.marginBottom = "6px";
@@ -5128,12 +5036,12 @@
     function renderUsersConfigurationRows(users) {
       var container = document.getElementById("settings-users-list");
       container.innerHTML = "";
-
+      
       var usersList = [...users];
       while (usersList.length < 3) {
         usersList.push({ username: "", password: "", displayName: "" });
       }
-
+      
       usersList.forEach((u, idx) => {
         var row = document.createElement("div");
         row.className = "user-edit-row";
@@ -5151,25 +5059,25 @@
       var container = document.getElementById("settings-users-list");
       var rows = container.querySelectorAll(".user-edit-row");
       var usersList = [];
-
+      
       rows.forEach(r => {
         var u = r.querySelector(".user-cfg-username").value.trim();
         var p = r.querySelector(".user-cfg-password").value.trim();
         var d = r.querySelector(".user-cfg-display").value.trim();
-
+        
         if (u) {
           usersList.push({ username: u, password: p, displayName: d || u });
         }
       });
-
+      
       if (usersList.length === 0) {
         alert("Please set at least one admin user credential!");
         return;
       }
-
+      
       showLoader("Saving authorized user accounts...");
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           hideLoader();
           if (res.success) {
             showToast("Authorized credentials updated successfully.");
@@ -5196,7 +5104,7 @@
 
     function saveSettingsForm(e) {
       e.preventDefault();
-
+      
       // Calculate unchecked years for Hidden Years
       var hiddenYearsList = [];
       var visibilityChks = document.querySelectorAll(".year-visibility-chk");
@@ -5205,7 +5113,7 @@
           hiddenYearsList.push(chk.value);
         }
       });
-
+      
       var settingsMap = {
         "Organization Name": document.getElementById("set-org-name").value.trim(),
         "Default Annual Fee": document.getElementById("set-default-fee").value.trim(),
@@ -5214,17 +5122,17 @@
         "WhatsApp Template": document.getElementById("set-wa-template").value.trim(),
         "Hidden Years": hiddenYearsList.join(",")
       };
-
+      
       if (isStandalone) {
         var newUrl = document.getElementById("set-web-app-link").value.trim();
         if (newUrl) {
           localStorage.setItem("google_sheet_web_app_url", newUrl);
         }
       }
-
+      
       showLoader("Updating configurations...");
       google.script.run
-        .withSuccessHandler(function (res) {
+        .withSuccessHandler(function(res) {
           hideLoader();
           if (res.success) {
             showToast("Settings saved successfully!");
@@ -5263,18 +5171,18 @@
       window.google = {
         script: {
           run: {
-            withSuccessHandler: function (successFn) {
+            withSuccessHandler: function(successFn) {
               this.successCallback = successFn;
               return this;
             },
-            withFailureHandler: function (failureFn) {
+            withFailureHandler: function(failureFn) {
               this.failureCallback = failureFn;
               return this;
             },
-
-            getInitialData: function () {
+            
+            getInitialData: function() {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 var mockRes = {
                   success: true,
                   settings: {
@@ -5323,10 +5231,10 @@
               }, 500);
               return this;
             },
-
-            verifyLogin: function (u, p) {
+            
+            verifyLogin: function(u, p) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 if (u === "admin" && p === "admin123") {
                   self.successCallback({ success: true, user: { username: "admin", displayName: "Administrator" } });
                 } else if (u === "treasurer" && p === "t123") {
@@ -5336,10 +5244,10 @@
                 }
               }, 300);
             },
-
-            getLedgerData: function (accName) {
+            
+            getLedgerData: function(accName) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 var mockLedger = [];
                 if (accName === "Cash") {
                   mockLedger = [
@@ -5356,52 +5264,52 @@
                 self.successCallback({ success: true, ledger: mockLedger });
               }, 300);
             },
-
-            addBankAccount: function (n, o) {
+            
+            addBankAccount: function(n, o) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
+                self.successCallback({ success: true });
+              }, 300);
+            },
+            
+            saveTransfer: function(t) {
+              var self = this;
+              setTimeout(function() {
+                self.successCallback({ success: true });
+              }, 300);
+            },
+            
+            saveFD: function(f) {
+              var self = this;
+              setTimeout(function() {
                 self.successCallback({ success: true });
               }, 300);
             },
 
-            saveTransfer: function (t) {
+            saveAdvance: function(a) {
               var self = this;
-              setTimeout(function () {
-                self.successCallback({ success: true });
-              }, 300);
-            },
-
-            saveFD: function (f) {
-              var self = this;
-              setTimeout(function () {
-                self.successCallback({ success: true });
-              }, 300);
-            },
-
-            saveAdvance: function (a) {
-              var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 self.successCallback({ success: true, refNo: "ADV-2" });
               }, 300);
             },
 
-            settleAdvance: function (s) {
+            settleAdvance: function(s) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 self.successCallback({ success: true, voucherNo: "EXP-2026-1002", shortUrl: "#" });
               }, 300);
             },
 
-            saveMember: function (m, isNew) {
+            saveMember: function(m, isNew) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 self.successCallback({ success: true });
               }, 300);
             },
-
-            getUsers: function () {
+            
+            getUsers: function() {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 self.successCallback({
                   success: true,
                   users: [
@@ -5411,17 +5319,17 @@
                 });
               }, 300);
             },
-
-            saveUsers: function (list) {
+            
+            saveUsers: function(list) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 self.successCallback({ success: true });
               }, 300);
             },
-
-            updateSettings: function (map) {
+            
+            updateSettings: function(map) {
               var self = this;
-              setTimeout(function () {
+              setTimeout(function() {
                 self.successCallback({ success: true });
               }, 300);
             }
@@ -5431,5 +5339,4 @@
     }
   </script>
 </body>
-
 </html>
