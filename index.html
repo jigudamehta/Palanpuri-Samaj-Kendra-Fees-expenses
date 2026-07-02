@@ -1748,9 +1748,13 @@
                   <label class="form-label">Destination Account (Money In / Dr)</label>
                   <select id="trf-to" class="form-control" required></select>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                   <label class="form-label">Date</label>
-                  <input type="date" id="trf-date" class="form-control" required>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="trf-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="trf-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('trf-date-picker', 'trf-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Amount (INR)</label>
@@ -1848,11 +1852,19 @@
               <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                 <div class="form-group">
                   <label class="form-label">Start Date</label>
-                  <input type="date" id="fd-start-date" class="form-control" required>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="fd-start-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="fd-start-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('fd-start-date-picker', 'fd-start-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Maturity Date</label>
-                  <input type="date" id="fd-maturity-date" class="form-control" required>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="fd-maturity-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="fd-maturity-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('fd-maturity-date-picker', 'fd-maturity-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  </div>
                 </div>
               </div>
 
@@ -1944,9 +1956,13 @@
                   <label class="form-label">Source Debit Account</label>
                   <select id="pth-account" class="form-control" required></select>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                   <label class="form-label">Date Handed Over</label>
-                  <input type="date" id="pth-date" class="form-control" required>
+                  <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                    <input type="text" id="pth-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                    <input type="date" id="pth-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('pth-date-picker', 'pth-date')">
+                    <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Notes / Program Details</label>
@@ -1979,7 +1995,11 @@
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
                   <div class="form-group">
                     <label class="form-label">Date of Settlement</label>
-                    <input type="date" id="pts-date" class="form-control" required>
+                    <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                      <input type="text" id="pts-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                      <input type="date" id="pts-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('pts-date-picker', 'pts-date')">
+                      <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Return Account (Unspent)</label>
@@ -2258,36 +2278,44 @@
             </select>
           </div>
           
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-            <div class="form-group">
-              <label class="form-label">Payee Name</label>
-              <input type="text" id="pay-name" class="form-control" required placeholder="Name">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Mobile Number</label>
-              <input type="text" id="pay-mobile" class="form-control" required placeholder="Digits only (min 10)">
-            </div>
+          <div class="form-group">
+            <label class="form-label">Payee Name</label>
+            <input type="text" id="pay-name" class="form-control" required placeholder="Name">
           </div>
           
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div class="form-group">
-              <label class="form-label">Date</label>
-              <input type="date" id="pay-date" class="form-control" required>
+              <label class="form-label">Mobile Number</label>
+              <input type="text" id="pay-mobile" class="form-control" required placeholder="Digits only (min 10)">
             </div>
             <div class="form-group">
-              <label class="form-label">Receipt Number Override (Optional)</label>
-              <input type="text" id="pay-receipt-override" class="form-control" placeholder="Auto-generated if blank">
+              <label class="form-label">Date</label>
+              <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                <input type="text" id="pay-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                <input type="date" id="pay-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('pay-date-picker', 'pay-date')">
+                <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+              </div>
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-            <div class="form-group">
-              <label class="form-label">Deposit Account</label>
-              <select id="pay-account" class="form-control" required></select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Reference ID (UPI/Bank reference)</label>
-              <input type="text" id="pay-ref-id" class="form-control" placeholder="e.g. UPI Transaction ID">
+          <div class="form-group">
+            <label class="form-label">Deposit Account</label>
+            <select id="pay-account" class="form-control" required></select>
+          </div>
+          
+          <div style="margin-top: 8px; margin-bottom: 8px;">
+            <a href="javascript:void(0)" onclick="toggleAdvancedPaymentOptions()" id="advanced-pay-toggle" style="font-size: 13px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 4px; font-weight: 500;">
+              <span id="advanced-pay-arrow">▸</span> Advanced Options (Receipt Override / Reference ID)
+            </a>
+            <div id="advanced-pay-fields" class="hidden" style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-left: 2px solid var(--border-color); padding-left: 12px;">
+              <div class="form-group">
+                <label class="form-label">Receipt Number Override</label>
+                <input type="text" id="pay-receipt-override" class="form-control" placeholder="Auto-generated if blank">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Reference ID (UPI/Bank ref)</label>
+                <input type="text" id="pay-ref-id" class="form-control" placeholder="e.g. UPI Transaction ID">
+              </div>
             </div>
           </div>
           
@@ -2357,7 +2385,11 @@
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div class="form-group">
               <label class="form-label">Date</label>
-              <input type="date" id="exp-date" class="form-control" required>
+              <div class="date-input-container" style="position:relative; display:flex; align-items:center; width:100%;">
+                <input type="text" id="exp-date" class="form-control date-masked-input" placeholder="DD/MM/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Format: DD/MM/YYYY" required style="padding-right: 36px; width:100%;">
+                <input type="date" id="exp-date-picker" style="position:absolute; right:8px; width:24px; height:24px; opacity:0; cursor:pointer;" onchange="syncDatePickerToText('exp-date-picker', 'exp-date')">
+                <span style="position:absolute; right:10px; pointer-events:none; color:var(--color-text-muted);">📅</span>
+              </div>
             </div>
             <div class="form-group">
               <label class="form-label">Voucher Number Override (Optional)</label>
@@ -2555,6 +2587,126 @@
       setupStandaloneProxy(webAppUrl);
     }
 
+    // Universal Date Formatting (DD/MM/YYYY) Helpers
+    function parseDdMmYyyyToYyyyMmDd(val) {
+      if (!val) return "";
+      var parts = val.split(/[\/\-]/);
+      if (parts.length !== 3) return "";
+      var day = parts[0].padStart(2, '0');
+      var month = parts[1].padStart(2, '0');
+      var year = parts[2].trim();
+      if (year.length === 2) {
+        year = "20" + year;
+      }
+      return `${year}-${month}-${day}`;
+    }
+
+    function formatToDdMmYyyy(val) {
+      if (!val) return "";
+      if (val instanceof Date) {
+        var day = String(val.getDate()).padStart(2, '0');
+        var month = String(val.getMonth() + 1).padStart(2, '0');
+        var year = val.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+      var valStr = val.toString().trim();
+      var parts = valStr.split('-');
+      if (parts.length === 3) {
+        var year = parts[0];
+        var month = parts[1];
+        var day = parts[2];
+        if (day.includes('T')) {
+          day = day.split('T')[0];
+        }
+        return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+      }
+      var slashParts = valStr.split('/');
+      if (slashParts.length === 3) {
+        var day = slashParts[0].padStart(2, '0');
+        var month = slashParts[1].padStart(2, '0');
+        var year = slashParts[2].trim();
+        if (year.length === 2) year = "20" + year;
+        return `${day}/${month}/${year}`;
+      }
+      return valStr;
+    }
+
+    function setDateValue(textId, pickerId, val) {
+      var textInput = document.getElementById(textId);
+      var pickerInput = document.getElementById(pickerId);
+      if (!textInput) return;
+      
+      var formatted = formatToDdMmYyyy(val);
+      textInput.value = formatted;
+      
+      if (pickerInput) {
+        var iso = parseDdMmYyyyToYyyyMmDd(formatted);
+        pickerInput.value = iso;
+      }
+    }
+
+    function syncDatePickerToText(pickerId, textId) {
+      var pickerVal = document.getElementById(pickerId).value;
+      if (pickerVal) {
+        document.getElementById(textId).value = formatToDdMmYyyy(pickerVal);
+      }
+    }
+
+    function setupDateMasking(inputId, pickerId) {
+      var input = document.getElementById(inputId);
+      if (!input) return;
+      
+      input.addEventListener('input', function(e) {
+        var value = e.target.value.replace(/\D/g, '');
+        var formatted = '';
+        if (value.length > 0) {
+          formatted += value.substring(0, 2);
+        }
+        if (value.length > 2) {
+          formatted += '/' + value.substring(2, 4);
+        }
+        if (value.length > 4) {
+          formatted += '/' + value.substring(4, 8);
+        }
+        e.target.value = formatted;
+        
+        if (value.length === 8) {
+          var isoDate = parseDdMmYyyyToYyyyMmDd(formatted);
+          var picker = document.getElementById(pickerId);
+          if (picker) picker.value = isoDate;
+        }
+      });
+    }
+
+    function initAllDateInputs() {
+      var dateFields = [
+        { text: 'trf-date', picker: 'trf-date-picker' },
+        { text: 'fd-start-date', picker: 'fd-start-date-picker' },
+        { text: 'fd-maturity-date', picker: 'fd-maturity-date-picker' },
+        { text: 'pth-date', picker: 'pth-date-picker' },
+        { text: 'pts-date', picker: 'pts-date-picker' },
+        { text: 'pay-date', picker: 'pay-date-picker' },
+        { text: 'exp-date', picker: 'exp-date-picker' }
+      ];
+      dateFields.forEach(function(f) {
+        setupDateMasking(f.text, f.picker);
+      });
+    }
+
+    function toggleAdvancedPaymentOptions() {
+      var fields = document.getElementById("advanced-pay-fields");
+      var arrow = document.getElementById("advanced-pay-arrow");
+      if (fields && arrow) {
+        if (fields.classList.contains("hidden")) {
+          fields.classList.remove("hidden");
+          arrow.textContent = "▾";
+        } else {
+          fields.classList.add("hidden");
+          arrow.textContent = "▸";
+        }
+      }
+    }
+
     // Mobile Drawer and Forced Layout Toggle Logic
     function toggleMobileSidebar(force) {
       var sidebar = document.querySelector(".sidebar");
@@ -2717,6 +2869,7 @@
 
     // App Initialization
     window.addEventListener("load", function() {
+      initAllDateInputs();
       initStandaloneConfig();
       initLayoutMode();
 
@@ -3026,7 +3179,7 @@
           <td style="font-weight:600;">${m["Name"]}</td>
           <td>${m["Mobile Number"] || '<span style="color:var(--color-text-muted);">NA</span>'}</td>
           <td>${m["Family Members Count"]}</td>
-          <td>${m["Join Date"]}</td>
+          <td>${formatToDdMmYyyy(m["Join Date"])}</td>
           <td>
             <div class="action-links">
               <span class="action-link" onclick="editMember('${memberId}')">Edit</span>
@@ -3357,7 +3510,7 @@
         var tr = document.createElement("tr");
         tr.innerHTML = `
           <td style="font-weight:700;">${p["Receipt Number"]}</td>
-          <td>${p["Date"]}</td>
+          <td>${formatToDdMmYyyy(p["Date"])}</td>
           <td>${p["Name"]}</td>
           <td><span class="status-badge ${p["Member ID"] === 'NON-MEMBER' ? 'status-pending' : 'status-paid'}">${p["Member ID"]}</span></td>
           <td style="font-weight:600;">${parseFloat(p["Total Amount"] || 0).toFixed(2)}</td>
@@ -3588,7 +3741,11 @@
       
       toggleNonMemberLayout();
       
-      document.getElementById('pay-date').valueAsDate = new Date();
+      setDateValue('pay-date', 'pay-date-picker', new Date());
+      var advFields = document.getElementById("advanced-pay-fields");
+      var advArrow = document.getElementById("advanced-pay-arrow");
+      if (advFields) advFields.classList.add("hidden");
+      if (advArrow) advArrow.textContent = "▸";
       document.getElementById('pay-donation').value = 0;
       document.getElementById('pay-ref-id').value = "";
       
@@ -3632,7 +3789,7 @@
         memberId: memberId,
         name: document.getElementById("pay-name").value.trim(),
         mobileNumber: mobileInput,
-        date: document.getElementById("pay-date").value,
+        date: parseDdMmYyyyToYyyyMmDd(document.getElementById("pay-date").value),
         paymentAccount: document.getElementById("pay-account").value,
         transactionId: document.getElementById("pay-ref-id").value.trim(),
         yearlyFees: yearlyFees,
@@ -3794,10 +3951,20 @@
       
       document.getElementById("pay-name").value = payment["Name"];
       document.getElementById("pay-mobile").value = payment["Mobile Number"];
-      document.getElementById("pay-date").value = payment["Date"];
+      setDateValue('pay-date', 'pay-date-picker', payment["Date"]);
       document.getElementById("pay-account").value = payment["Payment Mode"];
       document.getElementById("pay-ref-id").value = payment["Transaction ID"];
       document.getElementById("pay-donation").value = payment["Donation Amount"];
+      
+      var advFields = document.getElementById("advanced-pay-fields");
+      var advArrow = document.getElementById("advanced-pay-arrow");
+      if (payment["Transaction ID"]) {
+        if (advFields) advFields.classList.remove("hidden");
+        if (advArrow) advArrow.textContent = "▾";
+      } else {
+        if (advFields) advFields.classList.add("hidden");
+        if (advArrow) advArrow.textContent = "▸";
+      }
       
       calculateTotalPaymentAmount();
     }
@@ -3833,7 +4000,7 @@
         var tr = document.createElement("tr");
         tr.innerHTML = `
           <td style="font-weight:700;">${e["Voucher Number"]}</td>
-          <td>${e["Date"]}</td>
+          <td>${formatToDdMmYyyy(e["Date"])}</td>
           <td>${e["Paid To"]}</td>
           <td style="font-weight:600; color:var(--danger);">- ${parseFloat(e["Amount"] || 0).toFixed(2)}</td>
           <td><span class="status-badge status-pending">${e["Category"]}</span></td>
@@ -3870,7 +4037,7 @@
       document.getElementById("exp-voucher-override").removeAttribute("readonly");
       document.getElementById("exp-ref-id").value = "";
       
-      document.getElementById('exp-date').valueAsDate = new Date();
+      setDateValue('exp-date', 'exp-date-picker', new Date());
       openModal("modal-expense");
     }
 
@@ -3882,7 +4049,7 @@
       var activeUser = sessionStorage.getItem("loggedInUser") || "system";
       
       var expenseData = {
-        date: document.getElementById("exp-date").value,
+        date: parseDdMmYyyyToYyyyMmDd(document.getElementById("exp-date").value),
         paidTo: document.getElementById("exp-paid-to").value.trim(),
         amount: parseFloat(document.getElementById("exp-amount").value),
         category: document.getElementById("exp-category").value,
@@ -3933,7 +4100,7 @@
       document.getElementById("exp-voucher-override").value = voucherNo;
       document.getElementById("exp-voucher-override").setAttribute("readonly", "readonly");
       
-      document.getElementById("exp-date").value = exp["Date"];
+      setDateValue('exp-date', 'exp-date-picker', exp["Date"]);
       document.getElementById("exp-paid-to").value = exp["Paid To"];
       document.getElementById("exp-amount").value = exp["Amount"];
       document.getElementById("exp-category").value = exp["Category"];
@@ -4067,8 +4234,8 @@
       var fromAccount = document.getElementById("trf-from").value;
       var toAccount = document.getElementById("trf-to").value;
       var amount = parseFloat(document.getElementById("trf-amount").value);
-      var notes = document.getElementById("trf-notes").value.trim();
-      var date = document.getElementById("trf-date").value;
+      var notes = document.getElementById("trf-notes").value.trim();āā
+      var date = parseDdMmYyyyToYyyyMmDd(document.getElementById("trf-date").value);
       
       if (fromAccount === toAccount) {
         alert("Transfer Error: Source and Destination accounts cannot be the same!");
@@ -4089,12 +4256,12 @@
       showLoader("Processing double-entry ledger transfers...");
       
       google.script.run
-        .withSuccessHandler(function(res) {
+         .withSuccessHandler(function(res) {
           if (res.success) {
             showToast("Fund transfer ledger entries successfully logged!");
             var form = document.getElementById("transfer-form");
             form.reset();
-            document.getElementById("trf-date").valueAsDate = new Date();
+            setDateValue('trf-date', 'trf-date-picker', new Date());
             loadData();
           } else {
             hideLoader();
@@ -4123,7 +4290,7 @@
           <td>${fd["Bank Name"]}</td>
           <td style="font-weight:600; color:var(--success);">+ ${parseFloat(fd["Principal Amount"] || 0).toFixed(2)}</td>
           <td>${fd["Interest Rate (%)"]}%</td>
-          <td>${fd["Maturity Date"]}</td>
+          <td>${formatToDdMmYyyy(fd["Maturity Date"])}</td>
           <td style="font-weight:700;">${parseFloat(fd["Maturity Amount"] || 0).toFixed(2)}</td>
           <td style="font-size:12px;">${fd["Undersigned"]}</td>
           <td style="font-size:12px; max-width:140px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;" title="${fd["Notes"]}">${fd["Notes"]}</td>
@@ -4156,8 +4323,8 @@
       form.reset();
       document.getElementById("fd-form-title").textContent = "Log Fixed Deposit";
       document.getElementById("fd-edit-sr-no").value = "";
-      document.getElementById('fd-start-date').valueAsDate = new Date();
-      document.getElementById('fd-maturity-date').valueAsDate = new Date();
+      setDateValue('fd-start-date', 'fd-start-date-picker', new Date());
+      setDateValue('fd-maturity-date', 'fd-maturity-date-picker', new Date());
       document.getElementById("fd-submit-btn").textContent = "Save FD Details";
     }
 
@@ -4175,8 +4342,8 @@
         bankName: document.getElementById("fd-bank-name").value.trim(),
         principalAmount: parseFloat(document.getElementById("fd-principal").value),
         interestRate: parseFloat(document.getElementById("fd-rate").value),
-        startDate: document.getElementById("fd-start-date").value,
-        maturityDate: document.getElementById("fd-maturity-date").value,
+        startDate: parseDdMmYyyyToYyyyMmDd(document.getElementById("fd-start-date").value),
+        maturityDate: parseDdMmYyyyToYyyyMmDd(document.getElementById("fd-maturity-date").value),
         maturityAmount: parseFloat(document.getElementById("fd-maturity-amt").value),
         undersigned: document.getElementById("fd-undersigned").value.trim(),
         notes: document.getElementById("fd-notes").value.trim(),
@@ -4211,8 +4378,8 @@
       document.getElementById("fd-bank-name").value = fd["Bank Name"];
       document.getElementById("fd-principal").value = fd["Principal Amount"];
       document.getElementById("fd-rate").value = fd["Interest Rate (%)"];
-      document.getElementById("fd-start-date").value = fd["Start Date"];
-      document.getElementById("fd-maturity-date").value = fd["Maturity Date"];
+      setDateValue('fd-start-date', 'fd-start-date-picker', fd["Start Date"]);
+      setDateValue('fd-maturity-date', 'fd-maturity-date-picker', fd["Maturity Date"]);
       document.getElementById("fd-maturity-amt").value = fd["Maturity Amount"];
       document.getElementById("fd-undersigned").value = fd["Undersigned"];
       document.getElementById("fd-notes").value = fd["Notes"];
@@ -4340,7 +4507,7 @@
           
           tr.innerHTML = `
             <td style="font-weight:700;">${p["Advance Ref"]}</td>
-            <td>${p["Date Given"]}</td>
+            <td>${formatToDdMmYyyy(p["Date Given"])}</td>
             <td style="font-weight:600;">${p["Paid To"]}</td>
             <td style="font-weight:600; color:var(--warning);">INR ${amt.toFixed(2)}</td>
             <td><span class="status-badge status-na">${p["Account Debited"]}</span></td>
@@ -4364,7 +4531,7 @@
             <td style="font-weight:700;">${p["Advance Ref"]}</td>
             <td>${p["Paid To"]}</td>
             <td>${amt.toFixed(2)}</td>
-            <td>${p["Settled Date"]}</td>
+            <td>${formatToDdMmYyyy(p["Settled Date"])}</td>
             <td style="font-weight:600; color:var(--danger);">INR ${spent.toFixed(2)}</td>
             <td style="font-weight:600; color:var(--success);">INR ${ret.toFixed(2)}</td>
             <td><span class="status-badge status-na">${p["Voucher Number"]}</span></td>
@@ -4398,7 +4565,7 @@
 
     function resetPettyHandoutForm() {
       document.getElementById("petty-handout-form").reset();
-      document.getElementById("pth-date").valueAsDate = new Date();
+      setDateValue('pth-date', 'pth-date-picker', new Date());
     }
 
     function submitPettyHandoutForm(e) {
@@ -4409,7 +4576,7 @@
         paidTo: document.getElementById("pth-custodian").value.trim(),
         amountHandedOver: parseFloat(document.getElementById("pth-amount").value),
         accountDebited: document.getElementById("pth-account").value,
-        date: document.getElementById("pth-date").value,
+        date: parseDdMmYyyyToYyyyMmDd(document.getElementById("pth-date").value),
         notes: document.getElementById("pth-notes").value.trim(),
         preparedBy: activeUser
       };
@@ -4500,7 +4667,7 @@
       
       var amt = parseFloat(adv["Amount Handed Over"] || 0);
       document.getElementById("pts-handed-display").value = `INR ${amt.toFixed(2)}`;
-      document.getElementById("pts-date").valueAsDate = new Date();
+      setDateValue('pts-date', 'pts-date-picker', new Date());
       
       var listContainer = document.getElementById("petty-expense-items-list");
       listContainer.innerHTML = "";
@@ -4541,7 +4708,7 @@
       
       var settleData = {
         advanceRef: advanceRef,
-        date: document.getElementById("pts-date").value,
+        date: parseDdMmYyyyToYyyyMmDd(document.getElementById("pts-date").value),
         returnAccount: document.getElementById("pts-account").value,
         notes: document.getElementById("pts-notes").value.trim(),
         itemsBreakdown: items,
