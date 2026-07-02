@@ -1,6 +1,6 @@
 const CACHE_NAME = 'samaj-manager-v1.1';
 const ASSETS = [
-  './Index.html',
+  './index.html',
   './manifest.json',
   './icon.svg'
 ];

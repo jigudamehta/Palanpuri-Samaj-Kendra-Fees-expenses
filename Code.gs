@@ -4,7 +4,7 @@
  */
 
 function doGet(e) {
-  return HtmlService.createHtmlOutputFromFile('Index')
+  return HtmlService.createHtmlOutputFromFile('index')
     .setTitle('Member & Expense Manager')
     .setSandboxMode(HtmlService.SandboxMode.IFRAME)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
@@ -56,7 +56,7 @@ function authorizeDriveAccess() {
 }
 
 function openDashboardSidebar() {
-  var html = HtmlService.createHtmlOutputFromFile('Index')
+  var html = HtmlService.createHtmlOutputFromFile('index')
     .setTitle('Member & Expense Manager')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
   SpreadsheetApp.getUi().showSidebar(html);
