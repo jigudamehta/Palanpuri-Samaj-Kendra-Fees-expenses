@@ -768,8 +768,11 @@
       backdrop-filter: blur(4px);
       z-index: 100;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 20px 0;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -786,8 +789,8 @@
       border-radius: 16px;
       width: 90%;
       max-width: 500px;
-      max-height: 90vh;
-      overflow: hidden;
+      max-height: none;
+      overflow: visible;
       box-shadow: var(--shadow-lg);
       transform: translateY(12px);
       transition: transform 0.3s ease;
@@ -831,9 +834,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      overflow-y: auto;
-      flex: 1;
-      -webkit-overflow-scrolling: touch;
+      overflow: visible;
     }
     
     .modal-footer {
@@ -1285,10 +1286,15 @@
         margin: 10px auto;
       }
 
-      /* Mobile modal: use near-full height so footer is always visible */
+      /* Mobile modal: overlay scrolls, modal grows naturally */
+      body:not(.force-desktop) .modal-overlay {
+        padding: 12px 0 24px !important;
+        align-items: flex-start !important;
+      }
+
       body:not(.force-desktop) .modal {
         width: 96% !important;
-        max-height: 92vh !important;
+        max-height: none !important;
         border-radius: 12px !important;
       }
 
@@ -1297,8 +1303,8 @@
       }
 
       body:not(.force-desktop) .modal-body {
-        padding: 16px !important;
-        gap: 14px !important;
+        padding: 14px 16px !important;
+        gap: 12px !important;
       }
 
       body:not(.force-desktop) .modal-footer {
