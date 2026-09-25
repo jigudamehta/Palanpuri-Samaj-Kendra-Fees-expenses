@@ -352,6 +352,17 @@
       height: 16px;
       cursor: pointer;
     }
+    /* Prominent Dispatch Table Checkbox Styling */
+    input[type="checkbox"].dispatch-row-chk,
+    #chk-select-all-dispatch {
+      accent-color: #10b981;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius: 4px;
+    }
     .due-year-lbl { font-weight: 600; font-size: 13px; }
     .due-amt-box {
       width: 75px;
@@ -604,6 +615,49 @@
     }
 
     .hidden { display: none !important; }
+
+    /* Auto-Sync Status Pill */
+    #sync-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      transition: all 0.35s ease;
+      white-space: nowrap;
+    }
+    #sync-status-pill.status-synced   { background: rgba(16,185,129,0.18); color:#10b981; border:1px solid rgba(16,185,129,0.5); }
+    #sync-status-pill.status-syncing  { background: rgba(99,102,241,0.18);  color:#818cf8; border:1px solid rgba(99,102,241,0.5); animation: syncPulse 1s infinite alternate; }
+    #sync-status-pill.status-offline  { background: rgba(245,158,11,0.18);  color:#fbbf24; border:1px solid rgba(245,158,11,0.5); }
+    #sync-status-pill.status-queued   { background: rgba(245,158,11,0.18);  color:#fbbf24; border:1px solid rgba(245,158,11,0.5); }
+    #sync-status-pill.status-error    { background: rgba(239,68,68,0.18);   color:#ef4444; border:1px solid rgba(239,68,68,0.5); }
+    #sync-status-pill.status-idle     { background: var(--bg-surface-2);    color:var(--text-muted); border:1px solid var(--border); }
+    @keyframes syncPulse { from { opacity:1; } to { opacity:0.55; } }
+
+    /* Prominent Checkbox Styling for Dispatch & Selection */
+    input[type="checkbox"].dispatch-row-chk,
+    #chk-select-all-dispatch,
+    input[type="checkbox"] {
+      appearance: auto !important;
+      -webkit-appearance: checkbox !important;
+      width: 20px !important;
+      height: 20px !important;
+      min-width: 20px !important;
+      min-height: 20px !important;
+      cursor: pointer !important;
+      accent-color: #10b981 !important;
+      outline: none;
+      border-radius: 4px;
+      vertical-align: middle;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    input[type="checkbox"]:focus {
+      outline: 2px solid #10b981;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body>
@@ -647,7 +701,7 @@
       <div class="brand-badge">⚡</div>
       <div>
         <div class="brand-title" id="app-org-title">Samaj Kendra</div>
-        <div class="brand-subtitle">Rapid Counter & WhatsApp Dispatch</div>
+        <div class="brand-subtitle">Rapid Counter & WhatsApp Dispatch <span style="font-size:10px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); padding:1px 6px; border-radius:4px; font-weight:700;">v2.3</span></div>
       </div>
     </div>
     
@@ -655,6 +709,11 @@
       <!-- Connection Status Badge -->
       <span id="conn-badge" class="badge badge-online">
         <span style="font-size:8px;">●</span> <span id="conn-text">Online</span>
+      </span>
+
+      <!-- Auto-Sync Live Status Pill -->
+      <span id="sync-status-pill" class="status-idle" title="Auto-Sync Status">
+        <span id="sync-status-icon">💾</span> <span id="sync-status-text">Ready</span>
       </span>
 
       <!-- Counter Lock Badge (Clickable for Admin) -->
@@ -894,16 +953,21 @@
             <option value="PENDING_PDF">Pending PDF Only</option>
             <option value="SENT">Sent Only</option>
           </select>
+
+          <!-- Quick Refresh Button -->
+          <button class="btn btn-secondary" onclick="fetchInitialData(true)" style="padding:6px 12px; font-size:12px;" title="Refresh synced payments from Google Sheet">
+            🔄 Refresh
+          </button>
         </div>
 
         <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-          <button class="btn" onclick="generateAndShareSelected()" id="btn-share-selected" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; font-weight:700; border:none; box-shadow: 0 4px 12px rgba(16,185,129,0.3);">
-            ⚡ Generate & Share Selected (<span id="selected-dispatch-count">0</span>)
+          <button class="btn" onclick="generateAndShareSelected()" id="btn-share-selected" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; font-weight:700; border:none; box-shadow: 0 4px 12px rgba(16,185,129,0.3); padding:9px 16px; font-size:13px;" title="Generate Drive PDF & Open WhatsApp for selected entries">
+            ⚡ Generate PDF & Send WhatsApp (<span id="selected-dispatch-count">0</span> Selected)
           </button>
-          <button class="btn btn-secondary" onclick="startBatchPdfGeneration()" id="btn-batch-pdf">
+          <button class="btn btn-secondary" onclick="startBatchPdfGeneration()" id="btn-batch-pdf" style="padding:9px 14px; font-size:12px;">
             📄 Generate Pending PDFs (<span id="pending-pdf-btn-count">0</span>)
           </button>
-          <button class="btn btn-primary" onclick="openWhatsAppQueueRunner()" id="btn-start-wa-queue">
+          <button class="btn btn-primary" onclick="openWhatsAppQueueRunner()" id="btn-start-wa-queue" style="padding:9px 14px; font-size:12px;">
             ▶️ Start WhatsApp Queue (<span id="pending-wa-btn-count">0</span>)
           </button>
         </div>
@@ -914,8 +978,8 @@
         <table>
           <thead>
             <tr>
-              <th style="width:38px; text-align:center;">
-                <input type="checkbox" id="chk-select-all-dispatch" onchange="toggleSelectAllDispatch(this.checked)" title="Select All">
+              <th style="width:48px; min-width:48px; text-align:center;">
+                <input type="checkbox" id="chk-select-all-dispatch" onchange="toggleSelectAllDispatch(this.checked)" title="Select All / Deselect All">
               </th>
               <th>Receipt #</th>
               <th>Member Name</th>
@@ -1102,6 +1166,20 @@
             <span>⚠️ Member has NO valid 10-digit mobile number!</span>
             <button type="button" class="btn btn-secondary" style="font-size:11px; padding:4px 8px;" onclick="quickEditCurrentWaMobile()">✏️ Add Mobile</button>
           </div>
+        </div>
+
+        <!-- Missing PDF Warning -->
+        <div id="wa-run-no-pdf-alert" class="alert-banner hidden" style="margin-top:10px; border-color:#f59e0b; background:rgba(245,158,11,0.1); color:#fcd34d;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <span>📄 PDF receipt not generated yet. The message won't contain a valid receipt link.</span>
+            <button type="button" class="btn" id="wa-run-gen-pdf-btn" style="font-size:11px; padding:4px 10px; background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; border:none;" onclick="generatePdfForCurrentWaItem()">⚡ Generate PDF Now</button>
+          </div>
+        </div>
+
+        <!-- PDF Link Status -->
+        <div id="wa-run-pdf-info" class="hidden" style="margin-top:8px; font-size:11px; color:#10b981; display:flex; align-items:center; gap:6px;">
+          <span>✅ PDF ready:</span>
+          <a id="wa-run-pdf-link" href="#" target="_blank" style="color:#10b981; text-decoration:underline; font-size:11px; overflow:hidden; text-overflow:ellipsis; max-width:280px; white-space:nowrap;">View PDF Receipt</a>
         </div>
 
       </div>
@@ -1308,7 +1386,9 @@
       memberPage: 1,
       membersPerPage: 25,
       waQueueList: [],
-      waQueueCurrentIdx: 0
+      waQueueCurrentIdx: 0,
+      autoSyncInProgress: false,   // Prevents concurrent auto-sync calls
+      lastSyncStatus: "idle"        // idle | syncing | synced | offline | error
     };
 
     /* IndexedDB Helper for Safe Local Offline Storage */
@@ -1344,6 +1424,7 @@
         appState.localQueue = req.result || [];
         updateQueueBadges();
         renderQueueTable();
+        checkStartupAutoSync();
         if (cb) cb();
       };
     }
@@ -1377,6 +1458,24 @@
       } catch(e) { appState.localQueue = []; }
       updateQueueBadges();
       renderQueueTable();
+      checkStartupAutoSync();
+    }
+
+    function checkStartupAutoSync() {
+      var unsynced = (appState.localQueue || []).filter(q => !q.isSynced);
+      if (typeof updateSyncStatusPill === "function") {
+        if (!navigator.onLine) {
+          updateSyncStatusPill("offline", unsynced.length ? `Offline (${unsynced.length})` : "Offline");
+        } else if (unsynced.length > 0) {
+          updateSyncStatusPill("queued", `${unsynced.length} Queued`);
+          // Auto-flush pending queue in background on boot if online!
+          if (typeof autoSyncPendingQueue === "function") {
+            setTimeout(() => autoSyncPendingQueue(false), 800);
+          }
+        } else {
+          updateSyncStatusPill("synced", "Ready");
+        }
+      }
     }
 
     /* Standalone Google Apps Script Bridge */
@@ -1541,30 +1640,166 @@
       appState.isAdminUser = (userLower === "admin" || userLower === "jiguda");
     }
 
+    /* ========================================================
+       HYBRID AUTO-SYNC ENGINE
+       - On payment save: immediately try to push to Sheets if online
+       - On reconnect: auto-flush the entire pending queue
+       - Visual status pill updates in real-time
+       ======================================================== */
+
+    function updateSyncStatusPill(status, label) {
+      var pill = document.getElementById("sync-status-pill");
+      var icon = document.getElementById("sync-status-icon");
+      var text = document.getElementById("sync-status-text");
+      if (!pill || !icon || !text) return;
+
+      pill.className = "status-" + status;
+      text.textContent = label;
+
+      var iconMap = {
+        idle:    "💾",
+        syncing: "⏳",
+        synced:  "⚡",
+        queued:  "📥",
+        offline: "🟡",
+        error:   "⚠️"
+      };
+      icon.textContent = iconMap[status] || "💾";
+      appState.lastSyncStatus = status;
+    }
+
     function setupOnlineOfflineListeners() {
       window.addEventListener("online", () => {
         updateConnectionStatus(true);
-        showToast("Connected to Internet 🟢");
-        if (appState.currentUser) fetchInitialData();
+        var pending = (appState.localQueue || []).filter(q => !q.isSynced);
+        if (pending.length > 0) {
+          showToast(`🌐 Back online! Auto-syncing ${pending.length} queued payment${pending.length > 1 ? "s" : ""}...`);
+          autoSyncPendingQueue(true /* reconnect flush */);
+        } else {
+          showToast("🌐 Back online! ⚡ All payments already synced.");
+          updateSyncStatusPill("synced", "All Synced");
+          if (appState.currentUser) fetchInitialData();
+        }
       });
       window.addEventListener("offline", () => {
         updateConnectionStatus(false);
-        showToast("Working in Offline Mode 🟡 (Device Storage Active)");
+        var queued = (appState.localQueue || []).filter(q => !q.isSynced).length;
+        updateSyncStatusPill("offline", queued > 0 ? `Offline (${queued} queued)` : "Offline");
+        showToast("📴 Offline mode — payments saved locally until reconnection.");
       });
       updateConnectionStatus(navigator.onLine);
+      // Initial pill state
+      var initPending = (appState.localQueue || []).filter(q => !q.isSynced).length;
+      updateSyncStatusPill(initPending > 0 ? "queued" : "idle", initPending > 0 ? `${initPending} Queued` : "Ready");
     }
 
     function updateConnectionStatus(isOnline) {
       var badge = document.getElementById("conn-badge");
-      var text = document.getElementById("conn-text");
-      if (isOnline) {
-        badge.className = "badge badge-online";
-        text.textContent = "Online";
-      } else {
-        badge.className = "badge badge-offline";
-        text.textContent = "Offline (Local)";
+      var connText = document.getElementById("conn-text");
+      if (badge && connText) {
+        if (isOnline) {
+          badge.className = "badge badge-online";
+          connText.textContent = "Online";
+        } else {
+          badge.className = "badge badge-offline";
+          connText.textContent = "Offline";
+        }
       }
     }
+
+    /**
+     * attemptImmediateSync — called right after a payment is saved to IndexedDB.
+     * If online, pushes ONLY this one item to the sheet immediately.
+     * If offline, falls back to showing "Queued" status.
+     */
+    function attemptImmediateSync(queueItem, onDone) {
+      if (!navigator.onLine) {
+        updateSyncStatusPill("queued", `${(appState.localQueue || []).filter(q => !q.isSynced).length} Queued`);
+        showToast(`📥 Saved offline — will auto-sync when back online.`);
+        if (onDone) onDone(false);
+        return;
+      }
+      if (appState.autoSyncInProgress) {
+        // Another sync is running — the item will be picked up in that batch
+        if (onDone) onDone(false);
+        return;
+      }
+
+      updateSyncStatusPill("syncing", "Syncing…");
+
+      callBackend("syncBulkPayments", [{
+        payments: [queueItem],
+        loggedInUser: appState.currentUser
+      }], (res) => {
+        if (res && res.success) {
+          queueItem.isSynced = true;
+          var map = res.receiptMap || {};
+          if (map[queueItem.tempId]) queueItem.officialReceiptNo = map[queueItem.tempId];
+          saveQueueItemToDb(queueItem);
+          updateSyncStatusPill("synced", "⚡ Auto-Synced");
+          updateQueueBadges();
+          // Refresh dispatch panel in background after short delay
+          setTimeout(() => fetchInitialData(), 1500);
+          if (onDone) onDone(true);
+        } else {
+          updateSyncStatusPill("queued", `${(appState.localQueue || []).filter(q => !q.isSynced).length} Queued`);
+          showToast("⚠️ Sync warning: " + ((res && res.error) || "Server returned error. Will retry on reconnect."), "warning");
+          if (onDone) onDone(false);
+        }
+      }, (err) => {
+        updateSyncStatusPill("queued", `${(appState.localQueue || []).filter(q => !q.isSynced).length} Queued`);
+        showToast("📥 Auto-sync failed — entry saved locally. Will retry when back online.", "warning");
+        if (onDone) onDone(false);
+      });
+    }
+
+    /**
+     * autoSyncPendingQueue — flushes ALL unsynced items, used on reconnect.
+     * Prevents multiple concurrent runs using autoSyncInProgress guard.
+     */
+    function autoSyncPendingQueue(isReconnectFlush) {
+      if (appState.autoSyncInProgress) return;
+      var pending = (appState.localQueue || []).filter(q => !q.isSynced);
+      if (!pending.length) {
+        updateSyncStatusPill("synced", "All Synced");
+        if (isReconnectFlush && appState.currentUser) fetchInitialData();
+        return;
+      }
+
+      appState.autoSyncInProgress = true;
+      updateSyncStatusPill("syncing", `Syncing ${pending.length}…`);
+
+      callBackend("syncBulkPayments", [{
+        payments: pending,
+        loggedInUser: appState.currentUser
+      }], (res) => {
+        appState.autoSyncInProgress = false;
+        if (res && res.success) {
+          var map = res.receiptMap || {};
+          pending.forEach(item => {
+            item.isSynced = true;
+            if (map[item.tempId]) item.officialReceiptNo = map[item.tempId];
+            saveQueueItemToDb(item);
+          });
+          updateSyncStatusPill("synced", `⚡ ${res.syncedCount || pending.length} Synced`);
+          showToast(`✅ Auto-synced ${res.syncedCount || pending.length} payment${pending.length > 1 ? "s" : ""} to Google Sheet!`);
+          updateQueueBadges();
+          fetchInitialData();
+          // Also switch to dispatch tab so user sees results
+          if (isReconnectFlush) switchTab("dispatch");
+        } else {
+          var stillPending = (appState.localQueue || []).filter(q => !q.isSynced).length;
+          updateSyncStatusPill("error", `Retry needed (${stillPending})`);
+          showToast("❌ Auto-sync failed: " + ((res && res.error) || "Server error. Use manual Sync button."), "danger");
+        }
+      }, (err) => {
+        appState.autoSyncInProgress = false;
+        var stillPending = (appState.localQueue || []).filter(q => !q.isSynced).length;
+        updateSyncStatusPill("queued", `${stillPending} Queued`);
+        showToast("📥 Auto-sync error — payments safely stored locally.", "warning");
+      });
+    }
+
 
     /* Robust Member Normalization Helper */
     function normalizeMember(m) {
@@ -1682,10 +1917,59 @@
       });
     }
 
+    function normalizePayment(p) {
+      if (!p) return null;
+      var recNo = (p.receiptNo || p["Receipt Number"] || p["Receipt No"] || p["Receipt #"] || "").toString().trim();
+      var dateStr = (p.date || p["Date"] || "").toString().trim();
+      var nameStr = (p.name || p["Name"] || p["Member Name"] || "").toString().trim();
+      var mId = (p.memberId || p["Member ID"] || "").toString().trim();
+      var mob = (p.mobile || p["Mobile Number"] || p["Mobile"] || "").toString().trim();
+      var mode = (p.mode || p["Payment Mode"] || p["Payment Account"] || "Cash").toString().trim();
+      var txId = (p.txId || p["Transaction ID"] || "").toString().trim();
+      var amt = parseFloat(p.amount !== undefined ? p.amount : (p["Total Amount"] !== undefined ? p["Total Amount"] : 0)) || 0;
+      var narr = (p.narration || p["Fees Breakdown"] || p["Particulars / Breakdown"] || p["Breakdown"] || "").toString().trim();
+      var pdf = (p.pdfUrl || p["Receipt Link"] || p["Receipt Link (PDF)"] || "").toString().trim();
+      var isPdfReady = (p.pdfReady === true) || (pdf.indexOf("http") === 0);
+      var prep = (p.preparedBy || p["Prepared By"] || p["Created By"] || "system").toString().trim();
+      var wa = (p.whatsappStatus || p["WhatsApp Status"] || "Pending").toString().trim();
+      if (!wa) wa = "Pending";
+
+      return {
+        receiptNo: recNo,
+        date: dateStr,
+        name: nameStr,
+        memberId: mId,
+        mobile: mob,
+        mode: mode,
+        txId: txId,
+        amount: amt,
+        narration: narr,
+        pdfUrl: pdf,
+        pdfReady: isPdfReady,
+        preparedBy: prep,
+        whatsappStatus: wa
+      };
+    }
+
+    function formatNarrationForWA(narration) {
+      if (!narration) return "Membership Dues";
+      var raw = narration.toString().trim();
+      if (raw.indexOf(":") > -1) {
+        var parts = raw.split(";").map(function(item) {
+          var trimmed = item.trim();
+          var yr = trimmed.split(":")[0].trim();
+          return yr;
+        }).filter(Boolean);
+        if (parts.length > 0) return parts.join(", ");
+      }
+      return raw;
+    }
+
     function processLoadedData(res) {
       appState.settings = res.settings || appState.settings || {};
       appState.accounts = res.accounts || appState.accounts || ["Cash"];
-      appState.recentPayments = res.recentPayments || res.payments || appState.recentPayments || [];
+      var rawPayments = res.recentPayments || res.payments || appState.recentPayments || [];
+      appState.recentPayments = rawPayments.map(normalizePayment).filter(Boolean);
       appState.isCounterLocked = !!res.isCounterLocked;
       appState.isAdminUser = !!res.isAdminUser || (appState.currentUser.toLowerCase() === 'admin' || appState.currentUser.toLowerCase() === 'jiguda');
 
@@ -1700,9 +1984,10 @@
 
       appState.members = normalized;
 
-      // Save normalized members to cache
+      // Save normalized members and payments to offline cache
       try {
         localStorage.setItem("samaj_members_cache", JSON.stringify(appState.members));
+        localStorage.setItem("samaj_payments_cache", JSON.stringify(appState.recentPayments));
         localStorage.setItem("samaj_settings_cache", JSON.stringify(appState.settings));
       } catch(e) {}
 
@@ -1725,12 +2010,25 @@
           if (hasNames) {
             appState.members = normalized;
             applyMemberFiltersAndRender();
-            showToast("Loaded offline member directory cache.", "warning");
-            return;
           }
         } catch(e) {}
       }
-      showToast("Could not load members. Check API connection ⚙️", "danger");
+
+      var cachedPayments = localStorage.getItem("samaj_payments_cache");
+      if (cachedPayments) {
+        try {
+          var rawP = JSON.parse(cachedPayments);
+          appState.recentPayments = rawP.map(normalizePayment).filter(Boolean);
+          renderDispatchTable();
+          populateVolunteerFilter();
+        } catch(e) {}
+      }
+
+      if (appState.members && appState.members.length > 0) {
+        showToast("Loaded offline member and payment directory cache.", "warning");
+      } else {
+        showToast("Could not load members. Check API connection ⚙️", "danger");
+      }
     }
 
     function updateAppTitle() {
@@ -2126,6 +2424,9 @@
 
         closeModal("modal-payment");
         document.getElementById("member-search-input").focus();
+
+        // Hybrid Auto-Sync: If online, immediately sync to Google Sheet in background
+        attemptImmediateSync(queueItem);
       });
     }
 
@@ -2313,14 +2614,17 @@
           });
 
           showToast(`Successfully synced ${res.syncedCount} payments to Google Sheet! 🚀`);
+          updateSyncStatusPill("synced", `⚡ ${res.syncedCount} Synced`);
           fetchInitialData();
           switchTab("dispatch");
         } else {
+          updateSyncStatusPill("error", "Sync Error");
           showToast("Sync failed: " + (res.error || "Server error"), "danger");
         }
       }, (err) => {
         syncBtn.disabled = false;
         syncBtn.innerHTML = `🚀 Sync All to Sheet (<span id="btn-sync-count">${unsynced.length}</span>)`;
+        updateSyncStatusPill("queued", `${unsynced.length} Queued`);
         showToast("Sync failed: Check internet connection.", "danger");
       });
     }
@@ -2359,11 +2663,44 @@
     /* ========================================================
        TAB 3 LOGIC: MULTI-VOLUNTEER & WHATSAPP DISPATCH
        ======================================================== */
+    function getAllDispatchPayments() {
+      var map = new Map();
+
+      // 1. Google Sheets synced / cached payments
+      (appState.recentPayments || []).forEach(p => {
+        if (p && p.receiptNo) map.set(p.receiptNo, p);
+      });
+
+      // 2. Local queue synced payments (ensure freshly synced counter payments appear immediately)
+      (appState.localQueue || []).forEach(q => {
+        if (q && q.isSynced && q.officialReceiptNo && !map.has(q.officialReceiptNo)) {
+          map.set(q.officialReceiptNo, {
+            receiptNo: q.officialReceiptNo,
+            date: q.dateStr || "",
+            name: q.name || "",
+            memberId: q.memberId || "",
+            mobile: q.mobileNumber || "",
+            mode: q.paymentAccount || "Cash",
+            txId: q.transactionId || "",
+            amount: q.totalAmount || 0,
+            narration: q.narration || "",
+            pdfUrl: q.pdfUrl || "",
+            pdfReady: !!(q.pdfUrl && q.pdfUrl.indexOf("http") === 0),
+            preparedBy: q.preparedBy || appState.currentUser || "system",
+            whatsappStatus: q.whatsappStatus || "Pending"
+          });
+        }
+      });
+
+      return Array.from(map.values());
+    }
+
     function populateVolunteerFilter() {
       var select = document.getElementById("dispatch-filter-volunteer");
+      if (!select) return;
       var volMap = {};
 
-      appState.recentPayments.forEach(p => {
+      getAllDispatchPayments().forEach(p => {
         var v = p.preparedBy || "system";
         volMap[v] = (volMap[v] || 0) + 1;
       });
@@ -2376,14 +2713,17 @@
     }
 
     function getFilteredDispatchPayments() {
-      var volFilter = document.getElementById("dispatch-filter-volunteer").value;
-      var statFilter = document.getElementById("dispatch-filter-status").value;
+      var volEl = document.getElementById("dispatch-filter-volunteer");
+      var statEl = document.getElementById("dispatch-filter-status");
+      var volFilter = volEl ? volEl.value : "ALL";
+      var statFilter = statEl ? statEl.value : "ALL";
 
-      return appState.recentPayments.filter(p => {
+      return getAllDispatchPayments().filter(p => {
+        var waStat = (p.whatsappStatus || "");
         if (volFilter !== "ALL" && p.preparedBy !== volFilter) return false;
-        if (statFilter === "PENDING_WA" && p.whatsappStatus.includes("Sent")) return false;
+        if (statFilter === "PENDING_WA" && waStat.includes("Sent")) return false;
         if (statFilter === "PENDING_PDF" && p.pdfReady) return false;
-        if (statFilter === "SENT" && !p.whatsappStatus.includes("Sent")) return false;
+        if (statFilter === "SENT" && !waStat.includes("Sent")) return false;
         return true;
       });
     }
@@ -2391,29 +2731,42 @@
     function renderDispatchTable() {
       if (!appState.selectedReceipts) appState.selectedReceipts = new Set();
 
+      var allItems = getAllDispatchPayments();
       var list = getFilteredDispatchPayments();
       var tbody = document.getElementById("dispatch-table-body");
+      if (!tbody) return;
 
-      var total = appState.recentPayments.length;
-      var pdfReadyCount = appState.recentPayments.filter(p => p.pdfReady).length;
-      var waSentCount = appState.recentPayments.filter(p => p.whatsappStatus.includes("Sent")).length;
+      var total = allItems.length;
+      var pdfReadyCount = allItems.filter(p => p.pdfReady).length;
+      var waSentCount = allItems.filter(p => (p.whatsappStatus || "").includes("Sent")).length;
       var pendingPdf = total - pdfReadyCount;
       var pendingWa = total - waSentCount;
 
-      document.getElementById("dispatch-total-count").textContent = total;
-      document.getElementById("dispatch-pdf-stat").textContent = `${pdfReadyCount} / ${total}`;
-      document.getElementById("dispatch-pdf-sub").textContent = `${pendingPdf} Pending`;
-      document.getElementById("dispatch-wa-stat").textContent = `${waSentCount} / ${total}`;
-      document.getElementById("dispatch-wa-sub").textContent = `${pendingWa} Pending`;
+      var totalCountEl = document.getElementById("dispatch-total-count");
+      if (totalCountEl) totalCountEl.textContent = total;
+      var pdfStatEl = document.getElementById("dispatch-pdf-stat");
+      if (pdfStatEl) pdfStatEl.textContent = `${pdfReadyCount} / ${total}`;
+      var pdfSubEl = document.getElementById("dispatch-pdf-sub");
+      if (pdfSubEl) pdfSubEl.textContent = `${pendingPdf} Pending`;
+      var waStatEl = document.getElementById("dispatch-wa-stat");
+      if (waStatEl) waStatEl.textContent = `${waSentCount} / ${total}`;
+      var waSubEl = document.getElementById("dispatch-wa-sub");
+      if (waSubEl) waSubEl.textContent = `${pendingWa} Pending`;
 
-      document.getElementById("pending-pdf-btn-count").textContent = pendingPdf;
-      document.getElementById("pending-wa-btn-count").textContent = pendingWa;
-      document.getElementById("dispatch-badge-count").textContent = pendingWa;
+      var pendPdfBtn = document.getElementById("pending-pdf-btn-count");
+      if (pendPdfBtn) pendPdfBtn.textContent = pendingPdf;
+      var pendWaBtn = document.getElementById("pending-wa-btn-count");
+      if (pendWaBtn) pendWaBtn.textContent = pendingWa;
+      var dispBadge = document.getElementById("dispatch-badge-count");
+      if (dispBadge) dispBadge.textContent = pendingWa;
 
       updateDispatchSelectionUI(list);
 
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:30px; color:var(--text-muted);">No records found matching filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:30px; color:var(--text-muted);">
+          No records found matching filters.<br>
+          <button class="btn btn-secondary" style="margin-top:10px; font-size:12px;" onclick="fetchInitialData(true)">🔄 Sync & Refresh from Google Sheet</button>
+        </td></tr>`;
         return;
       }
 
@@ -2421,9 +2774,9 @@
         var isSelected = appState.selectedReceipts.has(p.receiptNo);
         var hasValidMobile = (p.mobile && p.mobile.replace(/\D/g, '').length >= 10);
         return `
-        <tr style="${isSelected ? 'background: rgba(16, 185, 129, 0.05);' : ''}">
-          <td style="text-align:center;">
-            <input type="checkbox" class="dispatch-row-chk" value="${p.receiptNo}" ${isSelected ? 'checked' : ''} onchange="toggleReceiptSelection('${p.receiptNo}', this.checked)">
+        <tr id="row-dispatch-${escapeHtml(p.receiptNo)}" style="${isSelected ? 'background: rgba(16, 185, 129, 0.08);' : ''}">
+          <td style="width:48px; min-width:48px; text-align:center;" onclick="event.stopPropagation();">
+            <input type="checkbox" class="dispatch-row-chk" id="chk-dispatch-${escapeHtml(p.receiptNo)}" value="${escapeHtml(p.receiptNo)}" ${isSelected ? 'checked' : ''} onchange="toggleReceiptSelection('${escapeHtml(p.receiptNo)}', this.checked)">
           </td>
           <td><strong>${p.receiptNo}</strong><div style="font-size:10px; color:var(--text-dim);">${p.date}</div></td>
           <td><strong>${escapeHtml(p.name)}</strong><div style="font-size:11px; color:var(--text-muted);">${p.memberId}</div></td>
@@ -2467,6 +2820,10 @@
       } else {
         appState.selectedReceipts.delete(receiptNo);
       }
+      var rowEl = document.getElementById("row-dispatch-" + receiptNo);
+      if (rowEl) {
+        rowEl.style.backgroundColor = isChecked ? "rgba(16, 185, 129, 0.08)" : "";
+      }
       updateDispatchSelectionUI();
     }
 
@@ -2486,6 +2843,19 @@
       var countEl = document.getElementById("selected-dispatch-count");
       if (countEl) countEl.textContent = count;
 
+      var btn = document.getElementById("btn-share-selected");
+      if (btn) {
+        if (count > 0) {
+          btn.style.opacity = "1";
+          btn.style.transform = "scale(1.02)";
+          btn.style.boxShadow = "0 0 16px rgba(16, 185, 129, 0.6)";
+        } else {
+          btn.style.opacity = "0.85";
+          btn.style.transform = "scale(1)";
+          btn.style.boxShadow = "0 4px 12px rgba(16,185,129,0.3)";
+        }
+      }
+
       var chkAll = document.getElementById("chk-select-all-dispatch");
       if (chkAll) {
         var list = currentList || getFilteredDispatchPayments();
@@ -2500,7 +2870,8 @@
         return;
       }
 
-      var selectedList = appState.recentPayments.filter(p => appState.selectedReceipts.has(p.receiptNo));
+      var allPayments = getAllDispatchPayments();
+      var selectedList = allPayments.filter(p => appState.selectedReceipts.has(p.receiptNo));
       if (!selectedList.length) {
         showToast("No records found matching your selection.", "warning");
         return;
@@ -2542,7 +2913,7 @@
           callBackend("generateBatchReceipts", [chunk], (res) => {
             if (res && res.success && res.processed) {
               res.processed.forEach(item => {
-                var found = appState.recentPayments.find(p => p.receiptNo === item.receiptNo);
+                var found = (appState.recentPayments || []).find(p => p.receiptNo === item.receiptNo);
                 if (found && (item.status === "SUCCESS" || item.status === "ALREADY_EXISTS")) {
                   found.pdfUrl = item.pdfUrl;
                   found.pdfReady = true;
@@ -2663,24 +3034,66 @@
       document.getElementById("wa-run-amount").textContent = "₹" + p.amount;
       document.getElementById("wa-run-narration").textContent = p.narration || "-";
 
-      // Build WhatsApp Message with shortened/direct Drive PDF link
-      var tmpl = appState.settings["WhatsApp Template"] || "*{ORG}*\n\nDear *{NAME}*,\nWe have received your payment:\n\nReceipt No: *{RECEIPT_NO}*\nAmount: *INR {AMOUNT}*\nPaid for: *{NARRATION}*\n\nDownload Receipt: {LINK}\n\nThanks,";
-      var org = appState.settings["Organization Name"] || "Samaj Kendra";
-      var link = p.pdfUrl || "https://drive.google.com";
+      // Check if PDF URL is valid HTTP
+      var hasValidPdf = (p.pdfUrl && typeof p.pdfUrl === "string" && p.pdfUrl.trim().indexOf("http") === 0);
+      var link = hasValidPdf
+        ? p.pdfUrl.trim()
+        : "(Receipt PDF not yet generated — click 'Generate PDF Now' above)";
+
+      if (hasValidPdf) {
+        p.pdfReady = true;
+        if (noPdfAlert) noPdfAlert.classList.add("hidden");
+        if (pdfInfo) { pdfInfo.classList.remove("hidden"); pdfInfo.style.display = "flex"; }
+        if (pdfLink) { pdfLink.href = link; pdfLink.textContent = link.length > 50 ? link.substring(0, 50) + "..." : link; }
+      } else {
+        if (noPdfAlert) noPdfAlert.classList.remove("hidden");
+        if (pdfInfo) { pdfInfo.classList.add("hidden"); pdfInfo.style.display = "none"; }
+      }
+
+      // Build WhatsApp Message — use actual PDF link or placeholder note
+      var tmpl = appState.settings["WhatsApp Template"] || "*{ORG}*\n\nDear *{NAME}*,\nWe have received your payment:\n\n• Receipt No: *{RECEIPT_NO}*\n• Amount: *INR {AMOUNT}*\n• Paid for: *{NARRATION}*\n\nDownload Receipt: {LINK}\n\nThanks,";
+      var org = appState.settings["Organization Name"] || "Palapuri Samaj Kedra (surat)";
+      
+      var yearsText = formatNarrationForWA(p.narration);
+      var rawNarration = p.narration || "Membership Dues";
+      var amtStr = (p.amount || 0).toFixed(2);
 
       var msg = tmpl
+        // Organization Name
         .replace(/{ORG}/g, org)
         .replace(/\[Organization Name\]/g, org)
+        .replace(/\[Org Name\]/g, org)
+        .replace(/\[Organization\]/g, org)
+        // Member Name
         .replace(/{NAME}/g, p.name)
         .replace(/\[Member Name\]/g, p.name)
+        .replace(/\[Name\]/g, p.name)
+        // Receipt Number
         .replace(/{RECEIPT_NO}/g, p.receiptNo)
+        .replace(/{RECEIPT_NUMBER}/g, p.receiptNo)
         .replace(/\[Receipt No\]/g, p.receiptNo)
-        .replace(/{AMOUNT}/g, p.amount.toFixed(2))
-        .replace(/\[Amount\]/g, p.amount.toFixed(2))
-        .replace(/{NARRATION}/g, p.narration || "Membership Dues")
-        .replace(/\[Paid for\]/g, p.narration || "Membership Dues")
+        .replace(/\[Receipt No\.\]/g, p.receiptNo)
+        .replace(/\[Receipt Number\]/g, p.receiptNo)
+        // Amount
+        .replace(/{AMOUNT}/g, amtStr)
+        .replace(/\[Amount\]/g, amtStr)
+        .replace(/\[Total Amount\]/g, amtStr)
+        // Years Paid / Fees Breakdown
+        .replace(/{NARRATION}/g, yearsText)
+        .replace(/{YEARS_PAID}/g, yearsText)
+        .replace(/\[Years Paid\]/g, yearsText)
+        .replace(/\[Year Paid\]/g, yearsText)
+        .replace(/\[Paid for\]/g, yearsText)
+        .replace(/\[Paid For\]/g, yearsText)
+        .replace(/\[Narration\]/g, rawNarration)
+        .replace(/\[Particulars\]/g, rawNarration)
+        // PDF Receipt Link
         .replace(/{LINK}/g, link)
-        .replace(/\[Receipt Link\]/g, link);
+        .replace(/\[Link\]/g, link)
+        .replace(/\[Receipt Link\]/g, link)
+        .replace(/\[PDF Link\]/g, link)
+        .replace(/\[Receipt URL\]/g, link)
+        .replace(/\[Download Link\]/g, link);
 
       document.getElementById("wa-run-msg-preview").textContent = msg;
 
@@ -2704,6 +3117,35 @@
       }
 
       document.getElementById("wa-run-open-link").href = waHref;
+    }
+
+    /* Generate PDF on-demand for current WA queue item */
+    function generatePdfForCurrentWaItem() {
+      var p = appState.waQueueList[appState.waQueueCurrentIdx];
+      if (!p) return;
+
+      var genBtn = document.getElementById("wa-run-gen-pdf-btn");
+      if (genBtn) { genBtn.textContent = "⏳ Generating..."; genBtn.disabled = true; }
+      showToast("Generating PDF for " + p.name + "...");
+
+      callBackend("generateSingleReceiptOnDemand", [p.receiptNo], (res) => {
+        if (genBtn) { genBtn.textContent = "⚡ Generate PDF Now"; genBtn.disabled = false; }
+        if (res && res.success && res.pdfUrl) {
+          p.pdfUrl = res.pdfUrl;
+          p.pdfReady = true;
+          // Also update in recentPayments
+          var found = appState.recentPayments.find(r => r.receiptNo === p.receiptNo);
+          if (found) { found.pdfUrl = res.pdfUrl; found.pdfReady = true; }
+          renderDispatchTable();
+          loadWaRunnerItem(appState.waQueueCurrentIdx);
+          showToast("✅ PDF generated! Receipt link added to WhatsApp message.");
+        } else {
+          showToast("❌ PDF generation failed: " + (res && res.error ? res.error : "Unknown error"), "danger");
+        }
+      }, (err) => {
+        if (genBtn) { genBtn.textContent = "⚡ Generate PDF Now"; genBtn.disabled = false; }
+        showToast("❌ PDF generation error: " + (err.message || err.toString()), "danger");
+      });
     }
 
     function quickEditCurrentWaMobile() {

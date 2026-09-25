@@ -4,11 +4,14 @@
  */
 
 function doGet(e) {
-  return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('Member & Expense Manager')
+  var page = (e && e.parameter && e.parameter.page) ? e.parameter.page : 'index';
+  var fileName = (page === 'bulk') ? 'BulkPayments' : 'index';
+  var title = (page === 'bulk') ? 'Rapid Counter & WhatsApp Dispatch' : 'Member & Expense Manager';
+  return HtmlService.createHtmlOutputFromFile(fileName)
+    .setTitle(title)
     .setSandboxMode(HtmlService.SandboxMode.IFRAME)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
-    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1');
 }
 
 /**
@@ -20,6 +23,7 @@ function onOpen() {
   ui.createMenu('Member & Expense Manager')
     .addItem('Open Dashboard Sidebar', 'openDashboardSidebar')
     .addItem('Get Dashboard URL', 'openDashboardModal')
+    .addItem('⚡ Open Rapid Counter (Bulk Fees)', 'openBulkCounterModal')
     .addItem('Re-Authorize Drive Access', 'authorizeDriveAccess')
     .addToUi();
 }
@@ -108,6 +112,49 @@ function openDashboardModal() {
   SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Launch Dashboard');
 }
 
+function openBulkCounterModal() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var settingsSheet = getSettingsSheet(ss);
+  var settings = getSettingsMap(settingsSheet);
+  var webAppUrl = settings["Web App Link"];
+  
+  if (!webAppUrl || webAppUrl.indexOf("http") === -1) {
+    try { webAppUrl = ScriptApp.getService().getUrl(); } catch(e) {}
+  }
+  
+  if (!webAppUrl) {
+    SpreadsheetApp.getUi().alert("Please deploy this script as a Web App first (Deploy > New deployment) to get the Rapid Counter link.");
+    return;
+  }
+  
+  var bulkUrl = webAppUrl + "?page=bulk";
+  
+  var htmlContent = `
+    <html>
+    <head>
+      <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 20px; text-align: center; color: #1F2937; }
+        .title { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+        .btn { display: inline-block; padding: 10px 20px; background-color: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 15px; margin-bottom: 15px; font-size: 14px; }
+        .btn:hover { background-color: #059669; }
+        .url-box { font-size: 11px; color: #6B7280; word-break: break-all; background: #F3F4F6; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB; }
+      </style>
+    </head>
+    <body>
+      <div class="title">⚡ Rapid Counter & WhatsApp Dispatch</div>
+      <p style="font-size: 13px;">Share this link with volunteers to collect fees:</p>
+      <a href="${bulkUrl}" target="_blank" class="btn" onclick="google.script.host.close()">Open Rapid Counter</a>
+      <div class="url-box">${bulkUrl}</div>
+      <p style="font-size: 11px; color: #9CA3AF; margin-top: 10px;">Volunteers can bookmark this link on their phones.</p>
+    </body>
+    </html>
+  `;
+  var htmlOutput = HtmlService.createHtmlOutput(htmlContent)
+    .setWidth(460)
+    .setHeight(270);
+  SpreadsheetApp.getUi().showModalDialog(htmlOutput, '⚡ Launch Rapid Counter');
+}
+
 /**
  * Fetch initial database contents and status statistics
  */
@@ -146,11 +193,18 @@ function getInitialData() {
     var membersHeaders = membersValues[0];
     
     var memberIdIdx = membersHeaders.indexOf("Member ID");
+    if (memberIdIdx === -1) memberIdIdx = 1;  // Col B physical fallback
     var nameIdx = membersHeaders.indexOf("Name");
+    if (nameIdx === -1) nameIdx = membersHeaders.indexOf("Full Name");
+    if (nameIdx === -1) nameIdx = membersHeaders.indexOf("Member Name");
+    if (nameIdx === -1) nameIdx = 2;  // Col C physical fallback
     var mobileIdx = membersHeaders.indexOf("Mobile Number");
+    if (mobileIdx === -1) mobileIdx = membersHeaders.indexOf("Mobile");
+    if (mobileIdx === -1) mobileIdx = 3;  // Col D physical fallback
     var famCountIdx = membersHeaders.indexOf("No of fam mem");
     var joinDateIdx = membersHeaders.indexOf("Join Date");
     var srNoIdx = membersHeaders.indexOf("Sr No");
+    if (srNoIdx === -1) srNoIdx = 0;  // Col A physical fallback
     
     // Parse years dynamically: columns whose header matches yyyy-yy Status (e.g. 2022-23 Status)
     var financialYears = [];
@@ -172,7 +226,10 @@ function getInitialData() {
     // Parse Members List
     var membersList = [];
     for (var i = 1; i < membersValues.length; i++) {
-      if (!membersValues[i][nameIdx]) continue;
+      // Skip row only if BOTH name column AND member ID column are empty
+      var rowName = membersValues[i][nameIdx];
+      var rowId = membersValues[i][memberIdIdx];
+      if (!rowName && !rowId) continue;
       
       var member = {};
       member["Sr No"] = membersValues[i][srNoIdx];
@@ -629,11 +686,17 @@ function editPayment(receiptNo, paymentData) {
     
     var totalAmount = parseFloat(paymentData.donationAmount || 0);
     var breakdownArray = [];
-    if (paymentData.yearlyFees && typeof paymentData.yearlyFees === 'object') {
+    if (paymentData.yearlyFees && typeof paymentData.yearlyFees === 'object' && Object.keys(paymentData.yearlyFees).length > 0) {
       for (var yr in paymentData.yearlyFees) {
         var fee = parseFloat(paymentData.yearlyFees[yr]);
         totalAmount += fee;
         breakdownArray.push(yr + ": " + fee);
+      }
+    } else if (paymentData.narration || oldBreakdownStr) {
+      var fallbackNarr = paymentData.narration || oldBreakdownStr || "";
+      breakdownArray = fallbackNarr ? fallbackNarr.toString().split("; ") : [];
+      if (paymentData.totalAmount !== undefined && paymentData.totalAmount !== null) {
+        totalAmount = parseFloat(paymentData.totalAmount);
       }
     }
     var breakdownStr = breakdownArray.join("; ");
@@ -649,8 +712,14 @@ function editPayment(receiptNo, paymentData) {
       Logger.log("Could not set sharing on payment PDF: " + sharingErr.toString());
     }
     
-    var longUrl = pdfFile.getUrl();
-    var shortUrl = shortenUrl(longUrl);
+    var longUrl = "https://drive.google.com/file/d/" + pdfFile.getId() + "/view?usp=sharing";
+    var shortUrl = longUrl;
+    if (typeof shortenUrl === 'function') {
+      try {
+        var s = shortenUrl(longUrl);
+        if (s && s.indexOf("http") === 0) shortUrl = s;
+      } catch(shortErr) {}
+    }
     
     var headers = paymentsSheet.getRange(1, 1, 1, paymentsSheet.getLastColumn()).getValues()[0];
     
@@ -673,6 +742,11 @@ function editPayment(receiptNo, paymentData) {
       paymentsSheet.getRange(rowIndex, prepByIdx + 1).setValue(paymentData.preparedBy || "system");
     }
     
+    var waIdx = headers.indexOf("WhatsApp Status");
+    if (waIdx > -1) {
+      paymentsSheet.getRange(rowIndex, waIdx + 1).setValue("Pending (Updated)");
+    }
+    
     var description = "Received from " + paymentData.name + (paymentData.memberId && paymentData.memberId !== "NON-MEMBER" ? " (" + paymentData.memberId + ")" : "") + (breakdownStr ? " for dues: " + breakdownStr : "") + (paymentData.donationAmount > 0 ? " (Donation: " + paymentData.donationAmount + ")" : "");
     if (oldAccount !== paymentData.paymentAccount) {
       removeLedgerEntry(oldAccount, receiptNo);
@@ -681,11 +755,12 @@ function editPayment(receiptNo, paymentData) {
       updateLedgerEntry(paymentData.paymentAccount, receiptNo, dateVal, description, true, totalAmount, paymentData.preparedBy);
     }
     
-    if (paymentData.memberId && paymentData.memberId !== "NON-MEMBER") {
+    if (paymentData.memberId && paymentData.memberId !== "NON-MEMBER" && paymentData.yearlyFees) {
       updateMemberFeeStatusAndMobile(paymentData.memberId, paymentData.yearlyFees, "Paid", receiptNo, paymentData.mobileNumber);
     }
     
-    return { success: true, receiptNo: receiptNo, shortUrl: shortUrl };
+    SpreadsheetApp.flush();
+    return { success: true, receiptNo: receiptNo, shortUrl: shortUrl, pdfUrl: shortUrl };
   } catch (error) {
     return { success: false, error: error.toString() };
   }
@@ -829,6 +904,13 @@ function deletePayment(receiptNo) {
     paymentsSheet.getRange(rowIndex, 2).setValue("DELETED");
     removeLedgerEntry(oldAccount, receiptNo);
     
+    var pHeaders = paymentsSheet.getRange(1, 1, 1, paymentsSheet.getLastColumn()).getValues()[0];
+    var waIdx = pHeaders.indexOf("WhatsApp Status");
+    if (waIdx > -1) {
+      paymentsSheet.getRange(rowIndex, waIdx + 1).setValue("Cancelled / Deleted");
+    }
+    
+    SpreadsheetApp.flush();
     return { success: true };
   } catch (error) {
     return { success: false, error: error.toString() };
@@ -2372,7 +2454,13 @@ function doPost(e) {
       "getUsers", 
       "saveUsers", 
       "saveFD", 
-      "deleteFD"
+      "deleteFD",
+      "getBulkAppData",
+      "toggleCounterLock",
+      "syncBulkPayments",
+      "generateBatchReceipts",
+      "generateSingleReceiptOnDemand",
+      "updateWhatsAppStatus"
     ];
     
     if (allowedFunctions.indexOf(functionName) === -1) {
