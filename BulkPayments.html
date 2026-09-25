@@ -2798,8 +2798,8 @@
             </span>
           </td>
           <td style="text-align:right; white-space:nowrap;">
-            <button class="btn btn-secondary" style="padding:5px 8px; font-size:12px;" onclick="sendSingleWhatsApp('${p.receiptNo}')" title="Send WhatsApp">
-              📲 Send
+            <button class="btn btn-secondary" style="padding:5px 8px; font-size:12px;" onclick="sendSingleWhatsApp('${p.receiptNo}')" title="${p.whatsappStatus && p.whatsappStatus.includes('Sent') ? 'Resend WhatsApp' : 'Send WhatsApp'}">
+              📲 ${p.whatsappStatus && p.whatsappStatus.includes('Sent') ? 'Resend' : 'Send'}
             </button>
             <button class="btn btn-secondary" style="padding:5px 8px; font-size:12px; margin-left:4px;" onclick="openEditSyncedPaymentModal('${p.receiptNo}')" title="Edit Payment Receipt">
               ✏️
@@ -3013,8 +3013,33 @@
     }
 
     function sendSingleWhatsApp(receiptNo) {
+      // Look in recentPayments first, then fall back to localQueue synced items
       var p = appState.recentPayments.find(r => r.receiptNo === receiptNo);
-      if (!p) return;
+      if (!p) {
+        var qItem = (appState.localQueue || []).find(q => q.isSynced && q.officialReceiptNo === receiptNo);
+        if (qItem) {
+          // Normalise the queue item into a payment object and add to recentPayments
+          var normalised = {
+            receiptNo: qItem.officialReceiptNo,
+            date: qItem.dateStr || "",
+            name: qItem.name || "",
+            memberId: qItem.memberId || "",
+            mobile: qItem.mobileNumber || "",
+            mode: qItem.paymentAccount || "Cash",
+            txId: qItem.transactionId || "",
+            amount: qItem.totalAmount || 0,
+            narration: qItem.narration || "",
+            pdfUrl: qItem.pdfUrl || "",
+            pdfReady: !!(qItem.pdfUrl && qItem.pdfUrl.indexOf("http") === 0),
+            preparedBy: qItem.preparedBy || appState.currentUser || "system",
+            whatsappStatus: qItem.whatsappStatus || "Pending"
+          };
+          appState.recentPayments.unshift(normalised);
+        } else {
+          showToast("Receipt " + receiptNo + " not found in payments list.", "warning");
+          return;
+        }
+      }
       openWhatsAppQueueRunner([receiptNo]);
     }
 
@@ -3032,7 +3057,15 @@
       document.getElementById("wa-run-phone").textContent = p.mobile ? `+91 ${p.mobile}` : "No Mobile Number";
       document.getElementById("wa-run-receipt-badge").textContent = p.receiptNo;
       document.getElementById("wa-run-amount").textContent = "₹" + p.amount;
-      document.getElementById("wa-run-narration").textContent = p.narration || "-";
+
+      // Show narration: parse "Fees Breakdown" format like "2025-26: 1000; 2026-27: 1000"
+      var narrationDisplay = formatNarrationForWA(p.narration);
+      document.getElementById("wa-run-narration").textContent = narrationDisplay || p.narration || "-";
+
+      // Resolve PDF elements by ID each time
+      var noPdfAlert = document.getElementById("wa-run-no-pdf-alert");
+      var pdfInfo    = document.getElementById("wa-run-pdf-info");
+      var pdfLink    = document.getElementById("wa-run-pdf-link");
 
       // Check if PDF URL is valid HTTP
       var hasValidPdf = (p.pdfUrl && typeof p.pdfUrl === "string" && p.pdfUrl.trim().indexOf("http") === 0);
@@ -3043,14 +3076,14 @@
       if (hasValidPdf) {
         p.pdfReady = true;
         if (noPdfAlert) noPdfAlert.classList.add("hidden");
-        if (pdfInfo) { pdfInfo.classList.remove("hidden"); pdfInfo.style.display = "flex"; }
-        if (pdfLink) { pdfLink.href = link; pdfLink.textContent = link.length > 50 ? link.substring(0, 50) + "..." : link; }
+        if (pdfInfo)  { pdfInfo.classList.remove("hidden"); pdfInfo.style.display = "flex"; }
+        if (pdfLink)  { pdfLink.href = link; pdfLink.textContent = link.length > 50 ? link.substring(0, 50) + "..." : link; }
       } else {
         if (noPdfAlert) noPdfAlert.classList.remove("hidden");
-        if (pdfInfo) { pdfInfo.classList.add("hidden"); pdfInfo.style.display = "none"; }
+        if (pdfInfo)  { pdfInfo.classList.add("hidden"); pdfInfo.style.display = "none"; }
       }
 
-      // Build WhatsApp Message — use actual PDF link or placeholder note
+      // Build WhatsApp Message — robust case-insensitive replacement for all placeholder formats
       var tmpl = appState.settings["WhatsApp Template"] || "*{ORG}*\n\nDear *{NAME}*,\nWe have received your payment:\n\n• Receipt No: *{RECEIPT_NO}*\n• Amount: *INR {AMOUNT}*\n• Paid for: *{NARRATION}*\n\nDownload Receipt: {LINK}\n\nThanks,";
       var org = appState.settings["Organization Name"] || "Palapuri Samaj Kedra (surat)";
       
@@ -3060,40 +3093,51 @@
 
       var msg = tmpl
         // Organization Name
-        .replace(/{ORG}/g, org)
-        .replace(/\[Organization Name\]/g, org)
-        .replace(/\[Org Name\]/g, org)
-        .replace(/\[Organization\]/g, org)
+        .replace(/\{ORG\}/gi, org)
+        .replace(/\[Organization Name\]/gi, org)
+        .replace(/\[Org Name\]/gi, org)
+        .replace(/\[Organization\]/gi, org)
         // Member Name
-        .replace(/{NAME}/g, p.name)
-        .replace(/\[Member Name\]/g, p.name)
-        .replace(/\[Name\]/g, p.name)
+        .replace(/\{NAME\}/gi, p.name)
+        .replace(/\[Member Name\]/gi, p.name)
+        .replace(/\[Name\]/gi, p.name)
         // Receipt Number
-        .replace(/{RECEIPT_NO}/g, p.receiptNo)
-        .replace(/{RECEIPT_NUMBER}/g, p.receiptNo)
-        .replace(/\[Receipt No\]/g, p.receiptNo)
-        .replace(/\[Receipt No\.\]/g, p.receiptNo)
-        .replace(/\[Receipt Number\]/g, p.receiptNo)
+        .replace(/\{RECEIPT_NO\}/gi, p.receiptNo)
+        .replace(/\{RECEIPT_NUMBER\}/gi, p.receiptNo)
+        .replace(/\[Receipt No\]/gi, p.receiptNo)
+        .replace(/\[Receipt No\.\]/gi, p.receiptNo)
+        .replace(/\[Receipt Number\]/gi, p.receiptNo)
         // Amount
-        .replace(/{AMOUNT}/g, amtStr)
-        .replace(/\[Amount\]/g, amtStr)
-        .replace(/\[Total Amount\]/g, amtStr)
-        // Years Paid / Fees Breakdown
-        .replace(/{NARRATION}/g, yearsText)
-        .replace(/{YEARS_PAID}/g, yearsText)
-        .replace(/\[Years Paid\]/g, yearsText)
-        .replace(/\[Year Paid\]/g, yearsText)
-        .replace(/\[Paid for\]/g, yearsText)
-        .replace(/\[Paid For\]/g, yearsText)
-        .replace(/\[Narration\]/g, rawNarration)
-        .replace(/\[Particulars\]/g, rawNarration)
+        .replace(/\{AMOUNT\}/gi, amtStr)
+        .replace(/\[Amount\]/gi, amtStr)
+        .replace(/\[Total Amount\]/gi, amtStr)
+        // Years Paid / Fees Breakdown / Narration
+        .replace(/\{NARRATION\}/gi, yearsText)
+        .replace(/\{YEARS_PAID\}/gi, yearsText)
+        .replace(/\{FEES_BREAKDOWN\}/gi, yearsText)
+        .replace(/\{BREAKDOWN\}/gi, yearsText)
+        .replace(/\{PAID_FOR\}/gi, yearsText)
+        .replace(/\[Fees Breakdown\]/gi, yearsText)
+        .replace(/\[Breakdown\]/gi, yearsText)
+        .replace(/\[Years Paid\]/gi, yearsText)
+        .replace(/\[Year Paid\]/gi, yearsText)
+        .replace(/\[Paid for\]/gi, yearsText)
+        .replace(/\[Paid For\]/gi, yearsText)
+        .replace(/\[Narration\]/gi, rawNarration)
+        .replace(/\[Particulars\]/gi, rawNarration)
+        .replace(/\[Particulars \/ Breakdown\]/gi, rawNarration)
         // PDF Receipt Link
-        .replace(/{LINK}/g, link)
-        .replace(/\[Link\]/g, link)
-        .replace(/\[Receipt Link\]/g, link)
-        .replace(/\[PDF Link\]/g, link)
-        .replace(/\[Receipt URL\]/g, link)
-        .replace(/\[Download Link\]/g, link);
+        .replace(/\{LINK\}/gi, link)
+        .replace(/\{RECEIPT_LINK\}/gi, link)
+        .replace(/\{PDF_LINK\}/gi, link)
+        .replace(/\{RECEIPT_URL\}/gi, link)
+        .replace(/\{URL\}/gi, link)
+        .replace(/\[Link\]/gi, link)
+        .replace(/\[Receipt Link\]/gi, link)
+        .replace(/\[Receipt Link \(PDF\)\]/gi, link)
+        .replace(/\[PDF Link\]/gi, link)
+        .replace(/\[Receipt URL\]/gi, link)
+        .replace(/\[Download Link\]/gi, link);
 
       document.getElementById("wa-run-msg-preview").textContent = msg;
 
@@ -3104,19 +3148,30 @@
       var noMobAlert = document.getElementById("wa-run-no-mobile-alert");
       var sendBtn = document.getElementById("wa-run-open-link");
 
+      var isAlreadySent = (p.whatsappStatus && p.whatsappStatus.includes("Sent"));
+      if (sendBtn) {
+        sendBtn.innerHTML = isAlreadySent ? "📲 Resend WhatsApp" : "📲 Send WhatsApp";
+      }
+
       if (memberPhone && memberPhone.length >= 10) {
         if (noMobAlert) noMobAlert.classList.add("hidden");
-        sendBtn.style.opacity = "1";
-        sendBtn.style.pointerEvents = "auto";
+        if (sendBtn) {
+          sendBtn.style.opacity = "1";
+          sendBtn.style.pointerEvents = "auto";
+        }
         waHref = `https://api.whatsapp.com/send?phone=${memberPhone}&text=${encodeURIComponent(msg)}`;
       } else {
         if (noMobAlert) noMobAlert.classList.remove("hidden");
-        sendBtn.style.opacity = "0.5";
-        sendBtn.style.pointerEvents = "none";
+        if (sendBtn) {
+          sendBtn.style.opacity = "0.5";
+          sendBtn.style.pointerEvents = "none";
+        }
         waHref = "#";
       }
 
-      document.getElementById("wa-run-open-link").href = waHref;
+      if (sendBtn) {
+        sendBtn.href = waHref;
+      }
     }
 
     /* Generate PDF on-demand for current WA queue item */
@@ -3166,12 +3221,31 @@
     }
 
     function onWaLinkClicked() {
-      markCurrentWaSentAndNext();
+      // Allows user to click Send and Resend as many times as desired!
+      var p = appState.waQueueList[appState.waQueueCurrentIdx];
+      if (p) {
+        // Record sent status in backend (fire-and-forget), never block button or auto-advance
+        callBackend("updateWhatsAppStatus", [p.receiptNo, "Sent", appState.currentUser], () => {
+          p.whatsappStatus = "Sent";
+          renderDispatchTable();
+        });
+
+        // Update button text to Resend and keep it completely active
+        var sendBtn = document.getElementById("wa-run-open-link");
+        if (sendBtn) {
+          sendBtn.innerHTML = "📲 Resend WhatsApp";
+          sendBtn.style.opacity = "1";
+          sendBtn.style.pointerEvents = "auto";
+        }
+        showToast("📲 WhatsApp opened for " + p.name + ". Click Send again to resend anytime.");
+      }
+      // Return true so the <a> tag always opens WhatsApp in a new tab
+      return true;
     }
 
     function markCurrentWaSentAndNext() {
       var p = appState.waQueueList[appState.waQueueCurrentIdx];
-      if (p) {
+      if (p && (!p.whatsappStatus || !p.whatsappStatus.includes("Sent"))) {
         callBackend("updateWhatsAppStatus", [p.receiptNo, "Sent", appState.currentUser], () => {
           p.whatsappStatus = "Sent";
           renderDispatchTable();
