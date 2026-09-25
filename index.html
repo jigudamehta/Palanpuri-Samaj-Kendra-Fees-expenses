@@ -1456,7 +1456,7 @@
       <div id="standalone-config-area" style="display: none; border-bottom: 1px dashed var(--border-color); padding-bottom: 16px; margin-bottom: 16px; text-align: left;">
         <div class="form-group">
           <label class="form-label" style="color: var(--primary); font-weight: 600;">Google Sheets Web App API URL</label>
-          <input type="text" id="standalone-url-input" class="form-control" placeholder="https://script.google.com/macros/s/.../exec" style="margin-top: 4px; font-size: 13px;">
+          <input type="text" id="standalone-url-input" class="form-control" value="https://script.google.com/macros/s/AKfycbzmonhm0sk_5_hhWjtbr4aEooa4qztBm4aNvDRc6xcc-DiZedWta_NrdhYbe9Z80sFq6w/exec" placeholder="https://script.google.com/macros/s/AKfycbzmonhm0sk_5_hhWjtbr4aEooa4qztBm4aNvDRc6xcc-DiZedWta_NrdhYbe9Z80sFq6w/exec" style="margin-top: 4px; font-size: 13px;">
         </div>
         <button type="button" class="btn btn-secondary" onclick="saveStandaloneUrl()" style="width: 100%; margin-top: 10px; padding: 8px; font-size: 12px; font-weight: 600;">Connect to Sheet</button>
       </div>
@@ -1503,6 +1503,10 @@
       <a class="menu-item" id="menu-payments" onclick="switchView('payments')">
         <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="12"></line><line x1="2" y1="10" x2="22" y2="10"></line></svg>
         Dues & Payments
+      </a>
+      <a class="menu-item" id="menu-bulk-counter" href="./BulkPayments.html" target="_blank" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.12)); border: 1px solid rgba(16, 185, 129, 0.35); color: #10b981; font-weight: 700; margin-top: 4px; margin-bottom: 4px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        ⚡ Rapid Bulk Counter
       </a>
       <a class="menu-item" id="menu-expenses" onclick="switchView('expenses')">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -1620,6 +1624,7 @@
           <div class="ledger-summary-box">
             <h3 class="accordion-title">Quick Actions</h3>
             <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <a href="./BulkPayments.html" target="_blank" class="btn btn-success" style="background:linear-gradient(135deg,#10b981,#059669); font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">⚡ Rapid Bulk Counter</a>
               <button class="btn btn-primary" onclick="quickPayShortcut()">Record Dues Receipt</button>
               <button class="btn btn-danger" onclick="openNewExpenseForm()">Record Expense Voucher</button>
               <button class="btn btn-success" onclick="openTransferModal()">Internal Transfer (Contra)</button>
@@ -2598,11 +2603,7 @@
             google.script.run.successCallback = null;
             google.script.run.failureCallback = null;
             
-            var activeUrl = localStorage.getItem("google_sheet_web_app_url");
-            if (!activeUrl) {
-              if (failureHandler) failureHandler(new Error("Web App API URL is not configured."));
-              return;
-            }
+            var activeUrl = HARDCODED_API_URL || localStorage.getItem("google_sheet_web_app_url");
             
             fetch(activeUrl, {
               method: "POST",
@@ -2633,16 +2634,12 @@
       Object.setPrototypeOf(google.script.run, runProxy);
     }
 
+    /* Hardcoded Google Apps Script Web App URL */
+    var HARDCODED_API_URL = "https://script.google.com/macros/s/AKfycbzmonhm0sk_5_hhWjtbr4aEooa4qztBm4aNvDRc6xcc-DiZedWta_NrdhYbe9Z80sFq6w/exec";
+    try { localStorage.setItem("google_sheet_web_app_url", HARDCODED_API_URL); } catch(e) {}
+
     if (isStandalone) {
-      var defaultUrl = "https://script.google.com/macros/s/AKfycbzmonhm0sk_5_hhWjtbr4aEooa4qztBm4aNvDRc6xcc-DiZedWta_NrdhYbe9Z80sFq6w/exec";
-      var webAppUrl = localStorage.getItem("google_sheet_web_app_url") || defaultUrl;
-      
-      // Seed default URL to localStorage for settings form auto-population
-      if (!localStorage.getItem("google_sheet_web_app_url")) {
-        localStorage.setItem("google_sheet_web_app_url", defaultUrl);
-      }
-      
-      setupStandaloneProxy(webAppUrl);
+      setupStandaloneProxy(HARDCODED_API_URL);
     }
 
     // Universal Date Formatting (DD/MM/YYYY) Helpers
@@ -2877,11 +2874,12 @@
           card.appendChild(toggleBtn);
         }
         
-        // If no Web App URL is configured, auto-open the config area
-        var currentUrl = localStorage.getItem("google_sheet_web_app_url");
+        // Populate the input with the hardcoded Web App URL
+        document.getElementById("standalone-url-input").value = HARDCODED_API_URL;
+        var currentUrl = localStorage.getItem("google_sheet_web_app_url") || HARDCODED_API_URL;
         if (!currentUrl) {
           document.getElementById("standalone-config-area").style.display = "block";
-          document.getElementById("standalone-url-input").placeholder = "Paste Web App URL here...";
+          document.getElementById("standalone-url-input").placeholder = HARDCODED_API_URL;
         }
       }
     }
